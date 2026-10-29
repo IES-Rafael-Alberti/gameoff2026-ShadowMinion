@@ -14,7 +14,7 @@ Proyecto de desarrollo de videojuegos del equipo **Shadow Minions** para **Game 
 
 ## Requisitos
 
-- Godot Engine: indica aquí la versión exacta utilizada por el equipo.
+- Godot Engine: v4.7.2
 
 ## Cómo ejecutar el proyecto
 
