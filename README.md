@@ -40,11 +40,10 @@ El objetivo es que los jugadores puedan iniciar y jugar la versión web sin inst
 5. Sigue las instrucciones actuales de itch.io para publicar un juego HTML5/Web: sube los archivos exportados respetando la estructura generada por Godot y configura el proyecto para ejecutarse en el navegador.
 6. Prueba la versión publicada desde la página de itch.io, no solo desde el editor o una prueba local.
 
-> **Importante:** las opciones de exportación y los requisitos del navegador dependen de la versión de Godot. Comprueba la documentación de esa versión antes de publicar. No des por hecho que una exportación funciona en todos los navegadores o dispositivos sin probarla.
-
+> **Importante:** las opciones de exportación y los requisitos del navegador dependen de la versión de Godot.
 ## Compatibilidad y pruebas web
 
-Antes de publicar una versión, comprueba:
+Antes de publicar una versión:
 
 - Que el juego carga correctamente desde itch.io.
 - Que el menú, las escenas y los recursos se cargan sin errores.
@@ -62,7 +61,7 @@ Pendiente de documentar cuando se definan los controles del juego.
 
 **Shadow Minions**
 
-Añade aquí los nombres y perfiles de GitHub de los integrantes.
+Shiryupng
 
 ## Seguimiento del desarrollo
 
