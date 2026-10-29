@@ -1,0 +1,21 @@
+# Godot 4+
+.godot/
+
+# Exportaciones y compilaciones
+/export.cfg
+/export_presets.cfg
+/build/
+/dist/
+
+# Archivos de editor y sistema operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+
+# Temporales y copias de seguridad
+*.tmp
+*.bak
+*~
