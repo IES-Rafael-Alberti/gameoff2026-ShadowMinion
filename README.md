@@ -15,9 +15,9 @@ Proyecto de desarrollo de videojuegos del equipo **Shadow Minions** para **Game 
 
 El objetivo es que los jugadores puedan iniciar y jugar la versión web sin instalar el juego. Las versiones descargables para escritorio podrán añadirse más adelante si el equipo lo decide.
 
-## Requisitos de desarrollo
 
-- Godot Engine: documentar la versión exacta utilizada por el equipo.
+
+- Godot Engine: v4.7.2
 - Plantillas de exportación de Godot correspondientes a esa misma versión.
 - Un navegador moderno para probar la exportación web.
 
