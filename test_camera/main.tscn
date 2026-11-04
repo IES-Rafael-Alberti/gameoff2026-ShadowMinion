@@ -1,0 +1,154 @@
+[gd_scene format=3 uid="uid://hmdoof1jcjc7"]
+
+[ext_resource type="PackedScene" uid="uid://elx0c4sug3sh" path="res://Scenes/Player.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_1bvp3"]
+[ext_resource type="Script" uid="uid://b338xlofghkv" path="res://Scripts/cameraManager.gd" id="3_7mycd"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_lquwl"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_7mycd"]
+[ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="6_7mycd"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_h2yge"]
+sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
+
+[sub_resource type="Environment" id="Environment_1bvp3"]
+background_mode = 2
+sky = SubResource("Sky_h2yge")
+glow_enabled = true
+
+[sub_resource type="Resource" id="Resource_272bh"]
+script = ExtResource("4_7mycd")
+
+[sub_resource type="Resource" id="Resource_jyaov"]
+script = ExtResource("6_7mycd")
+projection = 1
+size = 10.0
+near = 0.001
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
+[sub_resource type="Resource" id="Resource_5vw27"]
+script = ExtResource("4_7mycd")
+
+[sub_resource type="Resource" id="Resource_l7s6d"]
+script = ExtResource("6_7mycd")
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
+[sub_resource type="Resource" id="Resource_lquwl"]
+script = ExtResource("4_7mycd")
+
+[sub_resource type="Resource" id="Resource_weqku"]
+script = ExtResource("6_7mycd")
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jyaov"]
+size = Vector3(1.7452393, 2.7973633, 0.001)
+
+[node name="Main" type="Node3D" unique_id=1650990334]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1362615538]
+environment = SubResource("Environment_1bvp3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=962130601]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0.8909483, 22.347473, 0.7284789)
+shadow_enabled = true
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=502965076]
+transform = Transform3D(1.728905, 0, 0, 0, 3.6347315, 0, 0, 0, 1.539632, 0, 0, 0)
+use_collision = true
+
+[node name="Floor" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1091539953]
+use_collision = true
+size = Vector3(16.1441, 1, 13.002197)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D" unique_id=643201316]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9999999, -0.008136671, 0.97538257, -2.7470713)
+use_collision = true
+size = Vector3(5.520752, 1, 0.19335938)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1059320599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9999999, -0.008136671, 0.97538257, 2.5562968)
+use_collision = true
+size = Vector3(5.520752, 1, 0.19335938)
+
+[node name="Door" type="CSGBox3D" parent="CSGCombiner3D/CSGBox3D4" unique_id=730648084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999046, 0, -0.099, 0.002)
+operation = 2
+size = Vector3(1.0000916, 0.7904053, 0.31762695)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1098759113]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -0.9999999, 0, -4.3711385e-08, -2.6882353, 0.97538257, -0.10513496)
+use_collision = true
+size = Vector3(5.520752, 1, 0.19335938)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1840477916]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -0.9999999, 0, -4.3711385e-08, 2.6512997, 0.97538257, -0.10513496)
+use_collision = true
+size = Vector3(5.520752, 1, 0.19335938)
+
+[node name="Player" parent="." unique_id=1352346882 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22849202, 2.8173661, 7.5387297)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=593085185]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 0.8090159, 0.58778596, 0, -0.58778596, 0.8090159, 0.22849202, 12.655151, 14.847746)
+top_level = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1462726331]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("2_1bvp3")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="CameraManager" type="Node" parent="." unique_id=430368690]
+script = ExtResource("3_7mycd")
+
+[node name="2DCamera" type="Node3D" parent="CameraManager" unique_id=663199842 node_paths=PackedStringArray("follow_target", "look_at_target")]
+transform = Transform3D(1, 0, 0, 0, 0.9994821, -0.0319171, 0, 0.0319171, 0.9994821, 0.22849202, 2.785449, 11.538212)
+top_level = true
+script = ExtResource("3_lquwl")
+follow_mode = 5
+follow_target = NodePath("../../Player")
+look_at_target = NodePath("../../Player")
+tween_resource = SubResource("Resource_272bh")
+camera_3d_resource = SubResource("Resource_jyaov")
+follow_offset = Vector3(0, 0, 3)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=1364791712 node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(1, 0, 0, 0, 0.8090159, 0.58778596, 0, -0.58778596, 0.8090159, 0.22849202, 12.655151, 14.847746)
+top_level = true
+script = ExtResource("3_lquwl")
+priority = 1
+follow_mode = 5
+follow_target = NodePath("../../Player")
+tween_resource = SubResource("Resource_5vw27")
+camera_3d_resource = SubResource("Resource_l7s6d")
+follow_offset = Vector3(0, 9.25, 6.5)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=339735079 node_paths=PackedStringArray("look_at_target")]
+transform = Transform3D(-0.9426385, -0.06682646, 0.3270585, 3.725291e-09, 0.9797572, 0.2001895, -0.33381605, 0.18870632, -0.9235563, 4.3464017, 5.3379006, -4.089532)
+script = ExtResource("3_lquwl")
+look_at_mode = 2
+look_at_target = NodePath("../../Player")
+tween_resource = SubResource("Resource_lquwl")
+camera_3d_resource = SubResource("Resource_weqku")
+align_transform_with_view = Callable()
+align_rotation_with_view = Callable()
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="Area3D" type="Area3D" parent="." unique_id=796338830]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7497916, 3.887928)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=2110330828]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012145996, -0.52905273, 0.05452466)
+shape = SubResource("BoxShape3D_jyaov")
+
+[connection signal="body_entered" from="Area3D" to="Player" method="_on_area_3d_body_entered"]
