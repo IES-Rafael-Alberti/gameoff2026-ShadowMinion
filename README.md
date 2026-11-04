@@ -62,6 +62,10 @@ Pendiente de documentar cuando se definan los controles del juego.
 **Shadow Minions**
 
 Shiryupng
+NekroVodka
+Chocobaby
+DanielOrtegaAzn
+Marcoantonio305
 
 ## Seguimiento del desarrollo
 
