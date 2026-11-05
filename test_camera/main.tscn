@@ -93,8 +93,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22849202, 2.8173661, 7.5387
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=593085185]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 0.8090159, 0.58778596, 0, -0.58778596, 0.8090159, 0.22849202, 12.655151, 14.847746)
+transform = Transform3D(1, 0, 0, 0, 0.9994821, -0.0319171, 0, 0.0319171, 0.9994821, 0.22849202, 2.785449, 11.538212)
 top_level = true
+projection = 1
+size = 10.0
+near = 0.001
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1462726331]
 process_priority = 300
@@ -105,13 +108,13 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 [node name="CameraManager" type="Node" parent="." unique_id=430368690]
 script = ExtResource("3_7mycd")
 
-[node name="2DCamera" type="Node3D" parent="CameraManager" unique_id=663199842 node_paths=PackedStringArray("follow_target", "look_at_target")]
+[node name="2DCamera" type="Node3D" parent="CameraManager" unique_id=663199842 node_paths=PackedStringArray("follow_target")]
 transform = Transform3D(1, 0, 0, 0, 0.9994821, -0.0319171, 0, 0.0319171, 0.9994821, 0.22849202, 2.785449, 11.538212)
 top_level = true
 script = ExtResource("3_lquwl")
+priority = 1
 follow_mode = 5
 follow_target = NodePath("../../Player")
-look_at_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_272bh")
 camera_3d_resource = SubResource("Resource_jyaov")
 follow_offset = Vector3(0, 0, 3)
@@ -123,7 +126,6 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 transform = Transform3D(1, 0, 0, 0, 0.8090159, 0.58778596, 0, -0.58778596, 0.8090159, 0.22849202, 12.655151, 14.847746)
 top_level = true
 script = ExtResource("3_lquwl")
-priority = 1
 follow_mode = 5
 follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_5vw27")
@@ -134,7 +136,7 @@ align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=339735079 node_paths=PackedStringArray("look_at_target")]
-transform = Transform3D(-0.9426385, -0.06682646, 0.3270585, 3.725291e-09, 0.9797572, 0.2001895, -0.33381605, 0.18870632, -0.9235563, 4.3464017, 5.3379006, -4.089532)
+transform = Transform3D(-0.9426385, -0.06682646, 0.3270585, 3.725291e-09, 0.9797572, 0.20018949, -0.33381605, 0.18870632, -0.92355627, 4.3464017, 5.3379006, -4.089532)
 script = ExtResource("3_lquwl")
 look_at_mode = 2
 look_at_target = NodePath("../../Player")

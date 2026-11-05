@@ -2,7 +2,16 @@
 
 [ext_resource type="Script" uid="uid://durvs3bwnm1v2" path="res://Scripts/player.gd" id="1_rpqav"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0mymv"]
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jyaov"]
+material = SubResource("StandardMaterial3D_0mymv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8cxyx"]
+albedo_color = Color(0.5764706, 0.99607843, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0mymv"]
+material = SubResource("StandardMaterial3D_8cxyx")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jyaov"]
 
@@ -11,6 +20,9 @@ script = ExtResource("1_rpqav")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=998959761]
 mesh = SubResource("CapsuleMesh_jyaov")
+
+[node name="MeshGhost" type="MeshInstance3D" parent="." unique_id=303973193]
+mesh = SubResource("CapsuleMesh_0mymv")
 
 [node name="Collider" type="CollisionShape3D" parent="." unique_id=954350168]
 shape = SubResource("CapsuleShape3D_jyaov")
