@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://elx0c4sug3sh"]
 
 [ext_resource type="Script" uid="uid://durvs3bwnm1v2" path="res://Scripts/player.gd" id="1_rpqav"]
+[ext_resource type="Script" uid="uid://dlgdd4lr0esd7" path="res://Scripts/grappling_controller.gd" id="2_kyqiw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0mymv"]
 
@@ -26,3 +27,11 @@ mesh = SubResource("CapsuleMesh_0mymv")
 
 [node name="Collider" type="CollisionShape3D" parent="." unique_id=954350168]
 shape = SubResource("CapsuleShape3D_jyaov")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1904674795]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19642437, 0)
+target_position = Vector3(0, 20, 0)
+
+[node name="GrapplingController" type="Node" parent="." unique_id=350523702 node_paths=PackedStringArray("ray")]
+script = ExtResource("2_kyqiw")
+ray = NodePath("../RayCast3D")

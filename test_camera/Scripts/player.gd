@@ -64,10 +64,16 @@ func movement3D() -> void:
 func movement2D() ->void:
 	var input_dir := Input.get_axis("Left", "Right")
 	#var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	#Busca si el nodo del gancho está en uso
+	var grapple_node = get_node_or_null("GrapplingController")
+	var is_grappling:bool = grapple_node != null and grapple_node.launched
 	if input_dir:
 		velocity.x = input_dir * (move_speed + dash_velocity)
-	else:
+	elif not is_grappling:
+		#Solo frena cuando no está colgado del techo
 		velocity.x = move_toward(velocity.x, 0, move_speed)
+	#else:
+		#velocity.x = move_toward(velocity.x, 0, move_speed)
 
 func changeMovementController() -> void:
 	if Input.is_action_just_pressed("ChangePerpective"):
