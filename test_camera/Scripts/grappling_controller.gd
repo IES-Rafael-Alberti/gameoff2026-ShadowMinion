@@ -1,7 +1,9 @@
 extends Node
 
+#Probelma!!!!!!!!! el gancho apunta arriba del personaje y se sale de la plataforma de la que se engancha
 
 @export var ray: RayCast3D
+@export var rope: Node3D
 
 @export var rest_length = 2.0
 @export var stiffness = 10.0
@@ -28,6 +30,8 @@ func _physics_process(delta: float) -> void:
 	
 	if launched:
 		handle_grapple(delta)
+	
+	update_rope()
 
 func launch():
 	if ray == null:
@@ -63,3 +67,14 @@ func handle_grapple(delta: float):
 	player.velocity += force * delta
 	#Para que el personaje no se desplace por el eje Z
 	player.velocity.z = 0
+
+func update_rope():
+	if !launched:
+		rope.visible = false
+		return
+	
+	rope.visible = true
+	var dist = player.global_position.distance_to(target)
+	
+	rope.look_at(target)
+	rope.scale = Vector3(1, 1, dist)
