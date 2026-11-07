@@ -11,12 +11,21 @@ extends CharacterBody3D
 @export var dash : float = 100.0
 var tween: Tween
 @export var dash_velocity : float = 0.0
+@export_group("Balanceo")
+# Aceleración horizontal que aplicas con izquierda/derecha mientras estás enganchado
+@export var grapple_air_accel : float = 10.0
+# Aceleración cuando empujnas en contra. Más baja para no frenar de golpe
+@export var grapple_brake_accel : float = 4.0
+#Velocidad horizontal máxima mientras empujas el balanceo
+@export var grapple_max_speed : float = 22.0
+
 
 var move_speed : float = 0.0
 var movement3DActivated = false
 var jumpCount = 1
 #var have_position = false
 var original_position = Vector3.ZERO
+var facing:int = 1
 
 
 
@@ -42,7 +51,7 @@ func _physics_process(delta: float) -> void:
 	if movement3DActivated:
 		movement3D()
 	else:
-		movement2D()
+		movement2D(delta)
 		
 	if is_on_floor():
 		jumpCount = 1
@@ -61,15 +70,29 @@ func movement3D() -> void:
 		velocity.x = move_toward(velocity.x, 0, move_speed)
 		velocity.z = move_toward(velocity.z, 0, move_speed)
 		
-func movement2D() ->void:
+func movement2D(delta: float) ->void:
 	var input_dir := Input.get_axis("Left", "Right")
 	#var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if not is_zero_approx(input_dir):
+		facing = 1 if input_dir > 0.0 else -1
+		
 	#Busca si el nodo del gancho está en uso
 	var grapple_node = get_node_or_null("GrapplingController")
 	var is_grappling:bool = grapple_node != null and grapple_node.launched
-	if input_dir:
+	
+	if is_grappling:
+		#empuja el balanceo
+		if not is_zero_approx(input_dir):
+			#Si empuja en contra del balanceo, se usa una aceleración más suave
+			var accel = grapple_air_accel
+			if input_dir * velocity.x < -0.5:
+				accel = grapple_brake_accel
+				
+			velocity.x += input_dir * accel * delta
+			velocity.x = clampf(velocity.x, -grapple_max_speed, grapple_max_speed)
+	elif not is_zero_approx(input_dir):
 		velocity.x = input_dir * (move_speed + dash_velocity)
-	elif not is_grappling:
+	else:
 		#Solo frena cuando no está colgado del techo
 		velocity.x = move_toward(velocity.x, 0, move_speed)
 	#else:
