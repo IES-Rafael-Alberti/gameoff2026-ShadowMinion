@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_7mycd"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://duhijnmuu6jqb" path="res://Scenes/grapplable_ceiling.tscn" id="7_272bh"]
+[ext_resource type="PackedScene" uid="uid://dy8jt3nf3rkwl" path="res://interaction/interaction area/interactable_example.tscn" id="8_5vw27"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -137,7 +138,7 @@ align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=339735079 node_paths=PackedStringArray("look_at_target")]
-transform = Transform3D(-0.9426385, -0.06682646, 0.32705843, 3.725291e-09, 0.9797572, 0.20018946, -0.33381605, 0.18870632, -0.92355615, 4.3464017, 5.3379006, -4.089532)
+transform = Transform3D(-0.9426385, -0.06682646, 0.3270584, 3.725291e-09, 0.9797572, 0.20018944, -0.33381605, 0.18870632, -0.9235561, 4.3464017, 5.3379006, -4.089532)
 script = ExtResource("3_lquwl")
 look_at_mode = 2
 look_at_target = NodePath("../../Player")
@@ -161,5 +162,8 @@ transform = Transform3D(2.5227647, 0, 0, 0, 0.7914477, 0, 0, 0, 2.5227647, 20.31
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.93319, 0, 3.4036255)
 use_collision = true
 size = Vector3(16.1441, 1, 13.002197)
+
+[node name="interactable_example" parent="." unique_id=107501963 instance=ExtResource("8_5vw27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.693438, 2.3289943, 6.2395344)
 
 [connection signal="body_entered" from="Area3D" to="Player" method="_on_area_3d_body_entered"]

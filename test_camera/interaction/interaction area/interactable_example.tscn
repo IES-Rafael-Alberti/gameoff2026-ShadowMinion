@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dy8jt3nf3rkwl"]
+
+[ext_resource type="PackedScene" uid="uid://c6notasypvblo" path="res://interaction/interaction area/interaction_area.tscn" id="1_elssb"]
+[ext_resource type="Script" uid="uid://n8xtmu4c0y83" path="res://Scripts/interactable_example.gd" id="1_qn6vh"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_0mymv"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_qn6vh"]
+data = PackedVector3Array(0, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, -0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, -0.5, -0.5, -0.5, 0, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0mymv"]
+radius = 1.5587716
+
+[node name="interactable_example" type="StaticBody3D" unique_id=107501963]
+script = ExtResource("1_qn6vh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1009764341]
+mesh = SubResource("PrismMesh_0mymv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=949952367]
+shape = SubResource("ConcavePolygonShape3D_qn6vh")
+
+[node name="InteractionArea" parent="." unique_id=1737456431 instance=ExtResource("1_elssb")]
+action_name = "talk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=1832562022]
+shape = SubResource("SphereShape3D_0mymv")
