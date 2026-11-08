@@ -8,6 +8,10 @@
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://duhijnmuu6jqb" path="res://Scenes/grapplable_ceiling.tscn" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://dy8jt3nf3rkwl" path="res://interaction/interaction area/interactable_example.tscn" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://bfed5b06bmvck" path="res://Scenes/key_example.tscn" id="9_dg77c"]
+[ext_resource type="PackedScene" uid="uid://dh0py6s07qne3" path="res://Scenes/door_example.tscn" id="10_ycdy4"]
+[ext_resource type="Script" uid="uid://ol486wt0bgpp" path="res://Scripts/door_example.gd" id="11_w48qg"]
+[ext_resource type="PackedScene" uid="uid://c6notasypvblo" path="res://interaction/interaction area/interaction_area.tscn" id="12_vivmo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -47,6 +51,9 @@ metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jyaov"]
 size = Vector3(1.7452393, 2.7973633, 0.001)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2cqfq"]
+radius = 3.1850216
 
 [node name="Main" type="Node3D" unique_id=1650990334]
 
@@ -166,4 +173,22 @@ size = Vector3(16.1441, 1, 13.002197)
 [node name="interactable_example" parent="." unique_id=107501963 instance=ExtResource("8_5vw27")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.693438, 2.3289943, 6.2395344)
 
+[node name="key_example" parent="." unique_id=1280721075 instance=ExtResource("9_dg77c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.64509, 2.3173656, 2.3380876)
+
+[node name="door_example" parent="." unique_id=2118036215 instance=ExtResource("10_ycdy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.989025, 1, 7.3503437)
+script = ExtResource("11_w48qg")
+
+[node name="door_zone" parent="door_example" unique_id=1737456431 instance=ExtResource("12_vivmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56428766, 0, 0)
+action_name = "open"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="door_example/door_zone" unique_id=1483032515]
+shape = SubResource("SphereShape3D_2cqfq")
+
 [connection signal="body_entered" from="Area3D" to="Player" method="_on_area_3d_body_entered"]
+[connection signal="door_opened" from="key_example" to="door_example" method="_on_key_example_door_opened"]
+[connection signal="key_needed" from="key_example" to="door_example" method="_on_key_example_key_needed"]
+[connection signal="body_entered" from="door_example/door_zone" to="key_example" method="_on_door_zone_body_entered"]
+[connection signal="body_exited" from="door_example/door_zone" to="key_example" method="_on_door_zone_body_exited"]

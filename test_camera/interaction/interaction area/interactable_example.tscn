@@ -21,7 +21,6 @@ mesh = SubResource("PrismMesh_0mymv")
 shape = SubResource("ConcavePolygonShape3D_qn6vh")
 
 [node name="InteractionArea" parent="." unique_id=1737456431 instance=ExtResource("1_elssb")]
-action_name = "talk"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=1832562022]
 shape = SubResource("SphereShape3D_0mymv")
