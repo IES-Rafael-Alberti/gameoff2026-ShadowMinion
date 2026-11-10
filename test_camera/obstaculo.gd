@@ -2,7 +2,7 @@ extends Node3D
 
 @onready var interactionArea: InteractionArea = $RightPush
 
-var pushDistance: float = 1.0
+var pushDistance: float = 0.5
 
 func _ready():
 	interactionArea.interact = Callable(self, "_onInteract")
