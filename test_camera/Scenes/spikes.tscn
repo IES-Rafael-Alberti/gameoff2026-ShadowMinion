@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cgo4vwocv6edc"]
+
+[node name="spikes" type="StaticBody3D" unique_id=2115643364]

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bkge8vtk2834i"]
+
+[ext_resource type="Script" uid="uid://pfpj5wf5ymy8" path="res://first_enemy.gd" id="1_nlobk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ycdy4"]
+albedo_color = Color(0.82953316, 0.17503357, 0.23564005, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jyaov"]
+material = SubResource("StandardMaterial3D_ycdy4")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eqyok"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_l7s6d"]
+radius = 0.99614
+
+[node name="first_enemy" type="CharacterBody3D" unique_id=2028063305 node_paths=PackedStringArray("hitbox", "visual")]
+script = ExtResource("1_nlobk")
+hitbox = NodePath("Hurtbox")
+visual = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=693009008]
+mesh = SubResource("BoxMesh_jyaov")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=625149773]
+shape = SubResource("BoxShape3D_eqyok")
+
+[node name="Hurtbox" type="Area3D" parent="." unique_id=989431461]
+
+[node name="Collision-hurtbox" type="CollisionShape3D" parent="Hurtbox" unique_id=558607830]
+shape = SubResource("SphereShape3D_l7s6d")

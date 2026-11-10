@@ -38,10 +38,21 @@ var facing:int = 1
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 			velocity += get_gravity() * delta
+			#Si caemos del borde sin saltar, se elimina un salto
+			if jumpCount > 1:
+				jumpCount = 1
+	else:
+		jumpCount = 1 if movement3DActivated else 2
 	
-	if Input.is_action_just_pressed("Jump") and jumpCount > 0:
-			jumpCount -=1
-			velocity.y = jump_velocity
+	if Input.is_action_just_pressed("Jump"):
+		if movement3DActivated:
+			if is_on_floor():
+				velocity.y = jump_velocity
+		else:
+			if jumpCount > 0:
+				jumpCount -=1
+				velocity.y = jump_velocity
+		
 			
 	if Input.is_action_pressed("Sprint"):
 			move_speed = sprint_speed
@@ -53,8 +64,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		movement2D(delta)
 		
-	if is_on_floor():
-		jumpCount = 1
+
 	changeMovementController()
 	accion_dash()
 	
@@ -149,7 +159,7 @@ func accion_dash():
 		tween.tween_property(self, "dash_velocity", 0, 0.2).set_ease(Tween.EASE_OUT)
 
 func die()->void:
-	get_tree().reload_current_scene()
+	get_tree().call_deferred("reload_current_scene")
 
 #func _on_area_3d_body_entered(body: Node3D) -> void:
 	#if active3DCamera == outsideCamera:

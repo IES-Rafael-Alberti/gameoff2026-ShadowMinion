@@ -8,6 +8,10 @@ extends CharacterBody3D
 @export var visual: Node3D
 
 @export_group("Movimiento")
+#Activa el seguimiento al jugador mientras está en el modo 2D
+@export var track_in_2d : bool = false
+#Activa el seguimiento al jugador mientras está en el modo 3D
+@export var track_in_3d : bool = false
 ## Velocidad base del enemigo
 @export var base_speed : float = 5.0
 #Que tan rápido acelera o frena hacia la velocidad del objetivo
@@ -35,13 +39,13 @@ func _ready() -> void:
 
 func _find_player()-> void:
 	player = get_tree().get_first_node_in_group("player") as CharacterBody3D
-	if player == null:
+	if not is_instance_valid(player):
 		var scene = get_tree().current_scene
 		if scene:
 			player = scene.get_node_or_null("Player") as CharacterBody3D
 
 func _physics_process(delta: float) -> void:
-	if player == null:
+	if not is_instance_valid(player):
 		_find_player()
 		
 	# Add the gravity.
@@ -57,13 +61,14 @@ func _physics_process(delta: float) -> void:
 	else:
 		_move_2d(dir, delta)
 		
+	_custom_physics_process(delta)
 	move_and_slide()
 
 func _update_movement_mode()-> void:
-	if player == null:
+	if not is_instance_valid(player):
 		return
 	
-	var new_mode: bool = player.movement3DActivated
+	var new_mode: bool = bool(player.get("movement3DActivated"))
 	
 	if new_mode == movement3DActivated:
 		return
@@ -81,9 +86,17 @@ func _on_mode_changed() -> void:
 	velocity.z = 0.0
 	
 func _get_move_direction() -> Vector3:
-	if player == null:
-		return Vector3.ZERO
+	var tracking_enable: bool = track_in_3d if movement3DActivated else track_in_2d
 	
+	#Si el tracking de la dimensión actual está activo, persigue al jugador
+	if tracking_enable and is_instance_valid(player):
+		return _get_player_direction()
+	
+	#Si el tracking está apagado, usa la dirección propia que definas en el hijo
+	return _get_custom_direction()
+
+	
+func _get_player_direction()-> Vector3:
 	var to_player = player.global_position - global_position
 	to_player.y = 0
 	
@@ -123,9 +136,11 @@ func _set_facing(new_facing: int)->void:
 	if visual == null:
 		return
 	
-	var s = visual.scale
-	s.x = absf(s.x) * float(facing)
-	visual.scale = s
+	visual.rotation_degrees.y = 0.0 if facing == 1 else 180.0
+	
+	#var s = visual.scale
+	#s.x = absf(s.x) * float(facing)
+	#visual.scale = s
 	
 func _on_hitbox_body_entered(body: Node3D)->void:
 	if not body.is_in_group("player"):
@@ -133,3 +148,13 @@ func _on_hitbox_body_entered(body: Node3D)->void:
 	if body.has_method("die"):
 		body.die()
 		
+
+#Sobrescribir en scripts hijos cuando no uses tracking en alguna dimensión
+#Si no se sobreescribes, el enemigo se queda en su sitio
+
+func _get_custom_direction() -> Vector3:
+	return Vector3.ZERO
+
+#Para añadir lógica adicional
+func _custom_physics_process(_delta: float) -> void:
+	pass
