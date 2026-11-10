@@ -21,5 +21,5 @@ mesh = SubResource("CapsuleMesh_jyaov")
 [node name="Collider" type="CollisionShape3D" parent="." unique_id=954350168]
 shape = SubResource("CapsuleShape3D_jyaov")
 
-[node name="MeshGhost" type="MeshInstance3D" parent="." unique_id=154986616]
+[node name="MeshGhost" type="MeshInstance3D" parent="." unique_id=154986616 groups=["player"]]
 mesh = SubResource("CapsuleMesh_l7s6d")

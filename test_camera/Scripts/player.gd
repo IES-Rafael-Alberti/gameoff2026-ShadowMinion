@@ -51,6 +51,7 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		jumpCount = 1
 	changeMovementController()
+	accion_dash()
 	
 	move_and_slide()
 
@@ -113,7 +114,7 @@ func _ready() -> void:
 		mesh_ghost.visible = false
 		
 func accion_dash():
-	if Input.is_action_just_pressed("dash"):
+	if Input.is_action_just_pressed("Dash"):
 		dash_velocity = dash
 		if tween:
 			tween.stop()
