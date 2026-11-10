@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://3v3kia6urb7k"]
+
+[ext_resource type="Script" uid="uid://dv04tax4an2ob" path="res://Scripts/platform.gd" id="1_q7004"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mycd"]
+albedo_color = Color(0, 0.39215687, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rvxav"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7mycd"]
+material = SubResource("StandardMaterial3D_rvxav")
+
+[sub_resource type="HeightMapShape3D" id="HeightMapShape3D_jyaov"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rvxav"]
+size = Vector3(1, 0.079940796, 1)
+
+[node name="Obstaculo" type="Node3D" unique_id=1680455577]
+transform = Transform3D(0.49943534, 0, 0, 0, 1, 0, 0, 0, 0.3584353, 0, 0, 0)
+
+[node name="Obstaculo3D" type="CSGBox3D" parent="." unique_id=397891692]
+transform = Transform3D(2.0022616, 0, 0, 0, 1, 0, 0, 0, 2.7899039, 0, -0.49209428, -8.577285)
+use_collision = true
+material = SubResource("StandardMaterial3D_7mycd")
+
+[node name="Plataforma2D" type="RigidBody3D" parent="." unique_id=590646380]
+transform = Transform3D(1.0000011, 0, 0, 0, 1, 0, 0, 0, 1, 0.01743555, -0.050014257, -0.05893135)
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+lock_rotation = true
+freeze = true
+script = ExtResource("1_q7004")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataforma2D" unique_id=1330242678]
+transform = Transform3D(0.7081859, 0, 0, 0, 1, 0, 0, 0, 0.7280472, 0, -0.5518851, 0)
+mesh = SubResource("PlaneMesh_7mycd")
+
+[node name="PlatformCollision" type="CollisionShape3D" parent="Plataforma2D" unique_id=1546809306]
+transform = Transform3D(1.4704865, 0, 0, 0, 1, 0, 0, 0, 1.456837, 0, 0.053985357, 0.08378029)
+shape = SubResource("HeightMapShape3D_jyaov")
+disabled = true
+
+[node name="Area3D" type="Area3D" parent="Plataforma2D" unique_id=1259748330]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6942174, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataforma2D/Area3D" unique_id=1315548926]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0.3181963, 0)
+shape = SubResource("BoxShape3D_rvxav")
+
+[connection signal="body_entered" from="Plataforma2D/Area3D" to="Plataforma2D" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Plataforma2D/Area3D" to="Plataforma2D" method="_on_area_3d_body_exited"]

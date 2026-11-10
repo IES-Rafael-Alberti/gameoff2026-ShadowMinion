@@ -13,18 +13,22 @@ var tween: Tween
 @export var dash_velocity : float = 0.0
 
 var move_speed : float = 0.0
-var movement3DActivated = false
+var movement3DActivated = true
 var jumpCount = 1
-#var have_position = false
+
 var original_position = Vector3.ZERO
-
-
 
 @onready var camera_manager: Node = $"../CameraManager"
 @onready var collider: CollisionShape3D = $Collider
+@onready var _2d_camera: PhantomCamera3D = $"../CameraManager/2DCamera"
+@onready var outsideCamera: PhantomCamera3D = $"../CameraManager/OutsideCamera"
+@onready var insideCamera: PhantomCamera3D = $"../CameraManager/InsideCamera"
 
 @onready var mesh: MeshInstance3D = $Mesh
 @onready var mesh_ghost: MeshInstance3D = $MeshGhost
+
+var cameras3D = [outsideCamera, insideCamera]
+var active3DCamera = outsideCamera
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -47,10 +51,10 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		jumpCount = 1
 	changeMovementController()
-	accion_dash()
 	
 	move_and_slide()
 
+# basic movement for 3D enviroment
 func movement3D() -> void:
 	var input_dir := Input.get_vector("Left", "Right", "Forward", "Back")
 	var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -61,14 +65,15 @@ func movement3D() -> void:
 		velocity.x = move_toward(velocity.x, 0, move_speed)
 		velocity.z = move_toward(velocity.z, 0, move_speed)
 		
+# Basic movement for 2D enviroment
 func movement2D() ->void:
 	var input_dir := Input.get_axis("Left", "Right")
-	#var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if input_dir:
-		velocity.x = input_dir * (move_speed + dash_velocity)
+		velocity.x = input_dir * move_speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, move_speed)
 
+# alternate the movement of the player for 2D and 3D and the camera view
 func changeMovementController() -> void:
 	if Input.is_action_just_pressed("ChangePerpective"):
 		if camera_manager and camera_manager.has_method("updateCamera"):
@@ -87,10 +92,6 @@ func changeMovementController() -> void:
 			if mesh_ghost:
 				mesh_ghost.visible = false
 		else:
-			#if have_position == false:
-				#have_position = true
-				#original_position = global_position
-				#return
 			movement3DActivated = true
 			original_position = global_position
 			#Dejamos el modelo 2D estático en el mundo
@@ -110,7 +111,7 @@ func _ready() -> void:
 		mesh.visible = true
 	if mesh_ghost:
 		mesh_ghost.visible = false
-
+		
 func accion_dash():
 	if Input.is_action_just_pressed("dash"):
 		dash_velocity = dash
@@ -119,12 +120,12 @@ func accion_dash():
 		tween = create_tween()
 		tween.tween_property(self, "dash_velocity", 0, 0.2).set_ease(Tween.EASE_OUT)
 
-#func _on_area_3d_body_entered(body: Node3D) -> void:
-	#if active3DCamera == outsideCamera:
-		#outsideCamera.priority = 0
-		#active3DCamera = insideCamera
-	#else:
-		#insideCamera.priority = 0
-		#active3DCamera = outsideCamera
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if active3DCamera == outsideCamera:
+		outsideCamera.priority = 0
+		active3DCamera = insideCamera
+	else:
+		insideCamera.priority = 0
+		active3DCamera = outsideCamera
 
-	#active3DCamera.priority = 1
+	active3DCamera.priority = 1

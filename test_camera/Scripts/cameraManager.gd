@@ -5,8 +5,6 @@ extends Node
 @onready var outsideCamera: PhantomCamera3D = $"../CameraManager/OutsideCamera"
 @onready var insideCamera: PhantomCamera3D = $"../CameraManager/InsideCamera"
 
-
-
 var camera3DActive = false
 var active3DCamera:PhantomCamera3D = null
 
@@ -16,6 +14,8 @@ func _ready() -> void:
 	insideCamera.priority = 0
 	camera3DActive = false
 	active3DCamera = outsideCamera
+	print("2dCamera priority: ", _2d_camera.priority)
+	print("outsideCamera: ", outsideCamera.priority)
 
 func updateCamera() -> void:
 	camera3DActive = !camera3DActive
