@@ -64,7 +64,7 @@ material = SubResource("StandardMaterial3D_rvxav")
 size = Vector3(1, 0.079940796, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_l7s6d"]
-size = Vector3(0.58154297, 0.54711914, 1.7977905)
+size = Vector3(3.1837158, 0.54711914, 3.668747)
 
 [node name="Main" type="Node3D" unique_id=1650990334]
 
@@ -111,6 +111,7 @@ size = Vector3(5.520752, 1, 0.19335938)
 
 [node name="Player" parent="." unique_id=1352346882 groups=["player"] instance=ExtResource("1_ig7tw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22849202, 2.8173661, 7.5387297)
+collision_layer = 3
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=593085185]
 physics_interpolation_mode = 1
@@ -176,7 +177,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012145996, -0.52905273, 0.
 shape = SubResource("BoxShape3D_jyaov")
 
 [node name="Obstaculo" type="Node3D" parent="." unique_id=144697707]
-transform = Transform3D(0.49943534, 0, 0, 0, 1, 0, 0, 0, 0.3584353, -3.0774927, 2.8068526, 7.6418667)
+transform = Transform3D(0.49943534, 0, 0, 0, 1, 0, 0, 0, 0.3584353, -3.0774927, 2.8068526, 7.8225927)
 script = ExtResource("7_kek77")
 
 [node name="Obstaculo3D" type="CSGBox3D" parent="Obstaculo" unique_id=1783529137]
@@ -210,18 +211,36 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6942174, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0.3181963, 0)
 shape = SubResource("BoxShape3D_rvxav")
 
-[node name="RightPush" parent="Obstaculo" unique_id=530204071 instance=ExtResource("9_4c57u")]
+[node name="InteractionArea" parent="Obstaculo" unique_id=530204071 instance=ExtResource("9_4c57u")]
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape3D" parent="Obstaculo/RightPush" unique_id=785137548]
-transform = Transform3D(1.0000187, 0, 0, 0, 1, 0, 0, 0, 1, 1.3170371, -0.32020164, -8.492824)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstaculo/InteractionArea" unique_id=785137548]
+transform = Transform3D(1.0000498, 0, 0, 0, 1, 0, 0, 0, 1, 0.015926361, -0.32020164, -8.582937)
 shape = SubResource("BoxShape3D_l7s6d")
 
-[node name="LeftPush" parent="Obstaculo" unique_id=1627042093 instance=ExtResource("9_4c57u")]
-transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1, -0.62981606, 0, 0)
+[node name="RightRayCast" type="RayCast3D" parent="Obstaculo/InteractionArea/CollisionShape3D" unique_id=263539372]
+transform = Transform3D(-6.1193994e-08, -1.3999554, 0, 1.4, -6.119594e-08, 0, 0, 0, 1.4000002, -0.015925884, -0.029664516, -0.08638096)
+collision_mask = 2
+debug_shape_custom_color = Color(0.96862745, 0, 0, 1)
+debug_shape_thickness = 5
 
-[node name="CollisionShape2D" type="CollisionShape3D" parent="Obstaculo/LeftPush" unique_id=2043968786]
-transform = Transform3D(1.0000187, 0, 0, 0, 1, 0, 0, 0, 0.9999999, -0.6790614, -0.32020164, -8.492823)
-shape = SubResource("BoxShape3D_l7s6d")
+[node name="LeftRayCast" type="RayCast3D" parent="Obstaculo/InteractionArea/CollisionShape3D" unique_id=646379048]
+transform = Transform3D(-6.1193994e-08, 1.3999554, 0, -1.4, -6.119594e-08, 0, 0, 0, 1.4000002, -0.015925884, -0.029664516, -0.08638096)
+collision_mask = 2
+debug_shape_custom_color = Color(0.96862745, 0, 0, 1)
+debug_shape_thickness = 5
+
+[node name="FrontRayCast" type="RayCast3D" parent="Obstaculo/InteractionArea/CollisionShape3D" unique_id=1810980630]
+transform = Transform3D(2, 0, 0, 0, -8.742278e-08, 2, 0, -2, -8.742278e-08, 0, 0, 0)
+collision_mask = 2
+debug_shape_custom_color = Color(0.96862745, 0, 0, 1)
+debug_shape_thickness = 5
+
+[node name="BackRayCast" type="RayCast3D" parent="Obstaculo/InteractionArea/CollisionShape3D" unique_id=1023537607]
+transform = Transform3D(2, 0, 0, 0, -8.742278e-08, -2, 0, 2, -8.742278e-08, 0, 0, 0)
+collision_mask = 2
+debug_shape_custom_color = Color(0.96862745, 0, 0, 1)
+debug_shape_thickness = 5
 
 [connection signal="body_entered" from="Area3D" to="Player" method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="Obstaculo/Plataforma2D/Area3D" to="Obstaculo/Plataforma2D" method="_on_area_3d_body_entered"]

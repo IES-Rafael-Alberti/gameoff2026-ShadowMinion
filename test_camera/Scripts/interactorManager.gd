@@ -6,9 +6,11 @@ var activeAreas = []
 var canInteract = true
 
 func registerArea(area: InteractionArea):
+	print(area)
 	activeAreas.push_back(area)
 	
 func unregisterArea(area: InteractionArea):
+	print(area)
 	var index = activeAreas.find(area)
 	if index != -1:
 		activeAreas.remove_at(index)
