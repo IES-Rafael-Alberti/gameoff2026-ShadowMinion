@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://c6notasypvblo" path="res://interaction/interaction area/interaction_area.tscn" id="12_vivmo"]
 [ext_resource type="PackedScene" uid="uid://cgo4vwocv6edc" path="res://Scenes/spikes.tscn" id="15_vivmo"]
 [ext_resource type="PackedScene" uid="uid://br2i8owbc74db" path="res://Scenes/checkpoint.tscn" id="16_2cqfq"]
+[ext_resource type="PackedScene" uid="uid://n38y066u11d0" path="res://Scenes/fall_hazard.tscn" id="17_yaehf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -209,10 +210,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.110722, 2.317144, 7.45455
 [node name="checkpoint" parent="." unique_id=1413297851 instance=ExtResource("16_2cqfq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.50432, 2.8924255, 7.889616)
 
+[node name="fall_hazard" parent="." unique_id=1040016836 instance=ExtResource("17_yaehf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.75161, -5.8257465, -866.1338)
+
 [connection signal="body_entered" from="Area3D" to="Player" method="_on_area_3d_body_entered"]
 [connection signal="door_opened" from="key_example" to="door_example" method="_on_key_example_door_opened"]
 [connection signal="key_needed" from="key_example" to="door_example" method="_on_key_example_key_needed"]
 [connection signal="body_entered" from="door_example/door_zone" to="key_example" method="_on_door_zone_body_entered"]
 [connection signal="body_exited" from="door_example/door_zone" to="key_example" method="_on_door_zone_body_exited"]
-
-[editable path="checkpoint"]
