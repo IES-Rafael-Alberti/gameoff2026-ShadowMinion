@@ -26,6 +26,7 @@ var jumpCount = 1
 #var have_position = false
 var original_position = Vector3.ZERO
 var facing:int = 1
+var is_dead: bool = false
 
 
 
@@ -159,6 +160,23 @@ func accion_dash():
 		tween.tween_property(self, "dash_velocity", 0, 0.2).set_ease(Tween.EASE_OUT)
 
 func die()->void:
+	if is_dead:
+		return
+	is_dead = true
+	
+	#Detén al jugador para que no siga interactuando
+	set_physics_process(false)
+	set_process(false)
+	velocity = Vector3.ZERO
+	
+	#Desactiva la colisión para no disparar más body_entered
+	if collider:
+		collider.set_deferred("disabled", true)
+		
+	# Espera un frame para que terminen las señales de este frame
+	await get_tree().process_frame
+	
+	#Recarga la escena
 	get_tree().call_deferred("reload_current_scene")
 
 #func _on_area_3d_body_entered(body: Node3D) -> void:

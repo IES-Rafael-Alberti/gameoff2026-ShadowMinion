@@ -14,6 +14,11 @@ var in_door_zone = false
 
 
 func _on_body_entered(body: CharacterBody3D) -> void:
+	if not is_instance_valid(body):
+		return
+	if not body.is_in_group("player"):
+		return
+	
 	if key_taken == false:
 		key_taken = true
 		mesh_key.queue_free()
@@ -21,15 +26,25 @@ func _on_body_entered(body: CharacterBody3D) -> void:
 func _process(delta):
 	if in_door_zone == true and Input.is_action_just_pressed("interact"):
 			if key_taken == true:
-				emit_signal("door_opened")
+				door_opened.emit()
 			else:
-				emit_signal("key_needed")
-			
+				key_needed.emit()
+
 
 
 func _on_door_zone_body_entered(body: CharacterBody3D) -> void:
+	if not is_instance_valid(body):
+		return
+	if not body.is_in_group("player"):
+		return
+		
 	in_door_zone = true
 
 
 func _on_door_zone_body_exited(body: CharacterBody3D) -> void:
+	if not is_instance_valid(body):
+		return
+	if not body.is_in_group("player"):
+		return
+		
 	in_door_zone = false

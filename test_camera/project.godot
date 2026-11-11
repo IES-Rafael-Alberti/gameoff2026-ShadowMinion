@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 PhantomCameraManager="*uid://duq6jhf6unyis"
 InteractionManager="*uid://du31ctpdnq28v"
+GlobalScript="*uid://b40mr0xqrxpmv"
 
 [editor_plugins]
 

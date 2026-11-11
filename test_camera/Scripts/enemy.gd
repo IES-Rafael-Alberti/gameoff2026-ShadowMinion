@@ -146,7 +146,7 @@ func _on_hitbox_body_entered(body: Node3D)->void:
 	if not body.is_in_group("player"):
 		return
 	if body.has_method("die"):
-		body.die()
+		body.call_deferred("die")
 		
 
 #Sobrescribir en scripts hijos cuando no uses tracking en alguna dimensión
