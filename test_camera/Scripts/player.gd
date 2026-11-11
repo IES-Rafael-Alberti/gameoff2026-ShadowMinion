@@ -143,6 +143,10 @@ func changeMovementController() -> void:
 				mesh_ghost.visible = true
 
 func _ready() -> void:
+	
+	if GlobalScript.checkpoint_pos != Vector3(-999, -999, -999):
+		global_position = GlobalScript.checkpoint_pos
+		
 	movement3DActivated = false
 	original_position = global_position
 	

@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://ol486wt0bgpp" path="res://Scripts/door_example.gd" id="11_w48qg"]
 [ext_resource type="PackedScene" uid="uid://c6notasypvblo" path="res://interaction/interaction area/interaction_area.tscn" id="12_vivmo"]
 [ext_resource type="PackedScene" uid="uid://cgo4vwocv6edc" path="res://Scenes/spikes.tscn" id="15_vivmo"]
+[ext_resource type="PackedScene" uid="uid://br2i8owbc74db" path="res://Scenes/checkpoint.tscn" id="16_2cqfq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -105,7 +106,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22849202, 2.8173661, 7.5387
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=593085185]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 0.9994905, -0.031917367, 0, 0.031917367, 0.9994905, 0.22849202, 2.785449, 11.538212)
+transform = Transform3D(1, 0, 0, 0, 0.9994821, -0.0319171, 0, 0.0319171, 0.9994821, 0.22849202, 2.785449, 11.538212)
+top_level = true
 projection = 1
 size = 10.0
 near = 0.001
@@ -129,6 +131,8 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_272bh")
 camera_3d_resource = SubResource("Resource_jyaov")
 follow_offset = Vector3(0, 0, 3)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=1364791712 node_paths=PackedStringArray("follow_target")]
@@ -140,6 +144,8 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_5vw27")
 camera_3d_resource = SubResource("Resource_l7s6d")
 follow_offset = Vector3(0, 9.25, 6.5)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=339735079 node_paths=PackedStringArray("look_at_target")]
@@ -149,6 +155,8 @@ look_at_mode = 2
 look_at_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_lquwl")
 camera_3d_resource = SubResource("Resource_weqku")
+align_transform_with_view = Callable()
+align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="enemy" parent="." unique_id=752523582 instance=ExtResource("7_ycdy4")]
@@ -198,8 +206,13 @@ wander_change_time = 1.5
 [node name="spikes" parent="." unique_id=2115643364 instance=ExtResource("15_vivmo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.110722, 2.317144, 7.4545565)
 
+[node name="checkpoint" parent="." unique_id=1413297851 instance=ExtResource("16_2cqfq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.50432, 2.8924255, 7.889616)
+
 [connection signal="body_entered" from="Area3D" to="Player" method="_on_area_3d_body_entered"]
 [connection signal="door_opened" from="key_example" to="door_example" method="_on_key_example_door_opened"]
 [connection signal="key_needed" from="key_example" to="door_example" method="_on_key_example_key_needed"]
 [connection signal="body_entered" from="door_example/door_zone" to="key_example" method="_on_door_zone_body_entered"]
 [connection signal="body_exited" from="door_example/door_zone" to="key_example" method="_on_door_zone_body_exited"]
+
+[editable path="checkpoint"]
