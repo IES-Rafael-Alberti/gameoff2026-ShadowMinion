@@ -11,12 +11,22 @@ class_name Player extends CharacterBody3D
 @export var dash : float = 100.0
 var tween: Tween
 @export var dash_velocity : float = 0.0
+@export_group("Balanceo")
+# Aceleración horizontal que aplicas con izquierda/derecha mientras estás enganchado
+@export var grapple_air_accel : float = 10.0
+# Aceleración cuando empujnas en contra. Más baja para no frenar de golpe
+@export var grapple_brake_accel : float = 4.0
+#Velocidad horizontal máxima mientras empujas el balanceo
+@export var grapple_max_speed : float = 22.0
+
 
 var move_speed : float = 0.0
 var movement3DActivated = true
 var jumpCount = 1
 
 var original_position = Vector3.ZERO
+var facing:int = 1
+var is_dead: bool = false
 
 @onready var camera_manager: Node = $"../CameraManager"
 @onready var collider: CollisionShape3D = $Collider
@@ -33,10 +43,21 @@ var active3DCamera = outsideCamera
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 			velocity += get_gravity() * delta
+			#Si caemos del borde sin saltar, se elimina un salto
+			if jumpCount > 1:
+				jumpCount = 1
+	else:
+		jumpCount = 1 if movement3DActivated else 2
 	
-	if Input.is_action_just_pressed("Jump") and jumpCount > 0:
-			jumpCount -=1
-			velocity.y = jump_velocity
+	if Input.is_action_just_pressed("Jump"):
+		if movement3DActivated:
+			if is_on_floor():
+				velocity.y = jump_velocity
+		else:
+			if jumpCount > 0:
+				jumpCount -=1
+				velocity.y = jump_velocity
+		
 			
 	if Input.is_action_pressed("Sprint"):
 			move_speed = sprint_speed
@@ -46,10 +67,9 @@ func _physics_process(delta: float) -> void:
 	if movement3DActivated:
 		movement3D()
 	else:
-		movement2D()
+		movement2D(delta)
 		
-	if is_on_floor():
-		jumpCount = 1
+
 	changeMovementController()
 	accion_dash()
 	
@@ -66,13 +86,33 @@ func movement3D() -> void:
 		velocity.x = move_toward(velocity.x, 0, move_speed)
 		velocity.z = move_toward(velocity.z, 0, move_speed)
 		
-# Basic movement for 2D enviroment
-func movement2D() ->void:
+func movement2D(delta: float) ->void:
 	var input_dir := Input.get_axis("Left", "Right")
-	if input_dir:
-		velocity.x = input_dir * move_speed
+	#var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if not is_zero_approx(input_dir):
+		facing = 1 if input_dir > 0.0 else -1
+		
+	#Busca si el nodo del gancho está en uso
+	var grapple_node = get_node_or_null("GrapplingController")
+	var is_grappling:bool = grapple_node != null and grapple_node.launched
+	
+	if is_grappling:
+		#empuja el balanceo
+		if not is_zero_approx(input_dir):
+			#Si empuja en contra del balanceo, se usa una aceleración más suave
+			var accel = grapple_air_accel
+			if input_dir * velocity.x < -0.5:
+				accel = grapple_brake_accel
+				
+			velocity.x += input_dir * accel * delta
+			velocity.x = clampf(velocity.x, -grapple_max_speed, grapple_max_speed)
+	elif not is_zero_approx(input_dir):
+		velocity.x = input_dir * (move_speed + dash_velocity)
 	else:
+		#Solo frena cuando no está colgado del techo
 		velocity.x = move_toward(velocity.x, 0, move_speed)
+	#else:
+		#velocity.x = move_toward(velocity.x, 0, move_speed)
 
 # alternate the movement of the player for 2D and 3D and the camera view
 func changeMovementController() -> void:
@@ -105,6 +145,10 @@ func changeMovementController() -> void:
 				mesh_ghost.visible = true
 
 func _ready() -> void:
+	
+	if GlobalScript.checkpoint_pos != Vector3(-999, -999, -999):
+		global_position = GlobalScript.checkpoint_pos
+		
 	movement3DActivated = false
 	original_position = global_position
 	
@@ -121,13 +165,33 @@ func accion_dash():
 		tween = create_tween()
 		tween.tween_property(self, "dash_velocity", 0, 0.2).set_ease(Tween.EASE_OUT)
 
-func _on_area_3d_body_entered(body: Node3D) -> void:
-	if active3DCamera == outsideCamera:
-		outsideCamera.priority = 0
-		active3DCamera = insideCamera
-	else:
-		insideCamera.priority = 0
-		active3DCamera = outsideCamera
+func die()->void:
+	if is_dead:
+		return
+	is_dead = true
+	
+	#Detén al jugador para que no siga interactuando
+	set_physics_process(false)
+	set_process(false)
+	velocity = Vector3.ZERO
+	
+	#Desactiva la colisión para no disparar más body_entered
+	if collider:
+		collider.set_deferred("disabled", true)
+		
+	# Espera un frame para que terminen las señales de este frame
+	await get_tree().process_frame
+	
+	#Recarga la escena
+	get_tree().call_deferred("reload_current_scene")
+
+#func _on_area_3d_body_entered(body: Node3D) -> void:
+	#if active3DCamera == outsideCamera:
+		#outsideCamera.priority = 0
+		#active3DCamera = insideCamera
+	#else:
+		#insideCamera.priority = 0
+		#active3DCamera = outsideCamera
 
 	active3DCamera.priority = 1
 	
