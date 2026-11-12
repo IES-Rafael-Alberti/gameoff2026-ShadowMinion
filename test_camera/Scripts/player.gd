@@ -1,4 +1,4 @@
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
 
 @export_group("Speeds")
 ## Normal speed.
@@ -130,3 +130,6 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		active3DCamera = outsideCamera
 
 	active3DCamera.priority = 1
+	
+func _getMovement3DActive():
+	return movement3DActivated
