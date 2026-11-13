@@ -193,7 +193,7 @@ func die()->void:
 		#insideCamera.priority = 0
 		#active3DCamera = outsideCamera
 
-	active3DCamera.priority = 1
+	#active3DCamera.priority = 1
 	
 func _getMovement3DActive():
 	return movement3DActivated

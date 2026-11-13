@@ -26,7 +26,7 @@ func _sortByDistanceToPlayer(area1, area2):
 	return area1ToPlayer < area2ToPlayer
 	
 func _input(event):
-	if event.is_action_pressed("Interact") && canInteract:
+	if event.is_action_pressed("interact") && canInteract:
 		if activeAreas.size() > 0:
 			canInteract = false
 			
