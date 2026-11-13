@@ -6,6 +6,20 @@
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_lquwl"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_7mycd"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://duhijnmuu6jqb" path="res://Scenes/grapplable_ceiling.tscn" id="7_272bh"]
+[ext_resource type="PackedScene" uid="uid://dq4bfnrhavf5o" path="res://Scenes/enemy.tscn" id="7_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://bfed5b06bmvck" path="res://Scenes/key_example.tscn" id="9_dg77c"]
+[ext_resource type="PackedScene" uid="uid://bkge8vtk2834i" path="res://Scenes/first_enemy.tscn" id="9_w48qg"]
+[ext_resource type="PackedScene" uid="uid://dh0py6s07qne3" path="res://Scenes/door_example.tscn" id="10_ycdy4"]
+[ext_resource type="Script" uid="uid://ol486wt0bgpp" path="res://Scripts/door_example.gd" id="11_w48qg"]
+[ext_resource type="PackedScene" uid="uid://c6notasypvblo" path="res://interaction/interaction area/interaction_area.tscn" id="12_vivmo"]
+[ext_resource type="PackedScene" uid="uid://cgo4vwocv6edc" path="res://Scenes/spikes.tscn" id="15_vivmo"]
+[ext_resource type="PackedScene" uid="uid://br2i8owbc74db" path="res://Scenes/checkpoint.tscn" id="16_2cqfq"]
+[ext_resource type="PackedScene" uid="uid://n38y066u11d0" path="res://Scenes/fall_hazard.tscn" id="17_yaehf"]
+[ext_resource type="Script" uid="uid://mjvg5yfrq1an" path="res://Scripts/obstaculo.gd" id="18_getpj"]
+[ext_resource type="PackedScene" uid="uid://ck43m43bci63f" path="res://Scenes/Interaction/InteractionArea.tscn" id="19_ryguw"]
+[ext_resource type="Script" uid="uid://dv04tax4an2ob" path="res://Scripts/platform.gd" id="20_d13ii"]
+[ext_resource type="Script" uid="uid://blvwbktqwk4vl" path="res://Scripts/RayCast.gd" id="21_1u8w0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -18,6 +32,9 @@ sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
 background_mode = 2
 sky = SubResource("Sky_h2yge")
 glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_exqi3"]
+size = Vector3(2.2626953, 1, 0.19213867)
 
 [sub_resource type="Resource" id="Resource_272bh"]
 script = ExtResource("4_7mycd")
@@ -45,6 +62,30 @@ metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jyaov"]
 size = Vector3(1.7452393, 2.7973633, 0.001)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2cqfq"]
+radius = 3.1850216
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_getpj"]
+albedo_color = Color(0, 0.39215687, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ryguw"]
+size = Vector3(3.1837158, 0.54711914, 3.668747)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d13ii"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1u8w0"]
+material = SubResource("StandardMaterial3D_d13ii")
+
+[sub_resource type="HeightMapShape3D" id="HeightMapShape3D_0odxb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lswn8"]
+size = Vector3(1, 0.079940796, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a6jrf"]
+radius = 0.001
+height = 43.128326
 
 [node name="Main" type="Node3D" unique_id=1650990334]
 
@@ -78,6 +119,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999046, 0, -0.099, 0.002)
 operation = 2
 size = Vector3(1.0000916, 0.7904053, 0.31762695)
 
+[node name="Area3D" type="Area3D" parent="CSGCombiner3D/CSGBox3D4" unique_id=2050829362]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6329542, 0, 0)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/CSGBox3D4/Area3D" unique_id=1378876364]
+shape = SubResource("BoxShape3D_exqi3")
+
+[node name="Area3D2" type="Area3D" parent="CSGCombiner3D/CSGBox3D4" unique_id=1522954961]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6448435, 0, 0)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/CSGBox3D4/Area3D2" unique_id=934589711]
+shape = SubResource("BoxShape3D_exqi3")
+
 [node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1098759113]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -0.9999999, 0, -4.3711385e-08, -2.6882353, 0.97538257, -0.10513496)
 use_collision = true
@@ -90,10 +147,12 @@ size = Vector3(5.520752, 1, 0.19335938)
 
 [node name="Player" parent="." unique_id=1352346882 instance=ExtResource("1_ig7tw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22849202, 2.8173661, 7.5387297)
+collision_layer = 3
+collision_mask = 3
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=593085185]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 0.9994821, -0.0319171, 0, 0.0319171, 0.9994821, 0.22849202, 2.785449, 11.538212)
+transform = Transform3D(1, 0, 0, 0, 0.9999916, 0, 0, 0, 0.9999916, 0.22849202, 2.8173661, 11.538721)
 top_level = true
 projection = 1
 size = 10.0
@@ -109,7 +168,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 script = ExtResource("3_7mycd")
 
 [node name="2DCamera" type="Node3D" parent="CameraManager" unique_id=663199842 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.9994821, -0.0319171, 0, 0.0319171, 0.9994821, 0.22849202, 2.785449, 11.538212)
+transform = Transform3D(1, 0, 0, 0, 0.9999916, 0, 0, 0, 0.9999916, 0.22849202, 2.8173661, 11.538721)
 top_level = true
 script = ExtResource("3_lquwl")
 priority = 1
@@ -136,7 +195,7 @@ align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=339735079 node_paths=PackedStringArray("look_at_target")]
-transform = Transform3D(-0.9426385, -0.06682646, 0.3270585, 3.725291e-09, 0.9797572, 0.20018949, -0.33381605, 0.18870632, -0.92355627, 4.3464017, 5.3379006, -4.089532)
+transform = Transform3D(-0.9426385, -0.06682646, 0.3270584, 3.725291e-09, 0.9797572, 0.20018944, -0.33381605, 0.18870632, -0.9235561, 4.3464017, 5.3379006, -4.089532)
 script = ExtResource("3_lquwl")
 look_at_mode = 2
 look_at_target = NodePath("../../Player")
@@ -146,6 +205,8 @@ align_transform_with_view = Callable()
 align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
+[node name="enemy" parent="." unique_id=752523582 instance=ExtResource("7_ycdy4")]
+
 [node name="Area3D" type="Area3D" parent="." unique_id=796338830]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7497916, 3.887928)
 
@@ -153,4 +214,130 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7497916, 3.887928)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012145996, -0.52905273, 0.05452466)
 shape = SubResource("BoxShape3D_jyaov")
 
+[node name="grapplable ceiling" parent="." unique_id=38049380 instance=ExtResource("7_272bh")]
+transform = Transform3D(2.5227647, 0, 0, 0, 0.7914477, 0, 0, 0, 2.5227647, 20.317186, 7.6706557, 5.487257)
+
+[node name="Floor" type="CSGBox3D" parent="." unique_id=1518112844]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.93319, 0, 3.4036255)
+use_collision = true
+size = Vector3(16.1441, 1, 13.002197)
+
+[node name="Floor" type="CSGBox3D" parent="Floor" unique_id=698601007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.563282, 0, 0.5083008)
+use_collision = true
+size = Vector3(27.224882, 1, 13.002197)
+
+[node name="key_example" parent="." unique_id=1280721075 instance=ExtResource("9_dg77c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.64509, 2.3173656, 2.3380876)
+
+[node name="door_example" parent="." unique_id=2118036215 instance=ExtResource("10_ycdy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.989025, 1, 7.3503437)
+script = ExtResource("11_w48qg")
+
+[node name="door_zone" parent="door_example" unique_id=1737456431 instance=ExtResource("12_vivmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56428766, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="door_example/door_zone" unique_id=1483032515]
+shape = SubResource("SphereShape3D_2cqfq")
+
+[node name="first_enemy" parent="." unique_id=2028063305 instance=ExtResource("9_w48qg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.40831, 1.4221802, 8.98822)
+patrol_distance = 5.0
+wander_change_time = 1.5
+
+[node name="spikes" parent="." unique_id=2115643364 instance=ExtResource("15_vivmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.110722, 2.317144, 7.4545565)
+
+[node name="checkpoint" parent="." unique_id=1413297851 instance=ExtResource("16_2cqfq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.50432, 2.8924255, 7.889616)
+
+[node name="fall_hazard" parent="." unique_id=1040016836 instance=ExtResource("17_yaehf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.75161, -5.8257465, -866.1338)
+
+[node name="Obstaculo" type="Node3D" parent="." unique_id=42917941]
+transform = Transform3D(0.49943534, 0, 0, 0, 1, 0, 0, 0, 0.3584353, 2.939826, 2.8068526, 7.8225927)
+
+[node name="Obstaculo3D" type="CSGBox3D" parent="Obstaculo" unique_id=1718127638]
+transform = Transform3D(2.0022616, 0, 0, 0, 1, 0, 0, 0, 2.7899039, 0, -0.49209428, -8.577285)
+use_collision = true
+material = SubResource("StandardMaterial3D_getpj")
+script = ExtResource("18_getpj")
+pushDistance = 1.0
+
+[node name="InteractionArea" parent="Obstaculo/Obstaculo3D" unique_id=1627042093 instance=ExtResource("19_ryguw")]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstaculo/Obstaculo3D/InteractionArea" unique_id=906459722]
+transform = Transform3D(0.4994601, 0, 0, 0, 1, 0, 0, 0, 0.3584353, 0.007954121, 0.17189264, -0.0020256042)
+shape = SubResource("BoxShape3D_ryguw")
+
+[node name="RightRayCast" type="RayCast3D" parent="Obstaculo/Obstaculo3D/InteractionArea/CollisionShape3D" unique_id=1332453675]
+transform = Transform3D(-6.1193994e-08, -1.3999554, 0, 1.4, -6.119594e-08, 0, 0, 0, 1.4000002, -0.015925884, -0.029664516, -0.08638096)
+collision_mask = 2
+debug_shape_custom_color = Color(0.96862745, 0, 0, 1)
+debug_shape_thickness = 5
+
+[node name="LeftRayCast" type="RayCast3D" parent="Obstaculo/Obstaculo3D/InteractionArea/CollisionShape3D" unique_id=265062800]
+transform = Transform3D(-6.1193994e-08, 1.3999554, 0, -1.4, -6.119594e-08, 0, 0, 0, 1.4000002, -0.015925884, -0.029664516, -0.08638096)
+collision_mask = 2
+debug_shape_custom_color = Color(0.96862745, 0, 0, 1)
+debug_shape_thickness = 5
+
+[node name="FrontRayCast" type="RayCast3D" parent="Obstaculo/Obstaculo3D/InteractionArea/CollisionShape3D" unique_id=244440908]
+transform = Transform3D(2, 0, 0, 0, -8.742278e-08, 2, 0, -2, -8.742278e-08, 0, 0, 0)
+collision_mask = 2
+debug_shape_custom_color = Color(0.96862745, 0, 0, 1)
+debug_shape_thickness = 5
+
+[node name="BackRayCast" type="RayCast3D" parent="Obstaculo/Obstaculo3D/InteractionArea/CollisionShape3D" unique_id=707827395]
+transform = Transform3D(2, 0, 0, 0, -8.742278e-08, -2, 0, 2, -8.742278e-08, 0, 0, 0)
+collision_mask = 2
+debug_shape_custom_color = Color(0.96862745, 0, 0, 1)
+debug_shape_thickness = 5
+
+[node name="Plataforma2D" type="RigidBody3D" parent="Obstaculo" unique_id=34664335]
+transform = Transform3D(1.0000011, 0, 0, 0, 1, 0, 0, 0, 1, 0.01743555, -0.050014257, -0.05893135)
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+lock_rotation = true
+freeze = true
+script = ExtResource("20_d13ii")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstaculo/Plataforma2D" unique_id=1854759406]
+transform = Transform3D(0.7081859, 0, 0, 0, 1, 0, 0, 0, 0.7280472, 0, -0.5518851, 0)
+mesh = SubResource("PlaneMesh_1u8w0")
+
+[node name="PlatformCollision" type="CollisionShape3D" parent="Obstaculo/Plataforma2D" unique_id=1832679105]
+transform = Transform3D(1.4704865, 0, 0, 0, 1, 0, 0, 0, 1.456837, 0, 0.055, 0.084)
+shape = SubResource("HeightMapShape3D_0odxb")
+disabled = true
+
+[node name="Area3D" type="Area3D" parent="Obstaculo/Plataforma2D" unique_id=1131699969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6942174, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstaculo/Plataforma2D/Area3D" unique_id=460065175]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0.3181963, 0)
+shape = SubResource("BoxShape3D_lswn8")
+
+[node name="ObstacleVisibility" type="RayCast3D" parent="Obstaculo/Plataforma2D" unique_id=289806343]
+transform = Transform3D(3.8256887e-15, 4.3711346e-08, 2.7899013, 2.0022614, -4.371139e-08, 0, 8.7521634e-08, 1, -1.2195058e-07, -0.017436028, -0.17806625, 0.05893135)
+target_position = Vector3(0, -50, 0)
+collision_mask = 4
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("21_1u8w0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstaculo/Plataforma2D/ObstacleVisibility" unique_id=1428831470]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 3.5762787e-07, -0.09259796, -7.1525574e-07)
+mesh = SubResource("CapsuleMesh_a6jrf")
+
 [connection signal="body_entered" from="Area3D" to="Player" method="_on_area_3d_body_entered"]
+[connection signal="door_opened" from="key_example" to="door_example" method="_on_key_example_door_opened"]
+[connection signal="key_needed" from="key_example" to="door_example" method="_on_key_example_key_needed"]
+[connection signal="body_entered" from="door_example/door_zone" to="key_example" method="_on_door_zone_body_entered"]
+[connection signal="body_exited" from="door_example/door_zone" to="key_example" method="_on_door_zone_body_exited"]
+[connection signal="body_entered" from="Obstaculo/Plataforma2D/Area3D" to="Obstaculo/Plataforma2D" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Obstaculo/Plataforma2D/Area3D" to="Obstaculo/Plataforma2D" method="_on_area_3d_body_exited"]
