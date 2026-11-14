@@ -27,6 +27,7 @@ var jumpCount = 1
 var original_position = Vector3.ZERO
 var facing:int = 1
 var is_dead: bool = false
+var is_in_dialogue: bool = false
 
 @onready var camera_manager: Node = $"../CameraManager"
 @onready var collider: CollisionShape3D = $Collider
@@ -41,6 +42,12 @@ var cameras3D = [outsideCamera, insideCamera]
 var active3DCamera = outsideCamera
 
 func _physics_process(delta: float) -> void:
+	if is_in_dialogue:
+		#Si hay diálogo, se bloquea el movimiento
+		velocity = Vector3.ZERO
+		move_and_slide()
+		return
+	
 	if not is_on_floor():
 			velocity += get_gravity() * delta
 			#Si caemos del borde sin saltar, se elimina un salto
