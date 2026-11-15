@@ -32,8 +32,8 @@ directories/dtl_directory={
 "timeline": "res://timeline.dtl"
 }
 layout/style_directory={
-"": "res://custom_style.tres",
-"custom_style": "res://custom_style.tres"
+"": "res://new_style.tres",
+"new_style": "res://new_style.tres"
 }
 variables={
 "folder": {
@@ -41,8 +41,9 @@ variables={
 },
 "response": ""
 }
-layout/style_list=["res://custom_style.tres"]
-layout/default_style="res://custom_style.tres"
+layout/style_list=["res://new_style.tres"]
+layout/default_style="res://new_style.tres"
+glossary/default_case_sensitive=true
 
 [editor_plugins]
 

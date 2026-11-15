@@ -1,14 +1,14 @@
-god: You have been chosen to transcend towards higher realm of knowledge...
+god (god): You have been chosen to transcend towards higher realm of knowledge...
 label worship
-god: Can you handle dimensions that werent meant for mortal's eyes? (Write "yes" or "no")
+god (god): Can you handle dimensions that werent meant for mortal's eyes? (Write "yes" or "no")
 [text_input var="response"]
 if {response} == "yes":
-	god: Thats the correct decision. Mortals should know their place
-	god: Retrieve the stone for me.
+	god (god): Thats the correct decision. Mortals should know their place
+	god (god): Retrieve the stone for me.
 if {response} == "no":
-	god: Then you shall perish. Your mind not longer will be yours. You will succumb towards the deepest pits of insanity. Your life its at my mercy.
-	god: You still hold the same answer over my question?
+	god (god): Then you shall perish. Your mind not longer will be yours. You will succumb towards the deepest pits of insanity. Your life its at my mercy.
+	god (god): You still hold the same answer over my question?
 	- No. I will worship you
-		god: You made the right choice
+		god (god): You made the right choice
 	- Yes. I would rather die that be your pawn
-		god: Then begone
+		god (god): Then begone

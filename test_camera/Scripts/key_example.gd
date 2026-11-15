@@ -13,7 +13,7 @@ var in_door_zone = false
 	#message_without_key.hide()
 
 
-func _on_body_entered(body: CharacterBody3D) -> void:
+func _on_body_entered(body: Node3D) -> void:
 	if not is_instance_valid(body):
 		return
 	if not body.is_in_group("player"):
@@ -32,7 +32,7 @@ func _process(delta):
 
 
 
-func _on_door_zone_body_entered(body: CharacterBody3D) -> void:
+func _on_door_zone_body_entered(body: Node3D) -> void:
 	if not is_instance_valid(body):
 		return
 	if not body.is_in_group("player"):
@@ -41,7 +41,7 @@ func _on_door_zone_body_entered(body: CharacterBody3D) -> void:
 	in_door_zone = true
 
 
-func _on_door_zone_body_exited(body: CharacterBody3D) -> void:
+func _on_door_zone_body_exited(body: Node3D) -> void:
 	if not is_instance_valid(body):
 		return
 	if not body.is_in_group("player"):

@@ -47,6 +47,8 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector3.ZERO
 		move_and_slide()
 		return
+		
+	changeMovementController()
 	
 	if not is_on_floor():
 			velocity += get_gravity() * delta
@@ -77,7 +79,7 @@ func _physics_process(delta: float) -> void:
 		movement2D(delta)
 		
 
-	changeMovementController()
+	
 	accion_dash()
 	
 	move_and_slide()
@@ -118,38 +120,48 @@ func movement2D(delta: float) ->void:
 	else:
 		#Solo frena cuando no está colgado del techo
 		velocity.x = move_toward(velocity.x, 0, move_speed)
+	velocity.z = 0.0
 	#else:
 		#velocity.x = move_toward(velocity.x, 0, move_speed)
 
 # alternate the movement of the player for 2D and 3D and the camera view
 func changeMovementController() -> void:
-	if Input.is_action_just_pressed("ChangePerpective"):
-		if camera_manager and camera_manager.has_method("updateCamera"):
-			camera_manager.updateCamera()
-		if movement3DActivated:
-			movement3DActivated = false
-			global_position = original_position
-			#Recupera el modelo 3D y lo mete como hijo de player
-			if mesh: 
-				var parent_scene = get_tree().current_scene
-				mesh.reparent(self)
-				#Se alinea de nuevo con el centro del personaje
-				mesh.position = Vector3.ZERO
-				mesh.rotation = Vector3.ZERO
-				mesh.visible = true
-			if mesh_ghost:
-				mesh_ghost.visible = false
-		else:
-			movement3DActivated = true
-			original_position = global_position
-			#Dejamos el modelo 2D estático en el mundo
-			if mesh:
-				var parent_scene = get_tree().current_scene
-				#Sacamos el mesh del parent y lo colgamos de la raíz de la escena
-				mesh.reparent(parent_scene, true)
-				mesh.visible = true
-			if mesh_ghost:
-				mesh_ghost.visible = true
+	
+	if not Input.is_action_just_pressed("ChangePerpective"):
+		return
+		
+	if camera_manager and camera_manager.has_method("updateCamera"):
+		camera_manager.updateCamera()
+		
+	if movement3DActivated:
+		movement3DActivated = false
+		
+		global_position = original_position
+		
+		#Borra toda velocidad 3D para no salir del plano 2D
+		velocity = Vector3.ZERO
+		
+		#Recupera el modelo 3D y lo mete como hijo de player
+		if mesh: 
+			var parent_scene = get_tree().current_scene
+			mesh.reparent(self)
+			#Se alinea de nuevo con el centro del personaje
+			mesh.position = Vector3.ZERO
+			mesh.rotation = Vector3.ZERO
+			mesh.visible = true
+		if mesh_ghost:
+			mesh_ghost.visible = false
+	else:
+		movement3DActivated = true
+		original_position = global_position
+		#Dejamos el modelo 2D estático en el mundo
+		if mesh:
+			var parent_scene = get_tree().current_scene
+			#Sacamos el mesh del parent y lo colgamos de la raíz de la escena
+			mesh.reparent(parent_scene, true)
+			mesh.visible = true
+		if mesh_ghost:
+			mesh_ghost.visible = true
 
 func _ready() -> void:
 	
