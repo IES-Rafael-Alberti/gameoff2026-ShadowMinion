@@ -49,6 +49,8 @@ var just_released_grapple: bool = false
 var cameras3D = [outsideCamera, insideCamera]
 var active3DCamera = outsideCamera
 
+var debugMode = false
+
 func _physics_process(delta: float) -> void:
 	if is_in_dialogue:
 		#Si hay diálogo, se bloquea el movimiento
@@ -81,14 +83,22 @@ func _physics_process(delta: float) -> void:
 		jumpCount = 1 if movement3DActivated else 2
 	
 	if Input.is_action_just_pressed("Jump"):
-		if movement3DActivated:
-			if is_on_floor():
-				velocity.y = jump_velocity
+		if debugMode:
+			velocity.y = jump_velocity
 		else:
-			if jumpCount > 0:
-				jumpCount -=1
-				velocity.y = jump_velocity
-		
+			if movement3DActivated:
+				if is_on_floor():
+					velocity.y = jump_velocity
+			else:
+				if jumpCount > 0:
+					jumpCount -=1
+					velocity.y = jump_velocity
+	
+	if Input.is_action_just_pressed("Debug"):
+		if debugMode:
+			debugMode = false
+		else:
+			debugMode = true
 			
 	if Input.is_action_pressed("Sprint"):
 			move_speed = sprint_speed

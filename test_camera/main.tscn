@@ -27,12 +27,12 @@
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[sub_resource type="Sky" id="Sky_h2yge"]
+[sub_resource type="Sky" id="Sky_ryguw"]
 sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
 
 [sub_resource type="Environment" id="Environment_1bvp3"]
 background_mode = 2
-sky = SubResource("Sky_h2yge")
+sky = SubResource("Sky_ryguw")
 glow_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_exqi3"]
@@ -68,11 +68,9 @@ size = Vector3(1.7452393, 2.7973633, 0.001)
 [sub_resource type="SphereShape3D" id="SphereShape3D_2cqfq"]
 radius = 3.1850216
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_getpj"]
-albedo_color = Color(0, 0.39215687, 1, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_658jc"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ryguw"]
-size = Vector3(3.1837158, 0.54711914, 3.668747)
+[sub_resource type="BoxMesh" id="BoxMesh_8cxyx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d13ii"]
 albedo_color = Color(1, 0, 0, 1)
@@ -260,10 +258,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.75161, -5.8257465, -866.1
 [node name="Obstaculo" type="Node3D" parent="." unique_id=42917941]
 transform = Transform3D(0.49943534, 0, 0, 0, 1, 0, 0, 0, 0.3584353, 2.939826, 2.8068526, 7.8225927)
 
-[node name="Obstaculo3D" type="CSGBox3D" parent="Obstaculo" unique_id=1718127638]
-transform = Transform3D(2.0022616, 0, 0, 0, 1, 0, 0, 0, 2.7899039, 0, -0.49209428, -8.577285)
-use_collision = true
-material = SubResource("StandardMaterial3D_getpj")
+[node name="Obstaculo3D" type="RigidBody3D" parent="Obstaculo" unique_id=863354814]
+transform = Transform3D(0.717, 0, 0, 0, 0.359, 0, 0, 0, 1, 0, -0.49209428, -8.577285)
 script = ExtResource("18_getpj")
 pushDistance = 1.0
 
@@ -272,8 +268,8 @@ collision_layer = 5
 collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obstaculo/Obstaculo3D/InteractionArea" unique_id=906459722]
-transform = Transform3D(0.4994601, 0, 0, 0, 1, 0, 0, 0, 0.3584353, 0.007954121, 0.17189264, -0.0020256042)
-shape = SubResource("BoxShape3D_ryguw")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007954121, 0.17189264, -0.0020256042)
+shape = SubResource("BoxShape3D_658jc")
 
 [node name="RightRayCast" type="RayCast3D" parent="Obstaculo/Obstaculo3D/InteractionArea/CollisionShape3D" unique_id=1332453675]
 transform = Transform3D(-6.1193994e-08, -1.3999554, 0, 1.4, -6.119594e-08, 0, 0, 0, 1.4000002, -0.015925884, -0.029664516, -0.08638096)
@@ -298,6 +294,9 @@ transform = Transform3D(2, 0, 0, 0, -8.742278e-08, -2, 0, 2, -8.742278e-08, 0, 0
 collision_mask = 2
 debug_shape_custom_color = Color(0.96862745, 0, 0, 1)
 debug_shape_thickness = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstaculo/Obstaculo3D" unique_id=774059091]
+mesh = SubResource("BoxMesh_8cxyx")
 
 [node name="Plataforma2D" type="RigidBody3D" parent="Obstaculo" unique_id=34664335]
 transform = Transform3D(1.0000011, 0, 0, 0, 1, 0, 0, 0, 1, 0.01743555, -0.050014257, -0.05893135)

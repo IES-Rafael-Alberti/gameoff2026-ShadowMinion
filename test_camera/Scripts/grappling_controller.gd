@@ -80,8 +80,8 @@ func launch():
 		return
 		
 	var collider = ray.get_collider()
-	#if collider == null or not collider.is_in_group("grappleable"):
-		#return
+	if collider == null or not collider.is_in_group("grappleable"):
+		return
 	target = ray.get_collision_point()
 	
 	rope_length = player.global_position.distance_to(target)
