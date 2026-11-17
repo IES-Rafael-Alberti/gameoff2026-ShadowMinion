@@ -1,0 +1,208 @@
+[gd_scene format=3 uid="uid://buat41qevfxej"]
+
+[node name="lvl 3" type="Node3D" unique_id=679953761]
+
+[node name="rocas" type="CSGCombiner3D" parent="." unique_id=300729857]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="rocas" unique_id=2057584526]
+transform = Transform3D(1.5809401, 0, 0.538078, 0, 1.67, 0, -0.538078, 0, 1.5809401, 0, -1.4874322, 0)
+size = Vector3(1, 2.2028809, 1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="rocas" unique_id=752906698]
+transform = Transform3D(-0.029505169, 0, 0.7594271, 0, 0.76, 0, -0.7594271, 0, -0.029505169, 0.17032266, -1.2796524, -6.8914)
+size = Vector3(1.0887451, 4.1638184, 1.4066772)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="rocas" unique_id=1387223836]
+transform = Transform3D(-0.49262947, 0, 0.57871944, 0, 0.7599999, 0, -0.57871944, 0, -0.49262947, 0.4075706, -1.9604211, -25.279808)
+size = Vector3(1.0887451, 4.1638184, 1.4066772)
+
+[node name="ganchos" type="CSGCombiner3D" parent="." unique_id=1297135015]
+transform = Transform3D(0.52, 0, 0, 0, 0.52, 0, 0, 0, 0.52, 0.13860416, -2.3841858e-07, -3.4549596)
+
+[node name="asdasdas" type="CSGBox3D" parent="ganchos" unique_id=110979112]
+transform = Transform3D(0.155, 0, 0, 0, 4.647, 0, 0, 0, 0.155, 0, 6, 0)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="ganchos" unique_id=575222607]
+transform = Transform3D(0.61, 0, 0, 0, 0.61, 0, 0, 0, 0.61, 0, 3.4188323, 0)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="ganchos" unique_id=898954843]
+transform = Transform3D(0.1550001, 0, 0, 0, 4.647, 0, 0, 0, 0.1550001, -9.23872e-07, -6.4544, -135.05183)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="ganchos" unique_id=548792300]
+transform = Transform3D(0.61000043, 0, 0, 0, 0.61000043, 0, 0, 0, 0.61000043, -9.23872e-07, -9.035568, -135.05183)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="ganchos" unique_id=188893114]
+transform = Transform3D(0.15500002, 0, 0, 0, 4.647, 0, 0, 0, 0.15500002, 0, 6.0000005, -16.048697)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="ganchos" unique_id=1257448848]
+transform = Transform3D(0.6100002, 0, 0, 0, 0.6100002, 0, 0, 0, 0.6100002, 0, 3.367621, -16.0487)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="ganchos" unique_id=1694315000]
+transform = Transform3D(0.15500005, 0, 0, 0, 4.647, 0, 0, 0, 0.15500005, 0, 8.050496, -28.732433)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="ganchos" unique_id=425850573]
+transform = Transform3D(0.6100003, 0, 0, 0, 0.6100003, 0, 0, 0, 0.6100003, 0, 5.418116, -28.732437)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="ganchos" unique_id=1329168391]
+transform = Transform3D(0.1550001, 0, 0, 0, 4.647, 0, 0, 0, 0.1550001, 0, 6.6331797, -57.899532)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="ganchos" unique_id=1673989622]
+transform = Transform3D(0.61000055, 0, 0, 0, 0.61000055, 0, 0, 0, 0.61000055, 0, 4.0008, -57.899532)
+
+[node name="elementos underground (fuera)" type="CSGCombiner3D" parent="." unique_id=1841427891]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.114397764, -0.19381166, -29.528008)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="elementos underground (fuera)" unique_id=1145614109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.443212, -9.285259)
+size = Vector3(1, 0.22570801, 1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="elementos underground (fuera)" unique_id=1266593032]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7929637, -12.504982)
+size = Vector3(1, 0.22570801, 1)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="elementos underground (fuera)" unique_id=1671781944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0912154, -15.384357)
+size = Vector3(1, 0.22570801, 1)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="elementos underground (fuera)" unique_id=994292588]
+transform = Transform3D(2.9498103, 0.09961501, 0.33105442, -0.10023968, 2.968308, -1.1399293e-09, -0.33086577, -0.0111733265, 2.9514914, 0.13197266, 1.5609251, -21.234383)
+size = Vector3(1, 1, 2.8249512)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="elementos underground (fuera)/CSGBox3D3" unique_id=469143269]
+transform = Transform3D(0.30028376, -0.011363883, -0.15188032, 0.010140574, 0.3365085, -0.0051289937, 0.1519669, -1.4219712e-10, 0.30045497, -0.124366164, 0.36486143, 0.94527054)
+operation = 2
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="elementos underground (fuera)/CSGBox3D3" unique_id=447456509]
+transform = Transform3D(0.33473748, -0.0113638835, -0.03447952, 0.011304067, 0.3365085, -0.0011643727, 0.034499254, -4.4129161e-10, 0.33492827, -0.0007981062, 0.36903423, -0.7625103)
+operation = 2
+
+[node name="CSGBox3D" type="CSGBox3D" parent="elementos underground (fuera)" unique_id=1021183475]
+size = Vector3(1, 0.22570801, 1)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="elementos underground (fuera)" unique_id=320697120]
+transform = Transform3D(1, 0, 0, 6.2762603e-19, 0.9788468, -0.20459469, 0, 0.2045947, 0.97884685, 0.052210096, 3.7053049, -20.552525)
+size = Vector3(4.9710693, 1, 1)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="elementos underground (fuera)" unique_id=1723925602]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.114397764, 0.19381166, -13.893646)
+
+[node name="Elementos underground" type="CSGCombiner3D" parent="." unique_id=736823651]
+transform = Transform3D(1, -4.7074983e-11, -1.4901161e-08, -3.7680725e-09, 1, 8.423853e-11, -7.450581e-09, -1.8686291e-10, 0.99999994, -3.091991e-07, 0, -43.421658)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="Elementos underground" unique_id=620418040]
+transform = Transform3D(1, 4.707499e-11, 1.4901163e-08, 3.7680725e-09, 1, -8.4238484e-11, 7.4505815e-09, 1.8686294e-10, 1.0000001, -0.53238535, -6.0262184, -4.9374123)
+
+[node name="CSGBox3D24" type="CSGBox3D" parent="Elementos underground" unique_id=913983554]
+transform = Transform3D(1, 4.707499e-11, 1.4901163e-08, 3.7680725e-09, 1, -8.4238484e-11, 7.4505815e-09, 1.8686294e-10, 1.0000001, -3.0099525, -6.5921645, -10.333042)
+size = Vector3(0.43164063, 0.052490234, 0.7928467)
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="Elementos underground" unique_id=1822217562]
+transform = Transform3D(0.26, 2.612662e-11, 3.874302e-09, 9.796988e-10, 0.555, -2.1902005e-11, 1.937151e-09, 1.0370894e-10, 0.26000002, -3.1597812, -6.7823024, -10.057144)
+size = Vector3(0.16455078, 0.6154785, 0.19335938)
+
+[node name="CSGBox3D21" type="CSGBox3D" parent="Elementos underground" unique_id=510256380]
+transform = Transform3D(0.26, 2.612662e-11, 3.874302e-09, 9.796988e-10, 0.555, -2.1902005e-11, 1.937151e-09, 1.0370894e-10, 0.26000002, -2.907044, -6.7823024, -10.057144)
+size = Vector3(0.16455078, 0.6154785, 0.19335938)
+
+[node name="CSGBox3D22" type="CSGBox3D" parent="Elementos underground" unique_id=1086972034]
+transform = Transform3D(0.26, 2.612662e-11, 3.874302e-09, 9.796988e-10, 0.555, -2.1902005e-11, 1.937151e-09, 1.0370894e-10, 0.26000002, -3.1597812, -6.7823024, -10.593956)
+size = Vector3(0.16455078, 0.6154785, 0.19335938)
+
+[node name="CSGBox3D23" type="CSGBox3D" parent="Elementos underground" unique_id=1876748771]
+transform = Transform3D(0.26, 2.612662e-11, 3.874302e-09, 9.796988e-10, 0.555, -2.1902005e-11, 1.937151e-09, 1.0370894e-10, 0.26000002, -2.907044, -6.7823024, -10.593956)
+size = Vector3(0.16455078, 0.6154785, 0.19335938)
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="Elementos underground" unique_id=249432474]
+transform = Transform3D(0.34, 1.6005497e-11, 5.0663953e-09, 1.2811446e-09, 0.34, -2.8641084e-11, 2.5331977e-09, 6.35334e-11, 0.34000003, -3.2588065, -5.403992, -4.60894)
+size = Vector3(1, 1.7557373, 1)
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="Elementos underground" unique_id=1365432110]
+transform = Transform3D(0.41012186, -0.024748737, 5.215407e-10, 0.41012186, 0.024748737, -2.9483469e-12, 3.1322829e-09, -1.7976787e-10, 0.035000004, -3.114944, -5.474957, -5.3052826)
+size = Vector3(0.60253906, 1, 1)
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="Elementos underground" unique_id=805884221]
+transform = Transform3D(0.057, 2.2125244e-11, 7.0035466e-09, 2.1478014e-10, 0.47, -3.9592087e-11, 4.2468315e-10, 8.782558e-11, 0.47000006, -3.2221553, -5.5640597, -5.3255577)
+size = Vector3(1, 1, 0.7441406)
+
+[node name="paredes techo y suelo underground" type="CSGCombiner3D" parent="." unique_id=1434406371]
+transform = Transform3D(1, 0, 0, 0, 0.97207355, -0.23467632, 0, 0.23467632, 0.97207355, -0.43650222, 3.1390626, -50.773453)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="paredes techo y suelo underground" unique_id=201782078]
+transform = Transform3D(1, 0, 0, 0, 0.9720737, 0.23467635, 0, -0.23467635, 0.9720737, 0.8655951, -8.933504, 0.4849167)
+size = Vector3(7.3520355, 2.7540283, 0.10888672)
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="paredes techo y suelo underground/CSGBox3D12" unique_id=952456479]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4431343, -0.55190897, -0.037578583)
+operation = 2
+size = Vector3(1.0419922, 1.5969238, 0.27624512)
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="paredes techo y suelo underground" unique_id=757961394]
+transform = Transform3D(1, 0, 0, 0, 0.9720737, 0.23467635, 0, -0.23467635, 0.9720737, 1.2989943, -9.414726, 0.51802826)
+size = Vector3(1.3161011, 1.7496338, 0.09976196)
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="paredes techo y suelo underground" unique_id=548232089]
+transform = Transform3D(1, 0, 0, 0, 0.9720737, 0.23467635, 0, -0.23467635, 0.9720737, 1.2989943, -10.978741, -5.960415)
+size = Vector3(1.3161011, 1.7496338, 0.09976196)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="paredes techo y suelo underground" unique_id=1809217755]
+transform = Transform3D(1, 0, 0, 0, 0.9720737, 0.23467635, 0, -0.23467635, 0.9720737, 0.82786775, -10.511847, -6.0528793)
+size = Vector3(7.276581, 2.7540283, 0.10888672)
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="paredes techo y suelo underground/CSGBox3D13" unique_id=342176077]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48086166, -0.55190897, -0.012756348)
+operation = 2
+size = Vector3(1.0419922, 1.5969238, 0.27624512)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="paredes techo y suelo underground" unique_id=144703447]
+transform = Transform3D(-1.3769087e-08, -0.455, 0, 0.30620334, -1.933327e-08, 0.23468025, -0.07392306, 4.6674034e-09, 0.9720899, -2.8222084, -11.66725, -11.037907)
+size = Vector3(9.2421875, 0.1850586, 41.943085)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="paredes techo y suelo underground" unique_id=1551685227]
+transform = Transform3D(1, 0, 0, 0, 0.97208875, 0.23468, 0, -0.23468, 0.97208875, 0.84763503, -10.413073, -11.756805)
+size = Vector3(7.4296875, 0.1850586, 42.752136)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="paredes techo y suelo underground" unique_id=258225345]
+transform = Transform3D(1, 0, 0, 0, 0.97209543, 0.2346816, 0, -0.2346816, 0.97209543, 0.84763503, -16.225113, -23.676804)
+size = Vector3(7.4296875, 0.1850586, 68.65378)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="paredes techo y suelo underground/CSGBox3D9" unique_id=1280038474]
+transform = Transform3D(7.0919576, -2.7424228e-08, 1.8383799, 2.7880097e-07, 0.77, -5.662251e-07, -0.73555857, 2.7442136e-08, 17.72492, -0.24603081, 0.044300556, -3.8704987)
+operation = 2
+radial_segments = 7
+rings = 5
+
+[node name="CSGSphere3D3" type="CSGSphere3D" parent="paredes techo y suelo underground/CSGBox3D9" unique_id=2076159643]
+transform = Transform3D(6.5798283, -1.1754094e-08, 4.0329466, 2.188741e-07, 0.77, -3.55093e-07, -2.7464092, 3.3204493e-08, 9.662104, -0.24603081, 0.044301987, -15.605362)
+operation = 2
+radial_segments = 7
+rings = 5
+
+[node name="CSGSphere3D4" type="CSGSphere3D" parent="paredes techo y suelo underground/CSGBox3D9" unique_id=2005057166]
+transform = Transform3D(7.0919576, -2.7424228e-08, 1.8383799, 2.7880097e-07, 0.77, -5.662251e-07, -0.73555857, 2.7442136e-08, 17.72492, -0.24603081, 0.044300556, 10.037827)
+operation = 2
+radial_segments = 7
+rings = 5
+
+[node name="CSGSphere3D5" type="CSGSphere3D" parent="paredes techo y suelo underground/CSGBox3D9" unique_id=400753247]
+transform = Transform3D(6.5798283, -1.1754094e-08, 4.0329466, 2.188741e-07, 0.77, -3.55093e-07, -2.7464092, 3.3204493e-08, 9.662104, -0.24603081, 0.044301987, -1.6970367)
+operation = 2
+radial_segments = 7
+rings = 5
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="paredes techo y suelo underground/CSGBox3D9" unique_id=857911133]
+transform = Transform3D(6.4463267, 0, 3.8919191, 1.9789528e-07, 0.7699966, -2.53347e-07, -4.426862, 3.4421383e-08, 5.667302, -0.011606216, 0.044299603, -9.228405)
+operation = 2
+radial_segments = 7
+rings = 5
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="." unique_id=343708984]
+transform = Transform3D(1, 0, 0, 0, 0.97207355, -0.23467632, 0, 0.23467632, 0.97207355, -0.43650222, 3.1390626, -50.773453)
+size = Vector3(4.4310303, 1, 0.23535156)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=2250991]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.0169015, -63.026974)
+size = Vector3(1, 0.13085938, 0.7149658)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=916358262]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.2512503, -68.55864)
+size = Vector3(1, 0.13085938, 0.7149658)
