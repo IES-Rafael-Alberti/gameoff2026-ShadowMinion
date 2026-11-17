@@ -31,18 +31,15 @@ directories/dch_directory={
 directories/dtl_directory={
 "timeline": "res://timeline.dtl"
 }
-layout/style_directory={
-"": "res://new_style.tres",
-"new_style": "res://new_style.tres"
-}
+layout/style_directory={}
 variables={
 "folder": {
 "folder_var": ""
 },
 "response": ""
 }
-layout/style_list=["res://new_style.tres"]
-layout/default_style="res://new_style.tres"
+layout/style_list=[]
+layout/default_style=""
 glossary/default_case_sensitive=true
 
 [editor_plugins]

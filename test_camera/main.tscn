@@ -155,7 +155,8 @@ collision_mask = 3
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=593085185]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22849202, 2.8173661, 11.538721)
+transform = Transform3D(1, 0, 0, 0, 0.9999916, 0, 0, 0, 0.9999916, 0.22849202, 2.8173661, 11.538721)
+top_level = true
 projection = 1
 size = 10.0
 near = 0.001
@@ -179,6 +180,8 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_272bh")
 camera_3d_resource = SubResource("Resource_jyaov")
 follow_offset = Vector3(0, 0, 3)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=1364791712 node_paths=PackedStringArray("follow_target")]
@@ -190,6 +193,8 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_5vw27")
 camera_3d_resource = SubResource("Resource_l7s6d")
 follow_offset = Vector3(0, 9.25, 6.5)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=339735079 node_paths=PackedStringArray("look_at_target")]
@@ -199,6 +204,8 @@ look_at_mode = 2
 look_at_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_lquwl")
 camera_3d_resource = SubResource("Resource_weqku")
+align_transform_with_view = Callable()
+align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="enemy" parent="." unique_id=752523582 instance=ExtResource("7_ycdy4")]

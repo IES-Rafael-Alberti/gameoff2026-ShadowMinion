@@ -18,11 +18,13 @@ extends Node
 @export var consecutive_grapple:int = 1
 
 @export_group("Péndulo")
-@export var swing_damping: float = 0.05
+#@export var swing_damping: float = 0.05
+#Velocidad tangencial constante con la que recorres el arco
+@export var swing_speed: float = 12.0
 @export var reel_speed: float = 0.0
 @export var min_rope_length = 1.0
 # Arco total máximo de balanceo en grados
-@export_range(0.0, 360.0, 1.0) var max_total_swing_deg: float = 200.0
+@export_range(0.0, 360.0, 1.0) var max_total_swing_deg: float = 100.0
 
 
 @onready var player: CharacterBody3D = get_parent() as CharacterBody3D
@@ -31,6 +33,11 @@ var rope_length: float = 0.0
 var launched: bool = false
 var target = Vector3.ZERO
 var current_grapple:int = 0
+
+#Estado del arco predefinido
+var current_angle: float = 0.0 #ángulo respecto a "abajo" del ancla (rad)
+var swing_dir: int = 1 # Dirección del barrido
+var swept_angle_rad: float = 0.0 #ángulo total recorrido (rad)
 
 func _physics_process(delta: float) -> void:
 	#Desactiva el gancho si no hay jugador o si se activa el modo 3D
@@ -80,6 +87,19 @@ func launch():
 	rope_length = player.global_position.distance_to(target)
 	rope_length = maxf(rope_length, min_rope_length)
 	
+	#Ángulo inicial respecto a la vertical hacia abajo del ancla.
+	#0 es justo debajo, positivo es derecha y negativo es izquierda
+	var offset = player.global_position - target
+	current_angle = atan2(offset.x, -offset.y)
+	
+	#Dirección del barrido según donde mira el jugador
+	var facing_val = player.get("facing")
+	swing_dir = int(facing_val) if facing_val != null else 1
+	if swing_dir == 0:
+		swing_dir = 1
+	
+	swept_angle_rad = 0.0
+	
 	launched = true
 	
 	#Se consume un gancho al usarlo con éxito
@@ -87,6 +107,9 @@ func launch():
 
 	
 func retract()->void:
+	if launched and player and player.velocity.y > 0.0:
+		#Suaviza el impulso hacia arriba al soltar para un salto más parabólico
+		player.velocity.y *= 0.4
 	launched = false
 
 func handle_grapple(delta: float):
@@ -97,53 +120,23 @@ func handle_grapple(delta: float):
 	if reel_speed > 0.0 and Input.is_action_pressed("grapple"):
 		rope_length = maxf(rope_length - reel_speed * delta, min_rope_length)
 	
-	#Vector que va del ancla al jugador
-	var offset = player.global_position - target
-	var dist = offset.length()
-	if dist < 0.001:
-		return
-	var dir = offset / dist
+	# Avance angular con velocidad tangencial constante
+	var angular_speed = swing_speed / maxf(rope_length, 0.001)
+	var angle_step = swing_dir * angular_speed * delta
+	current_angle += angle_step
+	swept_angle_rad += abs(angle_step)
 	
-	#Si la cuerda está tensa, el jugador no puede alejarse más
-	if dist >= rope_length:
-		#Devuelve al jugador a la circuferencia de radio rope_length
-		player.global_position = target + dir * rope_length
-		
-		#Quita solo la velocidad que aleja del ancla, la velocidad perpendicular se conserva
-		var radial_speed = player.velocity.dot(dir)
-		if radial_speed > 0.0:
-			player.velocity -= dir * radial_speed
-		
-		var max_angle = deg_to_rad(max_total_swing_deg * 0.5)
-		var down = Vector3.DOWN
-		var angle = acos(clampf(dir.dot(down), -1.0, 1.0))
-		if angle > max_angle:
-			# Eje perpendicular al plano del balanceo
-			var axis = down.cross(dir)
-			if axis.length_squared() < 0.00001:
-				axis = Vector3.BACK * (1.0 if player.velocity.x >= 0.0 else -1.0)
-			axis = axis.normalized()
-			
-			#Dirección justo en el límite
-			var clamped_dir = down.rotated(axis, max_angle)
-			player.global_position = target + clamped_dir * rope_length
-			
-			#Quita la velocidad que intentaría seguir subiendo
-			var tangent = axis.cross(clamped_dir)
-			var outward_speed = player.velocity.dot(tangent)
-			if outward_speed > 0.0:
-				player.velocity -= tangent * outward_speed
-			
-			dir = clamped_dir
-		
-		#Amortiguación del balanceo
-		if swing_damping > 0.0:
-			var radial = dir * player.velocity.dot(dir)
-			var tangential = player.velocity - radial
-			player.velocity -= tangential * swing_damping * delta
-			
+	#Posicón exacta sobre el arco (0 es por debajo del ancla)
+	var new_offset = Vector3(sin(current_angle), -cos(current_angle), 0.0) * rope_length
+	player.global_position = target + new_offset
 	
-	player.velocity.z = 0.0
+	#Velocidad tangencial para conservar inercia al soltar
+	var tangent = Vector3(cos(current_angle), sin(current_angle), 0.0) * swing_dir
+	player.velocity = tangent * swing_speed
+	
+	#Autosaltar al superar el arco máximo
+	if rad_to_deg(swept_angle_rad) >= max_total_swing_deg:
+		retract()
 
 func update_rope():
 	if rope == null:

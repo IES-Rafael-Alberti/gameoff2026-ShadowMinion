@@ -8,16 +8,21 @@ class_name Player extends CharacterBody3D
 ## How fast do we run?
 @export var sprint_speed : float = 10.0
 # Dash
-@export var dash : float = 100.0
+@export var dash : float = 70.0
 var tween: Tween
 @export var dash_velocity : float = 0.0
-@export_group("Balanceo")
-# Aceleración horizontal que aplicas con izquierda/derecha mientras estás enganchado
-@export var grapple_air_accel : float = 10.0
-# Aceleración cuando empujnas en contra. Más baja para no frenar de golpe
-@export var grapple_brake_accel : float = 4.0
-#Velocidad horizontal máxima mientras empujas el balanceo
-@export var grapple_max_speed : float = 22.0
+#Fuerza de frenado en el aire al pulsar la dirección contraria tras soltar el gancho
+#Al menor el número, mayor tarda en frenar
+@export var air_brake_accel: float = 25.0
+#Aceleración normal en el aire para moverte o girar
+@export var air_control_accel: float = 50.0
+#@export_group("Balanceo")
+## Aceleración horizontal que aplicas con izquierda/derecha mientras estás enganchado
+#@export var grapple_air_accel : float = 10.0
+## Aceleración cuando empujnas en contra. Más baja para no frenar de golpe
+#@export var grapple_brake_accel : float = 4.0
+##Velocidad horizontal máxima mientras empujas el balanceo
+#@export var grapple_max_speed : float = 22.0
 
 
 var move_speed : float = 0.0
@@ -28,6 +33,9 @@ var original_position = Vector3.ZERO
 var facing:int = 1
 var is_dead: bool = false
 var is_in_dialogue: bool = false
+var was_grappling: bool = false
+var just_released_grapple: bool = false
+
 
 @onready var camera_manager: Node = $"../CameraManager"
 @onready var collider: CollisionShape3D = $Collider
@@ -50,7 +58,21 @@ func _physics_process(delta: float) -> void:
 		
 	changeMovementController()
 	
+	var grapple_node = get_node_or_null("GrapplingController")
+	var is_grappling: bool = grapple_node != null and grapple_node.launched
+	
+	#Detecta el momento al soltar el gancho
+	if was_grappling and not is_grappling:
+		just_released_grapple = true
+	
+	#Si toca el suelo, se acaba la inercia del gancho
+	if is_on_floor():
+		just_released_grapple = false
+	
+	was_grappling = is_grappling
+	
 	if not is_on_floor():
+		if not is_grappling:
 			velocity += get_gravity() * delta
 			#Si caemos del borde sin saltar, se elimina un salto
 			if jumpCount > 1:
@@ -96,30 +118,40 @@ func movement3D() -> void:
 		velocity.z = move_toward(velocity.z, 0, move_speed)
 		
 func movement2D(delta: float) ->void:
-	var input_dir := Input.get_axis("Left", "Right")
-	#var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if not is_zero_approx(input_dir):
-		facing = 1 if input_dir > 0.0 else -1
-		
 	#Busca si el nodo del gancho está en uso
 	var grapple_node = get_node_or_null("GrapplingController")
 	var is_grappling:bool = grapple_node != null and grapple_node.launched
 	
 	if is_grappling:
-		#empuja el balanceo
-		if not is_zero_approx(input_dir):
-			#Si empuja en contra del balanceo, se usa una aceleración más suave
-			var accel = grapple_air_accel
-			if input_dir * velocity.x < -0.5:
-				accel = grapple_brake_accel
-				
-			velocity.x += input_dir * accel * delta
-			velocity.x = clampf(velocity.x, -grapple_max_speed, grapple_max_speed)
-	elif not is_zero_approx(input_dir):
-		velocity.x = input_dir * (move_speed + dash_velocity)
-	else:
-		#Solo frena cuando no está colgado del techo
+		#Sin control durante el balanceo: el gancho define la trayectoria
+		velocity.z = 0.0
+		return
+		
+	var input_dir := Input.get_axis("Left", "Right")
+	#var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if not is_zero_approx(input_dir):
+		facing = 1 if input_dir > 0.0 else -1
+		
+		if is_on_floor():
+			#En el suelo, el movimiento es instantáneo
+			velocity.x = input_dir * (move_speed + dash_velocity)
+		else:
+			#En el aire
+			var target_speed = input_dir * (move_speed + dash_velocity)
+			#Si venimos del gancho y pulsamos la dirección contraria al movimiento
+			if just_released_grapple and not is_zero_approx(velocity.x) and signf(input_dir) != signf(velocity.x):
+				# Frenado, se reduce la velocidad actual hasta 0
+				velocity.x = move_toward(velocity.x, 0.0, air_brake_accel * delta)
+				#Si ya hemos frenado casi del todo, quitamos el estado para que pueda girar con normalidad
+				if absf(velocity.x) < 0.1:
+					just_released_grapple = false
+			else:
+				#Control aéreo normal
+				velocity.x = move_toward(velocity.x, target_speed, air_control_accel)
+	elif is_on_floor():
+		#Solo frena en el suelo. En el aire conserva la inercia
 		velocity.x = move_toward(velocity.x, 0, move_speed)
+	#En el aire sin input no se toca velocity.x para conservar la inercia
 	velocity.z = 0.0
 	#else:
 		#velocity.x = move_toward(velocity.x, 0, move_speed)

@@ -7,7 +7,7 @@
 "prefix": "",
 "sound_mood_default": "",
 "sound_moods": {},
-"style": "new_style",
+"style": "",
 "suffix": ""
 },
 &"default_portrait": "god",
@@ -19,7 +19,7 @@
 &"portraits": {
 "New portrait": {
 "export_overrides": {
-"image": ""
+"image": "\"res://placeholder-portrait-example.png\""
 },
 "mirror": false,
 "offset": Vector2(0, 0),
