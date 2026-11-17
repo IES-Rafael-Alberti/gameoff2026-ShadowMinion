@@ -22,6 +22,11 @@ albedo_color = Color(0, 0, 1, 1)
 
 [sub_resource type="HeightMapShape3D" id="HeightMapShape3D_l7s6d"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l7s6d"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jyaov"]
+material = SubResource("StandardMaterial3D_l7s6d")
+
 [sub_resource type="HeightMapShape3D" id="HeightMapShape3D_jyaov"]
 
 [sub_resource type="Resource" id="Resource_a1bqk"]
@@ -243,6 +248,10 @@ lock_rotation = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Caja movible/RigidBody3D" unique_id=1805844026]
 shape = SubResource("HeightMapShape3D_l7s6d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Caja movible/RigidBody3D" unique_id=793586301]
+transform = Transform3D(0.48868406, 0, 0, 0, 1, 0, 0, 0, 0.5008552, 0, 0, 0)
+mesh = SubResource("PlaneMesh_jyaov")
 
 [node name="Fuente" type="CSGCombiner3D" parent="." unique_id=1668386595]
 transform = Transform3D(24.72, 0, 0, 0, 1.236, 0, 0, 0, 24.72, 1.6077766, 1.25, -31)
@@ -517,8 +526,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.722, 1.05, 0)
 
 [node name="Camera" type="Camera3D" parent="." unique_id=2655336]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7465324e-07, 1.05, 32.722)
-top_level = true
+transform = Transform3D(-0.2588191, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.2588191, 27.268333, 1.05, -5.4536676)
 projection = 1
 size = 10.0
 
@@ -542,8 +550,6 @@ tween_resource = SubResource("Resource_a1bqk")
 camera_3d_resource = SubResource("Resource_bcbm8")
 follow_distance = 15.0
 spring_length = 15.0
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=563448195 node_paths=PackedStringArray("follow_target")]
@@ -555,8 +561,6 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_clg6b")
 camera_3d_resource = SubResource("Resource_31jyx")
 follow_offset = Vector3(0, 10.92, 15)
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=1649322412]
