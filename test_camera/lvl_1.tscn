@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://kmn35hkh80hj"]
 
 [ext_resource type="PackedScene" uid="uid://elx0c4sug3sh" path="res://Scenes/Player.tscn" id="1_6mpcb"]
+[ext_resource type="Script" uid="uid://dl2uo7qcj23vn" path="res://Scripts/StaticPlatform.gd" id="1_bcbm8"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_clg6b"]
 [ext_resource type="Script" uid="uid://b338xlofghkv" path="res://Scripts/cameraManager.gd" id="3_t6wp4"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_bcbm8"]
@@ -20,14 +21,33 @@ glow_enabled = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t6wp4"]
 albedo_color = Color(0, 0, 1, 1)
 
-[sub_resource type="HeightMapShape3D" id="HeightMapShape3D_l7s6d"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_4snel"]
+size = Vector3(1, 0, 1.975)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l7s6d"]
+albedo_color = Color(0, 0, 1, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_jyaov"]
 material = SubResource("StandardMaterial3D_l7s6d")
+size = Vector2(2, 3.895)
 
-[sub_resource type="HeightMapShape3D" id="HeightMapShape3D_jyaov"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_bcbm8"]
+size = Vector3(1, 0.005, 22.86)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nx1mr"]
+size = Vector3(1, 0.141875, 22.86)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p74ua"]
+size = Vector3(1, 0.005, 14)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a1bqk"]
+size = Vector3(1, 0, 8.22)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jtugp"]
+size = Vector3(1, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c82kl"]
+size = Vector3(1, 0.142, 1)
 
 [sub_resource type="Resource" id="Resource_a1bqk"]
 script = ExtResource("5_31jyx")
@@ -243,11 +263,13 @@ size = Vector3(2.1308594, 2, 1.9824219)
 material = SubResource("StandardMaterial3D_t6wp4")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Caja movible" unique_id=374854432]
-transform = Transform3D(2.155, 0, 0, 0, 1.015, 0, 0, 0, 2, 6.0269504, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0269504, 1, 0)
+axis_lock_linear_y = true
+axis_lock_linear_z = true
 lock_rotation = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Caja movible/RigidBody3D" unique_id=1805844026]
-shape = SubResource("HeightMapShape3D_l7s6d")
+shape = SubResource("BoxShape3D_4snel")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Caja movible/RigidBody3D" unique_id=793586301]
 transform = Transform3D(0.48868406, 0, 0, 0, 1, 0, 0, 0, 0.5008552, 0, 0, 0)
@@ -295,25 +317,81 @@ operation = 2
 height = 5.25
 sides = 10
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Fuente" unique_id=1895439727]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6550873, 2.248, 0)
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1895439727]
+transform = Transform3D(1, 0, -3.5527137e-15, 0, 0.99999994, 0, 3.5527137e-15, 0, 1, 17.801535, 4.0285277, -31)
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+lock_rotation = true
+freeze = true
+script = ExtResource("1_bcbm8")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Fuente/RigidBody3D" unique_id=1570765552]
-transform = Transform3D(0.06615806, 0, 0, 0, 1, 0, 0, 0, 0.95222133, 0, 0, 0)
-shape = SubResource("HeightMapShape3D_jyaov")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1570765552]
+shape = SubResource("BoxShape3D_bcbm8")
+disabled = true
 
-[node name="RigidBody3D2" type="RigidBody3D" parent="Fuente" unique_id=66695475]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.59984374, 0.65317994, 6.1276627, -1.5584744e-15)
+[node name="Area3D" type="Area3D" parent="RigidBody3D" unique_id=1066283529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Fuente/RigidBody3D2" unique_id=1776528670]
-transform = Transform3D(0.06615806, 0, 0, 0, 1, 0, 0, 0, 0.95222133, 0, 0, 0)
-shape = SubResource("HeightMapShape3D_jyaov")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Area3D" unique_id=84168206]
+shape = SubResource("BoxShape3D_nx1mr")
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="." unique_id=66695475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.799376, 8.824207, -31)
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+lock_rotation = true
+freeze = true
+script = ExtResource("1_bcbm8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2" unique_id=314219129]
+shape = SubResource("BoxShape3D_p74ua")
+disabled = true
+
+[node name="Area3D" type="Area3D" parent="RigidBody3D2" unique_id=127579323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2/Area3D" unique_id=1007930391]
+shape = SubResource("BoxShape3D_nx1mr")
+
+[node name="RigidBody3D3" type="RigidBody3D" parent="." unique_id=1899177338]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.799376, 20.320244, -31)
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+lock_rotation = true
+freeze = true
+script = ExtResource("1_bcbm8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D3" unique_id=1499746234]
+shape = SubResource("BoxShape3D_a1bqk")
+disabled = true
+
+[node name="Area3D" type="Area3D" parent="RigidBody3D3" unique_id=663080783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D3/Area3D" unique_id=1294290373]
+shape = SubResource("BoxShape3D_nx1mr")
 
 [node name="farola" type="CSGCylinder3D" parent="." unique_id=701838425]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.555666, 4.067749, -45.195206)
 use_collision = true
 height = 8.135498
 smooth_faces = false
+
+[node name="RigidBody3D4" type="RigidBody3D" parent="." unique_id=1281292746]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8, 8.135, -45.195)
+lock_rotation = true
+freeze = true
+script = ExtResource("1_bcbm8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D4" unique_id=412983807]
+shape = SubResource("BoxShape3D_jtugp")
+disabled = true
+
+[node name="Area3D" type="Area3D" parent="RigidBody3D4" unique_id=1972905880]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D4/Area3D" unique_id=566471848]
+shape = SubResource("BoxShape3D_c82kl")
 
 [node name="lamapara farola" type="CSGBox3D" parent="." unique_id=1020623647]
 transform = Transform3D(1.638, 0, 0, 0, 1.714, 0, 0, 0, 1.489, 13.449511, 7, -45.209774)
@@ -522,11 +600,12 @@ transform = Transform3D(0.25487742, -0.007625356, 0.0020861332, 0.0076348847, 0.
 transform = Transform3D(0.1499279, -0.004485504, 0.0020452265, 0.0044911085, 0.14993124, -0.0011209885, -0.0012064608, 0.00070901116, 0.24998912, 1.1203156, -0.5724969, 0.2778473)
 
 [node name="Player" parent="." unique_id=1352346882 instance=ExtResource("1_6mpcb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.722, 1.05, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.721998, 1.05, -22.395872)
 
 [node name="Camera" type="Camera3D" parent="." unique_id=2655336]
 physics_interpolation_mode = 1
-transform = Transform3D(-0.2588191, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.2588191, 27.268333, 1.05, -5.4536676)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.395872, 1.05, 32.722)
+top_level = true
 projection = 1
 size = 10.0
 
@@ -540,7 +619,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 script = ExtResource("3_t6wp4")
 
 [node name="2DCamera" type="Node3D" parent="CameraManager" unique_id=859734584 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7465324e-07, 1.05, 32.722)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.395872, 1.05, 32.722)
 top_level = true
 script = ExtResource("4_bcbm8")
 priority = 1
@@ -550,10 +629,12 @@ tween_resource = SubResource("Resource_a1bqk")
 camera_3d_resource = SubResource("Resource_bcbm8")
 follow_distance = 15.0
 spring_length = 15.0
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=563448195 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.8394176, 0.5434871, 0, -0.5434871, 0.8394176, -7.7465324e-07, 12.513487, 33.561417)
+transform = Transform3D(1, 0, 0, 0, 0.8394176, 0.5434871, 0, -0.5434871, 0.8394176, 22.395872, 12.513487, 33.561417)
 top_level = true
 script = ExtResource("4_bcbm8")
 follow_mode = 5
@@ -561,9 +642,20 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_clg6b")
 camera_3d_resource = SubResource("Resource_31jyx")
 follow_offset = Vector3(0, 10.92, 15)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=1649322412]
 script = ExtResource("4_bcbm8")
 tween_resource = SubResource("Resource_t6wp4")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[connection signal="body_entered" from="RigidBody3D/Area3D" to="RigidBody3D" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="RigidBody3D/Area3D" to="RigidBody3D" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="RigidBody3D2/Area3D" to="RigidBody3D2" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="RigidBody3D2/Area3D" to="RigidBody3D2" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="RigidBody3D3/Area3D" to="RigidBody3D3" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="RigidBody3D3/Area3D" to="RigidBody3D3" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="RigidBody3D4/Area3D" to="RigidBody3D4" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="RigidBody3D4/Area3D" to="RigidBody3D4" method="_on_area_3d_body_exited"]

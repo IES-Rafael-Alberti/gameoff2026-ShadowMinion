@@ -233,6 +233,7 @@ shape = SubResource("BoxShape3D_jyaov")
 
 [node name="Obstaculo2" type="Node3D" parent="." unique_id=1206588515]
 transform = Transform3D(0.49943534, 0, 0, 0, 1, 0, 0, 0, 0.1703877, 8.435314, 2.8068526, 7.8225927)
+visible = false
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Obstaculo2" unique_id=411884768]
 transform = Transform3D(2.0022612, 0, 0, 0, 1, 0, 0, 0, 5.8689675, 0.08634758, 0, 40.038605)
