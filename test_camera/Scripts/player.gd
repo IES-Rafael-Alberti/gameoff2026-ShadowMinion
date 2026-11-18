@@ -204,6 +204,8 @@ func changeMovementController() -> void:
 			mesh.visible = true
 		if mesh_ghost:
 			mesh_ghost.visible = true
+			
+	GlobalScript.set_3d_mode(movement3DActivated)
 
 func _ready() -> void:
 	
@@ -217,6 +219,8 @@ func _ready() -> void:
 		mesh.visible = true
 	if mesh_ghost:
 		mesh_ghost.visible = false
+		
+	GlobalScript.set_3d_mode(false)
 		
 func accion_dash():
 	if Input.is_action_just_pressed("Dash"):

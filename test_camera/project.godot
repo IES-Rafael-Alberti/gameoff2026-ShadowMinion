@@ -49,6 +49,7 @@ enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/phan
 [global_group]
 
 grappleable=""
+only_in_3d_mode=""
 
 [input]
 

@@ -1,11 +1,15 @@
 [gd_scene format=3 uid="uid://l4caiv0fjr1j"]
 
+[ext_resource type="PackedScene" uid="uid://bkge8vtk2834i" path="res://Scenes/first_enemy.tscn" id="1_7rxco"]
 [ext_resource type="PackedScene" uid="uid://elx0c4sug3sh" path="res://Scenes/Player.tscn" id="1_031k3"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_dbx23"]
 [ext_resource type="Script" uid="uid://b338xlofghkv" path="res://Scripts/cameraManager.gd" id="3_bmf8x"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_7rxco"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_f7f4c"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="6_beans"]
+[ext_resource type="PackedScene" uid="uid://bfed5b06bmvck" path="res://Scenes/key_example.tscn" id="8_beans"]
+[ext_resource type="PackedScene" uid="uid://dh0py6s07qne3" path="res://Scenes/door_example.tscn" id="9_tmnqu"]
+[ext_resource type="PackedScene" uid="uid://ck43m43bci63f" path="res://Scenes/Interaction/InteractionArea.tscn" id="10_tmnqu"]
 
 [sub_resource type="Resource" id="Resource_tmnqu"]
 script = ExtResource("5_f7f4c")
@@ -42,6 +46,9 @@ sky_material = SubResource("ProceduralSkyMaterial_bmf8x")
 background_mode = 2
 sky = SubResource("Sky_h2yge")
 glow_enabled = true
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0mymv"]
+radius = 5.1996703
 
 [node name="lvl 2" type="Node3D" unique_id=1950091141]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
@@ -134,7 +141,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.65802836, -12.402721)
 size = Vector3(1, 0.15771484, 2.0732422)
 
 [node name="CSGBox3D17" type="CSGBox3D" parent="Plataformas" unique_id=1907588162]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6883934, -26.008224)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.126388e-13, 0.33840537, -26.008224)
 size = Vector3(1, 0.15771484, 2.0732422)
 
 [node name="CSGBox3D18" type="CSGBox3D" parent="Plataformas" unique_id=2062119829]
@@ -148,20 +155,20 @@ size = Vector3(3.9262695, 0.15771484, 1.1849976)
 [node name="CSGBox3D13" type="CSGBox3D" parent="Plataformas" unique_id=1738382136]
 size = Vector3(1, 0.15771484, 2.0732422)
 
-[node name="cANGREJO" type="CSGBox3D" parent="Plataformas" unique_id=1194065208]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9410496, -2.0193272, -28.607662)
+[node name="cANGREJO" type="CSGBox3D" parent="Plataformas" unique_id=1194065208 groups=["only_in_3d_mode"]]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -4.941049, -3.862814, -28.607662)
 size = Vector3(2.682495, 3.208496, 2.7836914)
 
-[node name="cANGREJO2" type="CSGBox3D" parent="Plataformas" unique_id=2125151207]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7624912, -2.0193272, -19.55937)
+[node name="cANGREJO2" type="CSGBox3D" parent="Plataformas" unique_id=2125151207 groups=["only_in_3d_mode"]]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.7624912, -4.6325817, -19.55937)
 size = Vector3(2.682495, 3.208496, 2.7836914)
 
-[node name="cANGREJO3" type="CSGBox3D" parent="Plataformas" unique_id=2028915737]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7642598, -2.0193272, -10.260853)
+[node name="cANGREJO3" type="CSGBox3D" parent="Plataformas" unique_id=2028915737 groups=["only_in_3d_mode"]]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -3.7642598, -3.6189213, -10.260853)
 size = Vector3(2.682495, 3.208496, 2.7836914)
 
-[node name="cANGREJO4" type="CSGBox3D" parent="Plataformas" unique_id=940590304]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5809484, -2.0193272, -1.3939042)
+[node name="cANGREJO4" type="CSGBox3D" parent="Plataformas" unique_id=940590304 groups=["only_in_3d_mode"]]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.5809484, -4.995471, -1.3939037)
 size = Vector3(2.682495, 3.208496, 2.7836914)
 
 [node name="Estanteria 1" type="CSGCombiner3D" parent="Plataformas" unique_id=41457672]
@@ -327,6 +334,18 @@ size = Vector3(8.799225, 0.37597656, 7.5983887)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.27723694, -2.5616257, -110.525475)
 size = Vector3(8.799225, 0.37597656, 20.012024)
 
+[node name="first_enemy" parent="Plataformas" unique_id=2028063305 groups=["only_in_3d_mode"] instance=ExtResource("1_7rxco")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -4.1060715, 0.08957863, -10.491901)
+
+[node name="first_enemy2" parent="Plataformas" unique_id=1696870406 groups=["only_in_3d_mode"] instance=ExtResource("1_7rxco")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.8896215, -1.2869759, -1.4453201)
+
+[node name="first_enemy3" parent="Plataformas" unique_id=1927561328 groups=["only_in_3d_mode"] instance=ExtResource("1_7rxco")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.3414164, -0.9240837, -19.156097)
+
+[node name="first_enemy4" parent="Plataformas" unique_id=124067222 instance=ExtResource("1_7rxco")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -4.704004, -0.15431595, -29.008121)
+
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1301385740]
 
 [node name="Ganchos" type="CSGCombiner3D" parent="." unique_id=549116397]
@@ -339,10 +358,10 @@ transform = Transform3D(0.155, 0, 0, 0, 4.647, 0, 0, 0, 0.155, 0, 9.112976, 0)
 transform = Transform3D(0.61, 0, 0, 0, 0.61, 0, 0, 0, 0.61, 0, 6.520334, 0)
 
 [node name="CSGBox3D7" type="CSGBox3D" parent="Ganchos" unique_id=1865916430]
-transform = Transform3D(0.155, 0, 0, 0, 4.647, 0, 0, 0, 0.155, 0, 8.739251, -25.550598)
+transform = Transform3D(0.155, 0, 0, 0, 4.647, 0, 0, 0, 0.155, 0, 9.511866, -25.550598)
 
 [node name="CSGBox3D8" type="CSGBox3D" parent="Ganchos" unique_id=1248956496]
-transform = Transform3D(0.61, 0, 0, 0, 0.61, 0, 0, 0, 0.61, 0, 6.1580834, -25.550598)
+transform = Transform3D(0.61, 0, 0, 0, 0.61, 0, 0, 0, 0.61, 0, 6.7738595, -25.550598)
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="Ganchos" unique_id=21407842]
 transform = Transform3D(0.155, 0, 0, 0, 4.647, 0, 0, 0, 0.155, -0.95765245, 12.568622, -82.44964)
@@ -351,6 +370,7 @@ transform = Transform3D(0.155, 0, 0, 0, 4.647, 0, 0, 0, 0.155, -0.95765245, 12.5
 transform = Transform3D(0.61, 0, 0, 0, 0.61, 0, 0, 0, 0.61, -0.95765245, 9.987454, -82.44964)
 
 [node name="Plataformas ajedrez" type="CSGCombiner3D" parent="." unique_id=676904575]
+use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Plataformas ajedrez" unique_id=1610182600]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -52)
@@ -380,7 +400,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9605224, 6.1909995, -90.83
 size = Vector3(1, 0.1875, 1.2364197)
 
 [node name="Player" parent="." unique_id=1352346882 instance=ExtResource("1_031k3")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.05200022, 0.96, 5.041608)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05200022, 0.96, 5.041608)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1232808268]
 physics_interpolation_mode = 1
@@ -440,3 +460,14 @@ environment = SubResource("Environment_7rxco")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=38722897]
 transform = Transform3D(-0.5, 0.75, -0.43301266, 0, 0.49999997, 0.86602545, 0.8660254, 0.43301275, -0.24999999, 0.72847885, 22.347473, -0.89094836)
 shadow_enabled = true
+
+[node name="key_example" parent="." unique_id=758486595 instance=ExtResource("8_beans")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4.5334635, 1.6673586, -7.159931)
+
+[node name="door_example" parent="." unique_id=2118036215 instance=ExtResource("9_tmnqu")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2.3987696, 6.7782516, -43.810776)
+
+[node name="InteractionArea" parent="door_example" unique_id=1627042093 instance=ExtResource("10_tmnqu")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="door_example/InteractionArea" unique_id=954967908]
+shape = SubResource("SphereShape3D_0mymv")
