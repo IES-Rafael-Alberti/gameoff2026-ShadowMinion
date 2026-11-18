@@ -378,10 +378,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9605224, 6.1909995, -90.83
 size = Vector3(1, 0.1875, 1.2364197)
 
 [node name="Player" parent="." unique_id=1352346882 instance=ExtResource("1_031k3")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.05161985, 0.95963836, 4.5597324)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.05200029, 0.96, 6.6619244)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1232808268]
-transform = Transform3D(1, 0, 0, 0, 0.99129623, 0.13158575, 0, -0.13158575, 0.99129623, 0, 1.4013598, 8.831847)
+transform = Transform3D(1, 0, 0, 0, 0.99129623, 0.13158575, 0, -0.13158575, 0.99129623, 0, 2.3720777, 13.762694)
 top_level = true
 projection = 1
 size = 10.0
@@ -397,7 +397,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 script = ExtResource("3_bmf8x")
 
 [node name="2DCamera" type="Node3D" parent="CameraManager" unique_id=1369896271]
-transform = Transform3D(1, 0, 0, 0, 0.99129623, 0.13158575, 0, -0.13158575, 0.99129623, 0, 1.4013598, 8.831847)
+transform = Transform3D(1, 0, 0, 0, 0.99129623, 0.13158575, 0, -0.13158575, 0.99129623, 0, 2.3720777, 13.762694)
 top_level = true
 script = ExtResource("4_7rxco")
 priority = 1

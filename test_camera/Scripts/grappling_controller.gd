@@ -11,6 +11,10 @@ extends Node
 @export_group("Puntería")
 @export var max_range = 12.0
 @export_range(0.0, 90.0, 1.0) var aim_angle_deg = 45.0
+#Abanico total en grados
+@export var spread_angle_deg = 15.0
+#Cuantos rayos lanzar en el abanico
+@export var ray_count = 5
 
 @export_group("Cuerda")
 @export var rope_unit_length = 1.0
@@ -73,37 +77,64 @@ func launch():
 	if current_grapple <= 0:
 		return
 		
-	#Usa la dirección del frame al activar el gancho
-	ray.force_raycast_update()
-	
-	if not ray.is_colliding():
-		return
-		
-	var collider = ray.get_collider()
-	if collider == null or not collider.is_in_group("grappleable"):
-		return
-	target = ray.get_collision_point()
-	
-	rope_length = player.global_position.distance_to(target)
-	rope_length = maxf(rope_length, min_rope_length)
-	
-	#Ángulo inicial respecto a la vertical hacia abajo del ancla.
-	#0 es justo debajo, positivo es derecha y negativo es izquierda
-	var offset = player.global_position - target
-	current_angle = atan2(offset.x, -offset.y)
-	
-	#Dirección del barrido según donde mira el jugador
 	var facing_val = player.get("facing")
-	swing_dir = int(facing_val) if facing_val != null else 1
-	if swing_dir == 0:
-		swing_dir = 1
+	var facing = int(facing_val) if facing_val != null else 1
+	if facing == 0: facing = 1
 	
-	swept_angle_rad = 0.0
+	# Lanzamos múltiples rayos en abanico
+	for i in range(ray_count):
+		# Calculamos el ángulo de este rayo específico
+		var angle_offset = (i - (ray_count - 1) / 2.0) * (spread_angle_deg / max(1.0, float(ray_count -1)))
+		var current_aim = aim_angle_deg + angle_offset
+		var a = deg_to_rad(current_aim)
+		
+		#Calculamos la dirección en el mundo y la pasamos al espacio local del rayo
+		var world_dir = Vector3(cos(a) * float(facing), sin(a), 0.0).normalized()
+		var local_dir = ray.global_transform.basis.inverse() * world_dir
+		
+		#Apuntamos el rayo y forzamos la actualización de colisión
+		ray.target_position = local_dir.normalized() * max_range
+		#Usa la dirección del frame al activar el gancho
+		ray.force_raycast_update()
+		
+		#Comprobamos si este rayo del abanico golpeó algo
+		if ray.is_colliding():
+			var collider = ray.get_collider()
+			if collider != null or collider.is_in_group("grappleable"):
+				#Nos enganchamos al primer rayo que toque algo que se puede enganchar
+				target = ray.get_collision_point()
+				
+				rope_length = player.global_position.distance_to(target)
+				rope_length = maxf(rope_length, min_rope_length)
+				
+				#Ángulo inicial respecto a la vertical hacia abajo del ancla.
+				#0 es justo debajo, positivo es derecha y negativo es izquierda
+				var offset = player.global_position - target
+				current_angle = atan2(offset.x, -offset.y)
+				
+				#Dirección del barrido según donde mira el jugador
+				swing_dir = facing
+				swept_angle_rad = 0.0
+				
+				launched = true
+				
+				#Se consume un gancho al usarlo con éxito
+				current_grapple -= 1
+				
+				return
 	
-	launched = true
 	
-	#Se consume un gancho al usarlo con éxito
-	current_grapple -= 1
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
 
 	
 func retract()->void:
