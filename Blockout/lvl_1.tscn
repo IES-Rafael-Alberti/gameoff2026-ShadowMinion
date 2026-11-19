@@ -239,7 +239,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.257797, 0.4275403, -41.8922
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 10.36236, 3.7157154, -110.11937)
 
 [node name="plataforma que se desplaza" type="CSGBox3D" parent="Plataformas finales" unique_id=1248967014]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -43.68016, -3.634421, 5.755374)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -43.68016, -0.09901714, 5.755376)
 size = Vector3(3.2354736, 0.597229, 3.878418)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Plataformas finales" unique_id=1019994574]
