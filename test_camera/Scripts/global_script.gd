@@ -10,3 +10,9 @@ func set_3d_mode(active: bool) -> void:
 	for nodo in get_tree().get_nodes_in_group("only_in_3d_mode"):
 		if "visible" in nodo:
 			nodo.visible = active
+		
+		#Pausa la lógica y la física si no está activo
+		if active:
+			nodo.process_mode = Node.PROCESS_MODE_INHERIT
+		else:
+			nodo.process_mode = Node.PROCESS_MODE_DISABLED

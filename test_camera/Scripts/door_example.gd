@@ -8,6 +8,7 @@ extends Node3D
 @onready var key_example = $"../key_example" 
 
 var showing_message = false
+var door_opened = false
 
 func _ready() -> void:
 	if message_without_key:
@@ -18,11 +19,19 @@ func _ready() -> void:
 		interaction_area.interact = _on_interact_door
 
 func _on_interact_door() -> void:
+	if door_opened:
+		return
+		
 	# Comprobamos si la llave ya se ha cogido
 	if key_example and key_example.key_taken == true:
 		if message_without_key:
 			message_without_key.hide()
+		door_opened = true
 		animation_player.play("open_door")
+		
+		if interaction_area:
+			interaction_area.monitoring = false
+			interaction_area.queue_free()
 	else:
 		if message_without_key and not showing_message:
 			showing_message = true

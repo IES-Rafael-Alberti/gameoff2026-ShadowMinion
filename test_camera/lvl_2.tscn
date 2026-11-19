@@ -1,15 +1,140 @@
 [gd_scene format=3 uid="uid://l4caiv0fjr1j"]
 
 [ext_resource type="PackedScene" uid="uid://bkge8vtk2834i" path="res://Scenes/first_enemy.tscn" id="1_7rxco"]
+[ext_resource type="Script" uid="uid://bvfrx55tr1iiv" path="res://estanteria_1.gd" id="1_22vjt"]
 [ext_resource type="PackedScene" uid="uid://elx0c4sug3sh" path="res://Scenes/Player.tscn" id="1_031k3"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_dbx23"]
+[ext_resource type="PackedScene" uid="uid://c6notasypvblo" path="res://interaction/interaction area/interaction_area.tscn" id="2_t0ydl"]
 [ext_resource type="Script" uid="uid://b338xlofghkv" path="res://Scripts/cameraManager.gd" id="3_bmf8x"]
+[ext_resource type="Script" uid="uid://dkpdv1vixkxij" path="res://Scripts/interactionArea.gd" id="3_t0ydl"]
+[ext_resource type="Script" uid="uid://cs6sh2ufs5bdt" path="res://estanteria_3.gd" id="4_0a5a2"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_7rxco"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_f7f4c"]
+[ext_resource type="Script" uid="uid://c5aa1i2p0qu11" path="res://estanteria_4.gd" id="5_q11op"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="6_beans"]
 [ext_resource type="PackedScene" uid="uid://bfed5b06bmvck" path="res://Scenes/key_example.tscn" id="8_beans"]
 [ext_resource type="PackedScene" uid="uid://dh0py6s07qne3" path="res://Scenes/door_example.tscn" id="9_tmnqu"]
 [ext_resource type="PackedScene" uid="uid://ck43m43bci63f" path="res://Scenes/Interaction/InteractionArea.tscn" id="10_tmnqu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_658jc"]
+size = Vector3(7.9272766, 3.758789, 3.1513672)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0mymv"]
+size = Vector3(3.3839111, 3.64917, 2.5778809)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jfhai"]
+size = Vector3(2.8243408, 3.6157837, 3.3451538)
+
+[sub_resource type="Animation" id="Animation_22vjt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0010061264, 16.234264, -54.61563)]
+}
+
+[sub_resource type="Animation" id="Animation_t0ydl"]
+resource_name = "descend"
+length = 1.5333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.0010061264, 16.234264, -54.61563), Vector3(0.0010061264, 4.4677386, -54.61563)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e03lu"]
+_data = {
+&"RESET": SubResource("Animation_22vjt"),
+&"descend": SubResource("Animation_t0ydl")
+}
+
+[sub_resource type="Animation" id="Animation_0a5a2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.40661716, -9.422198, -66.58169)]
+}
+
+[sub_resource type="Animation" id="Animation_q11op"]
+resource_name = "ascend"
+length = 1.6333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.40661716, -9.422198, -66.58169), Vector3(-0.40661716, 3.6352968, -66.58169)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t7v4x"]
+_data = {
+&"RESET": SubResource("Animation_0a5a2"),
+&"ascend": SubResource("Animation_q11op")
+}
+
+[sub_resource type="Animation" id="Animation_7gybj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.9605224, 17.91287, -75.54887)]
+}
+
+[sub_resource type="Animation" id="Animation_jn2u7"]
+resource_name = "descend3"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.13708928, 17.91287, -75.54887), Vector3(-0.13708925, 5.8030634, -75.54887)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0yrfn"]
+_data = {
+&"RESET": SubResource("Animation_7gybj"),
+&"descend3": SubResource("Animation_jn2u7")
+}
 
 [sub_resource type="Resource" id="Resource_tmnqu"]
 script = ExtResource("5_f7f4c")
@@ -173,6 +298,7 @@ size = Vector3(2.682495, 3.208496, 2.7836914)
 
 [node name="Estanteria 1" type="CSGCombiner3D" parent="Plataformas" unique_id=41457672]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.608795, 1.9619491, -40.186928)
+script = ExtResource("1_22vjt")
 
 [node name="CSGBox3D21" type="CSGBox3D" parent="Plataformas/Estanteria 1" unique_id=1295789644]
 size = Vector3(0.2602539, 0.084106445, 2.6904602)
@@ -201,6 +327,14 @@ size = Vector3(0.5757446, 3.0187988, 2.615509)
 [node name="CSGBox3D12" type="CSGBox3D" parent="Plataformas/Estanteria 1" unique_id=1516991011]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65010643, -0.8979564, 0.055923462)
 size = Vector3(2.6486816, 0.26123047, 3.0931396)
+
+[node name="InteractionArea" parent="Plataformas/Estanteria 1" unique_id=1737456431 instance=ExtResource("2_t0ydl")]
+script = ExtResource("3_t0ydl")
+actionName = "Interact"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/Estanteria 1/InteractionArea" unique_id=349407498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.106784, 1.3793945, -0.58807373)
+shape = SubResource("BoxShape3D_658jc")
 
 [node name="Estanteria 2" type="CSGCombiner3D" parent="Plataformas" unique_id=847667699]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6756163, 1.9619491, -49.63426)
@@ -235,6 +369,7 @@ size = Vector3(2.6486816, 0.26123047, 3.0931396)
 
 [node name="Estanteria 3" type="CSGCombiner3D" parent="Plataformas" unique_id=661072386]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.6756163, 0.6632564, -57.9153)
+script = ExtResource("4_0a5a2")
 
 [node name="CSGBox3D21" type="CSGBox3D" parent="Plataformas/Estanteria 3" unique_id=177500538]
 size = Vector3(0.2602539, 0.084106445, 2.6904602)
@@ -264,8 +399,17 @@ size = Vector3(0.5757446, 3.0187988, 2.615509)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65010643, -0.8979564, 0.055923462)
 size = Vector3(2.6486816, 0.26123047, 3.0931396)
 
+[node name="InteractionArea" type="Area3D" parent="Plataformas/Estanteria 3" unique_id=1553333000]
+script = ExtResource("3_t0ydl")
+metadata/_custom_type_script = "uid://dkpdv1vixkxij"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/Estanteria 3/InteractionArea" unique_id=806112269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55718994, 1.0509033, -0.7889404)
+shape = SubResource("BoxShape3D_0mymv")
+
 [node name="Estanteria 4" type="CSGCombiner3D" parent="Plataformas" unique_id=250087412]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3066254, 1.4411619, -65.93293)
+script = ExtResource("5_q11op")
 
 [node name="CSGBox3D21" type="CSGBox3D" parent="Plataformas/Estanteria 4" unique_id=1060595808]
 size = Vector3(0.2602539, 0.084106445, 2.6904602)
@@ -295,7 +439,15 @@ size = Vector3(0.5757446, 3.0187988, 2.615509)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65010643, -0.8979564, 0.055923462)
 size = Vector3(2.6486816, 0.26123047, 3.0931396)
 
-[node name="Estanteria 5" type="CSGCombiner3D" parent="Plataformas" unique_id=1314326112]
+[node name="InteractionArea" type="Area3D" parent="Plataformas/Estanteria 4" unique_id=1627129751]
+script = ExtResource("3_t0ydl")
+metadata/_custom_type_script = "uid://dkpdv1vixkxij"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/Estanteria 4/InteractionArea" unique_id=489758054]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9121704, 0.8543396, 0.07687378)
+shape = SubResource("BoxShape3D_jfhai")
+
+[node name="Estanteria 5" type="CSGCombiner3D" parent="Plataformas" unique_id=1314326112 groups=["only_in_3d_mode"]]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4.040884, 3.4746072, -66.925224)
 
 [node name="CSGBox3D21" type="CSGBox3D" parent="Plataformas/Estanteria 5" unique_id=776410777]
@@ -363,10 +515,10 @@ transform = Transform3D(0.155, 0, 0, 0, 4.647, 0, 0, 0, 0.155, 0, 9.511866, -25.
 [node name="CSGBox3D8" type="CSGBox3D" parent="Ganchos" unique_id=1248956496]
 transform = Transform3D(0.61, 0, 0, 0, 0.61, 0, 0, 0, 0.61, 0, 6.7738595, -25.550598)
 
-[node name="CSGBox3D9" type="CSGBox3D" parent="Ganchos" unique_id=21407842]
+[node name="CSGBox3D9" type="CSGBox3D" parent="Ganchos" unique_id=21407842 groups=["grappleable"]]
 transform = Transform3D(0.155, 0, 0, 0, 4.647, 0, 0, 0, 0.155, -0.95765245, 12.568622, -82.44964)
 
-[node name="CSGBox3D10" type="CSGBox3D" parent="Ganchos" unique_id=1330003925]
+[node name="CSGBox3D10" type="CSGBox3D" parent="Ganchos" unique_id=1330003925 groups=["grappleable"]]
 transform = Transform3D(0.61, 0, 0, 0, 0.61, 0, 0, 0, 0.61, -0.95765245, 9.987454, -82.44964)
 
 [node name="Plataformas ajedrez" type="CSGCombiner3D" parent="." unique_id=676904575]
@@ -375,25 +527,34 @@ use_collision = true
 [node name="CSGBox3D" type="CSGBox3D" parent="Plataformas ajedrez" unique_id=1610182600]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -52)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Plataformas ajedrez" unique_id=446954265]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0010061264, 4.160875, -54.61563)
+[node name="plataforma1_desc" type="CSGBox3D" parent="Plataformas ajedrez" unique_id=446954265]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0010061264, 16.234264, -54.61563)
 size = Vector3(1, 0.1875, 2.8688965)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Plataformas ajedrez/plataforma1_desc" unique_id=1111559965]
+libraries/ = SubResource("AnimationLibrary_e03lu")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="Plataformas ajedrez" unique_id=272790692]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -0.40661716, 2.7105412, -61.514606)
 size = Vector3(1, 0.1875, 13.7872925)
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="Plataformas ajedrez" unique_id=886042301]
-transform = Transform3D(0.9999999, 0, 0, 0, 0.85249764, -0.522731, 0, 0.522731, 0.8524975, -0.40661716, 2.7105412, -66.58169)
+[node name="plataforma2_asc" type="CSGBox3D" parent="Plataformas ajedrez" unique_id=886042301]
+transform = Transform3D(0.9999999, 0, 0, 0, 0.85249764, -0.522731, 0, 0.522731, 0.8524975, -0.40661716, -9.422198, -66.58169)
 size = Vector3(1, 0.1875, 13.7872925)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Plataformas ajedrez/plataforma2_asc" unique_id=221894512]
+libraries/ = SubResource("AnimationLibrary_t7v4x")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="Plataformas ajedrez" unique_id=698241638]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9605224, 4.160875, -55.43466)
 size = Vector3(1, 0.1875, 1.230835)
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="Plataformas ajedrez" unique_id=1291274678]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9605224, 6.1909995, -75.54887)
+[node name="plataforma3_desc" type="CSGBox3D" parent="Plataformas ajedrez" unique_id=1291274678]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9605224, 17.91287, -75.54887)
 size = Vector3(1, 0.1875, 2.4415894)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Plataformas ajedrez/plataforma3_desc" unique_id=1986723083]
+libraries/ = SubResource("AnimationLibrary_0yrfn")
 
 [node name="CSGBox3D7" type="CSGBox3D" parent="Plataformas ajedrez" unique_id=1479610611]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9605224, 6.1909995, -90.83161)
@@ -468,6 +629,12 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4.53
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2.3987696, 6.7782516, -43.810776)
 
 [node name="InteractionArea" parent="door_example" unique_id=1627042093 instance=ExtResource("10_tmnqu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5901794, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="door_example/InteractionArea" unique_id=954967908]
 shape = SubResource("SphereShape3D_0mymv")
+
+[connection signal="body_entered" from="Plataformas/Estanteria 3/InteractionArea" to="Plataformas/Estanteria 3/InteractionArea" method="_on_body_entered"]
+[connection signal="body_exited" from="Plataformas/Estanteria 3/InteractionArea" to="Plataformas/Estanteria 3/InteractionArea" method="_on_body_exited"]
+[connection signal="body_entered" from="Plataformas/Estanteria 4/InteractionArea" to="Plataformas/Estanteria 4/InteractionArea" method="_on_body_entered"]
+[connection signal="body_exited" from="Plataformas/Estanteria 4/InteractionArea" to="Plataformas/Estanteria 4/InteractionArea" method="_on_body_exited"]

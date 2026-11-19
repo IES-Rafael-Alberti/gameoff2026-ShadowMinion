@@ -68,9 +68,9 @@ func _get_custom_direction() -> Vector3:
 
 #Detecta precipicios
 func _is_floor_ahead(dir:Vector3) -> bool:
-	#Si el enemigo ya está en el aire, no se comprueba el borde
+	#Si el enemigo ya está en el aire, devolvemos false para que deje de moverse
 	if not is_on_floor() or dir == Vector3.ZERO:
-		return true
+		return false
 	
 	var space_state = get_world_3d().direct_space_state
 	
