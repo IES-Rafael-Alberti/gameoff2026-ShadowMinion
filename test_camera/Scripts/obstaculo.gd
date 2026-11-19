@@ -19,14 +19,14 @@ extends RigidBody3D
 @onready var left_ray_cast: RayCast3D = $InteractionArea/CollisionShape3D/LeftRayCast
 @onready var front_ray_cast: RayCast3D = $InteractionArea/CollisionShape3D/FrontRayCast
 @onready var back_ray_cast: RayCast3D = $InteractionArea/CollisionShape3D/BackRayCast
-@onready var platform: RigidBody3D = $"../Plataforma2D"
+@onready var platform: StaticBody3D = $"../Plataforma2D"
 
 @export var pushDistance: float = 0.5
 
 func _ready():
 	pass
 	
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	interactionArea.interact = Callable(self, "_onInteract")
 	
 func _onInteract():
@@ -51,7 +51,7 @@ func _onInteract():
 		#lerp(self.linear_velocity, self.linear_velocity + pushDirection, 0.5)
 		obstacleTween.tween_property(self, "linear_velocity", linear_velocity + pushDirection, 0.5)
 		#var position = Vector3(self.position.x, platform.position.y, platform.position.z)
-		platformTween.tween_property(platform, "linear_velocity", platform.linear_velocity + pushDirection, 0.5)
+		#platformTween.tween_property(platform, "linear_velocity", platform.linear_velocity + pushDirection, 0.5)
 	elif front_ray_cast.is_colliding() or back_ray_cast.is_colliding():
 		#lerp(self.linear_velocity, self.linear_velocity + pushDirection, 0.5)
 

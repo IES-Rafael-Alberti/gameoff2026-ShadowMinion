@@ -40,6 +40,8 @@ var is_dead: bool = false
 var cameras3D = [outsideCamera, insideCamera]
 var active3DCamera = outsideCamera
 
+var fixedZ: float
+
 var debugMode = false
 
 func _physics_process(delta: float) -> void:
@@ -97,6 +99,7 @@ func movement3D() -> void:
 		velocity.z = move_toward(velocity.z, 0, move_speed)
 		
 func movement2D(delta: float) ->void:
+	global_position.z = fixedZ
 	var input_dir := Input.get_axis("Left", "Right")
 	#var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if not is_zero_approx(input_dir):
@@ -155,6 +158,8 @@ func changeMovementController() -> void:
 				mesh_ghost.visible = true
 
 func _ready() -> void:
+	
+	fixedZ = global_position.z
 	
 	if GlobalScript.checkpoint_pos != Vector3(-999, -999, -999):
 		global_position = GlobalScript.checkpoint_pos
