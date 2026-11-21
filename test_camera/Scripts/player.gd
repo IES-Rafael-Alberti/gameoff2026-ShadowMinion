@@ -209,7 +209,17 @@ func changeMovementController() -> void:
 
 func _ready() -> void:
 	
-	if GlobalScript.checkpoint_pos != Vector3(-999, -999, -999):
+	#Conectamos las señales de dialogic para congelar al jugador
+	Dialogic.timeline_started.connect(_on_dialogic_started)
+	Dialogic.timeline_ended.connect(_on_dialogic_ended)
+	
+	#Comprobamos si venimos de un cambio de nivel
+	if GlobalScript.use_next_spawn:
+		global_position = GlobalScript.next_spawn_pos
+		GlobalScript.use_next_spawn = false
+	
+	#Si no, usamos el checkpoint como siempre
+	elif GlobalScript.checkpoint_pos != Vector3(-999, -999, -999):
 		global_position = GlobalScript.checkpoint_pos
 		
 	movement3DActivated = false
@@ -262,3 +272,12 @@ func die()->void:
 	
 func _getMovement3DActive():
 	return movement3DActivated
+	
+func _on_dialogic_started() -> void:
+	is_in_dialogue = true
+	# Detener la velocidad horizontal por si venía corriendo
+	velocity.x = 0
+	velocity.z = 0
+
+func _on_dialogic_ended() -> void:
+	is_in_dialogue = false

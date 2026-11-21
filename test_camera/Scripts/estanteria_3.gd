@@ -19,7 +19,7 @@ func _on_interact_estanteria()->void:
 	if puzzle_resuelto:
 		return
 		
-	Dialogic.start("acertijo2")
+	await Dialogic.start("acertijo2")
 
 func _on_dialogic_signal(arg: String)->void:
 	if arg == "next_plataform2" and not puzzle_resuelto:

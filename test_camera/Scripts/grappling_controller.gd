@@ -19,7 +19,7 @@ extends Node
 @export_group("Cuerda")
 @export var rope_unit_length = 1.0
 @export var rope_tip_margin = 0.08
-@export var consecutive_grapple:int = 1
+@export var consecutive_grapple:int = 2
 
 @export_group("Péndulo")
 #@export var swing_damping: float = 0.05
@@ -46,7 +46,7 @@ var swept_angle_rad: float = 0.0 #ángulo total recorrido (rad)
 func _physics_process(delta: float) -> void:
 	#Desactiva el gancho si no hay jugador o si se activa el modo 3D
 	
-	if not player or player.movement3DActivated:
+	if not player or player.movement3DActivated or player.is_in_dialogue:
 		if launched:
 			retract()
 		return
@@ -100,7 +100,9 @@ func launch():
 		#Comprobamos si este rayo del abanico golpeó algo
 		if ray.is_colliding():
 			var collider = ray.get_collider()
-			if collider != null or collider.is_in_group("grappleable"):
+			print("¡El rayo chocó con: ", collider.name, "!")
+			if collider != null and collider.is_in_group("grappleable"):
+				print("¡Es grappleable! Lanzando gancho.")
 				#Nos enganchamos al primer rayo que toque algo que se puede enganchar
 				target = ray.get_collision_point()
 				

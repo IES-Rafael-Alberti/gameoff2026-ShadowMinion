@@ -4,6 +4,8 @@ var checkpoint_pos: Vector3 = Vector3(-999, -999, -999)
 var previous_checkpoint_node: Area3D = null
 var intro_dialogue_seen: bool = false
 var is_3d_mode: bool = false
+var next_spawn_pos: Vector3 = Vector3.ZERO
+var use_next_spawn: bool = false
 
 func set_3d_mode(active: bool) -> void:
 	is_3d_mode = active
