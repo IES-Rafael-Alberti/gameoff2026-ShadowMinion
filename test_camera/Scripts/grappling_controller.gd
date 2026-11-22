@@ -9,7 +9,7 @@ extends Node
 #@export var damping = 1.0
 
 @export_group("Puntería")
-@export var max_range = 12.0
+@export var max_range = 30.0
 @export_range(0.0, 90.0, 1.0) var aim_angle_deg = 45.0
 #Abanico total en grados
 @export var spread_angle_deg = 15.0

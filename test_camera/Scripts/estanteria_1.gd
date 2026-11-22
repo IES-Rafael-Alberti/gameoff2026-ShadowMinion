@@ -29,11 +29,3 @@ func _on_dialogic_signal(arg: String)->void:
 			interaction_area.monitoring = false
 			interaction_area.queue_free()
 		
-
-
-func _on_interaction_area_body_entered(body: Node3D) -> void:
-	pass # Replace with function body.
-
-
-func _on_interaction_area_body_exited(body: Node3D) -> void:
-	pass # Replace with function body.
