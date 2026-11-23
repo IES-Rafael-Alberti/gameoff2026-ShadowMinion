@@ -1,6 +1,7 @@
 extends RayCast3D
 
-@onready var interactionArea: InteractionArea = $"../../Obstaculo3D/InteractionArea"
+#@onready var interactionArea: InteractionArea = $"../../Obstaculo3D/InteractionArea"
+@onready var interactionArea: InteractionArea = $"../../InteractionArea"
 
 var seeObstacle: bool
 

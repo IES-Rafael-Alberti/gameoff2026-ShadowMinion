@@ -19,7 +19,8 @@ extends RigidBody3D
 @onready var left_ray_cast: RayCast3D = $InteractionArea/CollisionShape3D/LeftRayCast
 @onready var front_ray_cast: RayCast3D = $InteractionArea/CollisionShape3D/FrontRayCast
 @onready var back_ray_cast: RayCast3D = $InteractionArea/CollisionShape3D/BackRayCast
-@onready var platform: StaticBody3D = $"../Plataforma2D"
+#@onready var platform: StaticBody3D = $"../Plataforma2D"
+@onready var platform: StaticBody3D = $Plataforma2D
 
 @export var pushDistance: float = 0.5
 
