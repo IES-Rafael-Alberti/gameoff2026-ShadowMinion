@@ -1,0 +1,246 @@
+el reloj de bolsillo se ira actualizando 
+
+Cuadros de diálogo:
+
+Inicio del juego:
+-Pescar, esa sensación de libertad. La caña, la calma, la satisfacción de un trabajo bien hecho..
+- Y finalmente la recompensa de una gran paciencia y de un trabajo bien hecho.
+
+- Que-....
+
+*en un fundido negro*
+- Adelante, recoge mi tesoro. Eres el elegido.
+
+
+lvl 1:
+
+*se desvela el mapa*
+-Y yo que pensaba que mi vida por fin seria tranquila, porque me tiene que tocar a mi. 
+
+*encuentro con caja 1* 
+-Pulsa barra espaciadora para saltar.
+
+*cuando subes al muro-arbusto*
+Caronte/gusano: -quieres descubrir un nuevo mundo? "pulsa shift" y cógeme eso, yo te muevo la plataforma.
+
+*al interaccionar con la puerta*
+
+-este lleva siendo igual eones, coge ese otro doblón que abre la puerta.
+
+*al entrar al segundo nivel*
+-porque tengo que pasar por esto...
+
+*frente al gancho*
+-ya te has dado cuenta que te estoy dejando hacer cosas que no podías verdad?, anda usa tu caña con "X" y avanza el gancho a ver si puedes.
+
+*al acercarte a la segunda puerta*
+-enserio otra vez?, creo que ya se lo que tengo que hacer.
+
+*al pasar la puerta*
+-creo que esa estantería tiene algo importante.
+
+*al interactuar con la librería* 
+el libro tiene algunas palabra sueltas, creo que arreglarlo podría serme útil.
+-...un largo sueño me permite volar, alzar las alas y mi mirada al horizonte.
+
+*elegir* -pez volador -mariposa -gaviota
+
+*al interactuar con la segunda*
+-trabajo sin cesar y el dolor imbuye a los cercanos a mis clientes cuando acabo todas y cada una de mis tareas
+
+*elegir* -verdugo -policia -la muerte
+
+*al interactuar con la tercera*
+-doy sensaciones, doy emociones, y mi mera existencia ofrece posibilidades
+
+*elegir* -vida -trabajo -estudios
+
+*al interactuar con la cuarta*
+-nada, oscuridad, yo te transformo en algo, te otorgo luz
+
+*elegir* -encender-nacer- germinar
+
+*al tocar la plataforma final del nivel*
+ 
+-AHHHHHHHHHHHHHHH.....
+
+
+lvl 3
+
+*que es esto ahora...*
+
+-tu sigue, yo te ayudare a seguir avanzando, por ahora te voy a dejar salatr
+
+*tras bajar por la trampilla*
+-que sitio mas lúgubre
+
+*al interactuar con la puerta cerrada*
+
+-parece que no se abre
+
+*al accionar la palanca*
+
+-porque se supone que ha funcionado esto?	
+gusano: -no tiene que tener sentido
+
+*al interactuar con el espejo*
+-para que se supone que necesitas que recoja todas estas monedas
+
+gusano:- son doblones, y el tuyo lo tengo yo ahora mismo
+
+-como?
+
+gusano:-continua
+
+*al salir de la trampilla*
+
+-como se supone que estoy al lado de la entrada?
+
+gusano:- ya te he dicho que no tiene porque tener sentido para ti
+
+*al llegar a las plataformas en orden*
+
+gusano:- que sepas que si pulsas "x" después de "shift" deberías ser capaz de cambiar el lugar al que regresas.
+
+-esa información me habría sido útil antes...
+
+lvl 4
+
+*al aparecer*
+
+-oye esto parece infinito, no puedes llevarme hacia allí directamente?
+
+"gusano" -tienes que continuar el camino, ni siquiera yo puedo hacer eso aquí.
+
+-pues vaya...
+
+"gusano" -no te preocupes pulsa "x" para hacer un "dash".
+
+*al llegar a la puerta de final de nivel*
+
+-gusano:-ya casi estamos, reconozco ya este lugar.
+
+-gulp.
+
+lvl 5
+
+*al interactuar con la primera estanteria*
+
+-el peaje de la vida es el alma.
+
+*al llegar al puente (bote)*
+
+gusano: -ha llegado el momento, dame tu moneda.
+
+-mi moneda?
+
+gusano: -en tu ojo
+
+cinematica
+
+gusano: muy bien, ya puedes pasar
+
+cinematica jano
+
+*al acercarte al arbol o el ataud e interaccionar*
+
+-parece que esto no me será de utilidad por ahora.
+
+*al acercarte a una puerta antes de completar un puzle*
+
+-no parece que se abra.
+
+*al interactuar con la estantería*
+
+-"germinar de una semilla, ese tramo de idea a dibujo, plasmar en el vacío del caos la complejidad de la vida, el orden, el cosmos."
+
+-que se supone que me está contando?
+
+*elección*
+-aparecer -crear -nacer
+
+*al interactuar con el árbol*
+
+-que se supone que tengo que hacer aquí?.
+
+-creo que simplemente tengo que mirarlo.
+
+-....
+
+-no pasa nada.
+
+-la verdad que es un árbol bonito.
+
+-por cuantas cosas habrá pasado este árbol? seguro que ha contemplado eventos impresionantes sin siquiera formar parte.
+
+-*se empieza a tallar sobre el árbol una frase*
+
+-cual es el sentido de la vida?
+
+que se supone que tengo que contestar?
+
+*insertar texto*
+
+*al interactuar con el ataud*
+en el mundo no existe mas que un cambio inmutable.
+
+*elección*
+
+-dolor -evolución -la muerte
+
+*al acceder a cualquiera de las 3 puertas*
+
+-no abre?
+
+*al haber intentado las 3*
+
+gusano -es momento de volver
+
+*al volver a la puerta por la que entramos*
+
+gusano -Por fin, eres mio
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

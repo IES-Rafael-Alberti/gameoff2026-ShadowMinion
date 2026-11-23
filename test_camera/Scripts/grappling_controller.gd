@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 
 
 @export var ray: RayCast3D
@@ -10,11 +10,10 @@ extends Node
 
 @export_group("Puntería")
 @export var max_range = 30.0
-@export_range(0.0, 90.0, 1.0) var aim_angle_deg = 45.0
-#Abanico total en grados
-@export var spread_angle_deg = 15.0
+@export_range(0.0, 90.0, 1.0) var aim_angle_deg = 60.0
+@export var spread_angle_deg = 60.0
 #Cuantos rayos lanzar en el abanico
-@export var ray_count = 5
+@export var ray_count = 7
 
 @export_group("Cuerda")
 @export var rope_unit_length = 1.0
@@ -26,16 +25,17 @@ extends Node
 #Velocidad tangencial constante con la que recorres el arco
 @export var swing_speed: float = 12.0
 @export var reel_speed: float = 0.0
-@export var min_rope_length = 1.0
+@export var min_rope_length = 0.2
 # Arco total máximo de balanceo en grados
 @export_range(0.0, 360.0, 1.0) var max_total_swing_deg: float = 100.0
+@export_range(0.0, 90.0, 1.0) var max_swing_angle_deg: float = 80.0
 
 
 @onready var player: CharacterBody3D = get_parent() as CharacterBody3D
 
 var rope_length: float = 0.0
 var launched: bool = false
-var target = Vector3.ZERO
+var target: Vector3 = Vector3.ZERO
 var current_grapple:int = 0
 
 #Estado del arco predefinido
@@ -67,76 +67,98 @@ func _physics_process(delta: float) -> void:
 		handle_grapple(delta)
 	
 	update_rope()
+	
+
+func _is_grappleable(col: Object) -> bool:
+	# El grupo puede estar en el collider, en el Area3D, o en el contenedor "ganchos"
+	var node := col as Node
+	while node != null:
+		if node.is_in_group("grappleable"):
+			return true
+		node = node.get_parent()
+	return false
 
 func launch():
-	if ray == null:
-		print("ERROR: No has asignado el nodo RayCast3D en el Inspector de GrapplingController")
-		return
-	
-	#Si no le quedan usos en el aire, no dispara
-	if current_grapple <= 0:
+	if ray == null or current_grapple <= 0:
 		return
 		
 	var facing_val = player.get("facing")
 	var facing = int(facing_val) if facing_val != null else 1
 	if facing == 0: facing = 1
 	
-	# Lanzamos múltiples rayos en abanico
+	var space_state = get_world_3d().direct_space_state
+	var start = ray.global_position
+	
+	# Mejor candidato encontrado
+	var best_target := Vector3.ZERO
+	var best_distance := INF
+	var found_target := false
+	
+	var offsets := []
 	for i in range(ray_count):
-		# Calculamos el ángulo de este rayo específico
-		var angle_offset = (i - (ray_count - 1) / 2.0) * (spread_angle_deg / max(1.0, float(ray_count -1)))
-		var current_aim = aim_angle_deg + angle_offset
-		var a = deg_to_rad(current_aim)
-		
-		#Calculamos la dirección en el mundo y la pasamos al espacio local del rayo
+		offsets.append((i - (ray_count - 1) / 2.0) * (spread_angle_deg / max(1.0, float(ray_count - 1))))
+	
+	for angle_offset in offsets:
+		var a = deg_to_rad(aim_angle_deg + angle_offset)
 		var world_dir = Vector3(cos(a) * float(facing), sin(a), 0.0).normalized()
-		var local_dir = ray.global_transform.basis.inverse() * world_dir
+		var ray_end = start + (world_dir * max_range)
 		
-		#Apuntamos el rayo y forzamos la actualización de colisión
-		ray.target_position = local_dir.normalized() * max_range
-		#Usa la dirección del frame al activar el gancho
-		ray.force_raycast_update()
+		var excluded: Array[RID] = [player.get_rid()]
 		
-		#Comprobamos si este rayo del abanico golpeó algo
-		if ray.is_colliding():
-			var collider = ray.get_collider()
-			print("¡El rayo chocó con: ", collider.name, "!")
-			if collider != null and collider.is_in_group("grappleable"):
-				print("¡Es grappleable! Lanzando gancho.")
-				#Nos enganchamos al primer rayo que toque algo que se puede enganchar
-				target = ray.get_collision_point()
+		for j in range(20):
+			var query = PhysicsRayQueryParameters3D.create(start, ray_end)
+			query.exclude = excluded
+			query.collide_with_bodies = true
+			query.collide_with_areas = true
+			query.hit_from_inside = true
+			
+			var result = space_state.intersect_ray(query)
+			if result.is_empty():
+				break
+			
+			var col = result.collider
+			if col == null:
+				break
+			
+			if _is_grappleable(col):
+				# Comparamos distancia desde el JUGADOR, no desde el rayo
+				var point = result.position
+				var d = player.global_position.distance_to(point)
 				
-				rope_length = player.global_position.distance_to(target)
-				rope_length = maxf(rope_length, min_rope_length)
+				if d < best_distance:
+					best_distance = d
+					best_target = point
+					found_target = true
 				
-				#Ángulo inicial respecto a la vertical hacia abajo del ancla.
-				#0 es justo debajo, positivo es derecha y negativo es izquierda
-				var offset = player.global_position - target
-				current_angle = atan2(offset.x, -offset.y)
-				
-				#Dirección del barrido según donde mira el jugador
-				swing_dir = facing
-				swept_angle_rad = 0.0
-				
-				launched = true
-				
-				#Se consume un gancho al usarlo con éxito
-				current_grapple -= 1
-				
-				return
+				# Este rayo ya encontró su primer gancho; los de más allá están más lejos
+				break
+			
+			# Pared/techo/suelo: excluir y relanzar desde el mismo punto
+			if col is CollisionObject3D:
+				excluded.append(col.get_rid())
+			else:
+				break
 	
+	# Ningún rayo encontró un gancho
+	if not found_target:
+		return
 	
+	# Enganchamos SIEMPRE al más cercano
+	target = best_target
+	rope_length = maxf(best_distance, min_rope_length)
 	
+	var offset = player.global_position - target
+	current_angle = atan2(offset.x, -offset.y)
 	
+	swing_dir = facing
+	swept_angle_rad = 0.0
+	launched = true
+	current_grapple -= 1
 	
+	ray.target_position = ray.to_local(target)
+	ray.force_raycast_update()
 	
-
-	
-	
-	
-	
-	
-	
+	print("GANCHO MAS CERCANO: ", target, " distancia=", best_distance)
 
 	
 func retract()->void:
@@ -149,25 +171,40 @@ func handle_grapple(delta: float):
 	if rope_length <= 0.0:
 		return
 	
-	# Acortar la cuerda mientras mantienes el gancho
 	if reel_speed > 0.0 and Input.is_action_pressed("grapple"):
 		rope_length = maxf(rope_length - reel_speed * delta, min_rope_length)
 	
-	# Avance angular con velocidad tangencial constante
 	var angular_speed = swing_speed / maxf(rope_length, 0.001)
 	var angle_step = swing_dir * angular_speed * delta
 	current_angle += angle_step
 	swept_angle_rad += abs(angle_step)
 	
-	#Posicón exacta sobre el arco (0 es por debajo del ancla)
-	var new_offset = Vector3(sin(current_angle), -cos(current_angle), 0.0) * rope_length
-	player.global_position = target + new_offset
+	#No subir por encima del ancla
+	var limit := deg_to_rad(max_swing_angle_deg)
+	if current_angle > limit:
+		current_angle = limit
+		swing_dir = -1
+	elif current_angle < -limit:
+		current_angle = -limit
+		swing_dir = 1
 	
-	#Velocidad tangencial para conservar inercia al soltar
-	var tangent = Vector3(cos(current_angle), sin(current_angle), 0.0) * swing_dir
+	var new_offset: Vector3 = Vector3(sin(current_angle), -cos(current_angle), 0.0) * rope_length
+	var desired: Vector3 = target + new_offset
+	var tangent: Vector3 = Vector3(cos(current_angle), sin(current_angle), 0.0) * swing_dir
+	
 	player.velocity = tangent * swing_speed
 	
-	#Autosaltar al superar el arco máximo
+	#No atravesar colisiones
+	var space_state := get_world_3d().direct_space_state
+	var query := PhysicsRayQueryParameters3D.create(player.global_position, desired)
+	query.exclude = [player.get_rid()]
+	var hit := space_state.intersect_ray(query)
+	if not hit.is_empty():
+		retract()
+		return
+	
+	player.global_position = desired
+	
 	if rad_to_deg(swept_angle_rad) >= max_total_swing_deg:
 		retract()
 

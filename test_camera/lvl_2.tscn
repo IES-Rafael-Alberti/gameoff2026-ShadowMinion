@@ -604,7 +604,7 @@ size = Vector3(1, 0.1875, 2.4415894)
 libraries/ = SubResource("AnimationLibrary_0yrfn")
 
 [node name="ultima_plataforma" type="CSGBox3D" parent="Plataformas ajedrez" unique_id=1479610611]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9605224, 6.1909995, -90.83161)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.9605224, 6.1909995, -90.83161)
 size = Vector3(1, 0.1875, 1.2364197)
 script = ExtResource("7_t7v4x")
 
