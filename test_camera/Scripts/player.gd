@@ -43,8 +43,8 @@ var just_released_grapple: bool = false
 @onready var outsideCamera: PhantomCamera3D = $"../CameraManager/OutsideCamera"
 @onready var insideCamera: PhantomCamera3D = $"../CameraManager/InsideCamera"
 
-@onready var mesh: MeshInstance3D = $Mesh
-@onready var mesh_ghost: MeshInstance3D = $MeshGhost
+@onready var mesh: Node3D = $Mesh
+@onready var mesh_ghost: Node3D = $MeshGhost
 
 var cameras3D = [outsideCamera, insideCamera]
 var active3DCamera = outsideCamera

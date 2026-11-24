@@ -3,28 +3,64 @@
 [ext_resource type="Script" uid="uid://durvs3bwnm1v2" path="res://Scripts/player.gd" id="1_rpqav"]
 [ext_resource type="PackedScene" uid="uid://cnrwqspdhs48d" path="res://Scenes/rope_test.tscn" id="2_gntrk"]
 [ext_resource type="Script" uid="uid://dlgdd4lr0esd7" path="res://Scripts/grappling_controller.gd" id="2_kyqiw"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0mymv"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_jyaov"]
-material = SubResource("StandardMaterial3D_0mymv")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8cxyx"]
-albedo_color = Color(0.5764706, 0.99607843, 1, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_0mymv"]
-material = SubResource("StandardMaterial3D_8cxyx")
+[ext_resource type="PackedScene" uid="uid://b5kyu604j3ogs" path="res://Assets/Anims/Neutral Idle.fbx" id="2_nn08x"]
+[ext_resource type="Animation" uid="uid://div4454bijmb5" path="res://Assets/Anims/AnimsRes/Neutral Idle.res" id="5_5ixxa"]
+[ext_resource type="Animation" uid="uid://bar122srnctru" path="res://Assets/Anims/AnimsRes/Running.res" id="6_52ee3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jyaov"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nn08x"]
+_data = {
+&"Neutral Idle": ExtResource("5_5ixxa"),
+&"Running": ExtResource("6_52ee3")
+}
 
 [node name="Player" type="CharacterBody3D" unique_id=1352346882 groups=["player"]]
 script = ExtResource("1_rpqav")
 
-[node name="Mesh" type="MeshInstance3D" parent="." unique_id=998959761]
-mesh = SubResource("CapsuleMesh_jyaov")
+[node name="Mesh" type="Node3D" parent="." unique_id=251891360]
 
-[node name="MeshGhost" type="MeshInstance3D" parent="." unique_id=303973193]
-mesh = SubResource("CapsuleMesh_0mymv")
+[node name="Neutral Idle" parent="Mesh" unique_id=1352697370 instance=ExtResource("2_nn08x")]
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, 0, -0.8130467, 0)
+
+[node name="Skeleton3D" parent="Mesh/Neutral Idle" index="0" unique_id=2069972393]
+bones/0/position = Vector3(0.06791024, 6.758907, -0.33274636)
+bones/0/rotation = Quaternion(-0.0036805584, 0.6565646, -0.03609648, 0.7533967)
+bones/1/rotation = Quaternion(-0.026478365, -0.0069096433, 0.00028725178, 0.99962556)
+bones/2/rotation = Quaternion(-0.046960697, -0.012026386, 0.0057786154, 0.99880767)
+bones/3/rotation = Quaternion(-0.047184512, -0.010759082, 0.0062049814, 0.99880904)
+bones/4/rotation = Quaternion(0.026185215, 0.0033184045, 0.031139031, 0.9991665)
+bones/5/rotation = Quaternion(0.08741199, 0.029143332, 0.08165664, 0.99239206)
+bones/7/rotation = Quaternion(0.8457773, 0.016732207, -0.01978984, 0.5329065)
+bones/8/rotation = Quaternion(0.50221586, 0.15776081, 0.038846433, 0.849342)
+bones/9/rotation = Quaternion(-0.004783384, -0.00038817362, 0.1469021, 0.9891394)
+bones/10/rotation = Quaternion(0.047414187, 0.016943505, 0.06645611, 0.9965182)
+bones/11/rotation = Quaternion(0.15613797, 0.028435651, 0.27839023, 0.9472651)
+bones/12/rotation = Quaternion(-0.068010986, -0.022072276, -0.31803837, 0.9453777)
+bones/13/rotation = Quaternion(0.0003713966, -0.026658082, -0.3682182, 0.9293572)
+bones/15/rotation = Quaternion(0.06440134, -0.025306089, 0.0030971237, 0.99759835)
+bones/16/rotation = Quaternion(0.22349933, -0.0006174107, -0.024072926, 0.97440666)
+bones/17/rotation = Quaternion(0.14149109, 0.0004696668, -0.019357016, 0.9897502)
+bones/19/rotation = Quaternion(0.04064565, -0.50320166, 0.8630008, 0.019122638)
+bones/20/rotation = Quaternion(0.35482326, -0.118228935, 0.046419393, 0.9262654)
+bones/21/rotation = Quaternion(-0.003330687, -5.5506374e-05, -0.1237181, 0.99231184)
+bones/22/rotation = Quaternion(0.033651445, -0.13109767, 0.014294997, 0.990695)
+bones/23/rotation = Quaternion(0.085095994, 0.040911302, -0.29448307, 0.95098096)
+bones/24/rotation = Quaternion(-0.004623563, -0.085161604, 0.42140344, 0.902854)
+bones/25/rotation = Quaternion(0.009132747, 0.090808764, -0.1343486, 0.98672235)
+bones/27/rotation = Quaternion(0.076791674, 0.05501561, -0.03161341, 0.9950261)
+bones/28/rotation = Quaternion(0.12246215, 0.0025717684, -0.034388017, 0.991874)
+bones/29/rotation = Quaternion(0.09079427, -3.1085806e-06, 0.006837852, 0.9958463)
+bones/31/rotation = Quaternion(0.13393417, 0.14363392, 0.94827694, 0.24940285)
+bones/32/rotation = Quaternion(-0.015138773, 0.02906307, 0.23138979, 0.97230905)
+bones/33/rotation = Quaternion(0.17934704, 0.609281, -0.30140066, 0.7111744)
+bones/34/rotation = Quaternion(0.33834094, -0.019064644, 0.0095275575, 0.9407822)
+bones/36/rotation = Quaternion(-0.07072773, 0.0056112953, 0.9963777, 0.046878576)
+bones/37/rotation = Quaternion(0.25208145, -0.5693844, 0.23933792, 0.74496555)
+bones/38/rotation = Quaternion(0.064226516, 0.7778308, -0.62288535, 0.05355457)
+bones/39/rotation = Quaternion(0.36080125, 0.024029613, -0.009118732, 0.9322885)
+
+[node name="MeshGhost" type="Node3D" parent="." unique_id=1742611751]
 
 [node name="Collider" type="CollisionShape3D" parent="." unique_id=954350168]
 shape = SubResource("CapsuleShape3D_jyaov")
@@ -39,3 +75,9 @@ target_position = Vector3(0, 0, 0)
 script = ExtResource("2_kyqiw")
 ray = NodePath("../RayCast3D")
 rope = NodePath("../rope_test")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=21255369]
+root_node = NodePath("../Mesh/Neutral Idle")
+libraries/player_anims = SubResource("AnimationLibrary_nn08x")
+
+[editable path="Mesh/Neutral Idle"]
