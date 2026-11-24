@@ -502,10 +502,11 @@ patrol_distance = 8.0
 wander_change_time = 1.5
 track_in_2d = false
 track_in_3d = false
-base_speed = 5.0
+base_speed = 1.5
 acceleration = 25.0
 stop_distance = 0.8
 use_scale_for_movement = true
+avoid_other_enemies = true
 
 [node name="first_enemy2" parent="Plataformas" unique_id=1696870406 instance=ExtResource("1_7rxco")]
 transform = Transform3D(-1.7484555e-07, 0, 4, 0, 4, 0, -4, 0, -1.7484555e-07, 0.3159555, 0.6370964, -7.4095383)
@@ -513,10 +514,11 @@ patrol_distance = 20.0
 wander_change_time = 1.5
 track_in_2d = false
 track_in_3d = false
-base_speed = 5.0
+base_speed = 1.5
 acceleration = 25.0
 stop_distance = 0.8
 use_scale_for_movement = true
+avoid_other_enemies = true
 
 [node name="first_enemy4" parent="Plataformas" unique_id=124067222 instance=ExtResource("1_7rxco")]
 transform = Transform3D(-1.7484555e-07, 0, 4, 0, 4, 0, -4, 0, -1.7484555e-07, 0.11651122, 0.23057175, -29.008121)
@@ -524,10 +526,11 @@ patrol_distance = 8.0
 wander_change_time = 1.5
 track_in_2d = false
 track_in_3d = false
-base_speed = 5.0
+base_speed = 1.5
 acceleration = 25.0
 stop_distance = 0.8
 use_scale_for_movement = true
+avoid_other_enemies = true
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1301385740]
 

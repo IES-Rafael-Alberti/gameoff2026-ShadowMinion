@@ -9,11 +9,14 @@ extends Node3D
 #@export var damping = 1.0
 
 @export_group("Puntería")
-@export var max_range = 30.0
+@export var max_range = 12.0
 @export_range(0.0, 90.0, 1.0) var aim_angle_deg = 60.0
 @export var spread_angle_deg = 60.0
 #Cuantos rayos lanzar en el abanico
 @export var ray_count = 7
+#Si está activo, solo puedes enganchar puntos visibles en pantalla
+@export var require_on_screen: bool = true
+@export_range(0.0, 0.5, 0.01) var screen_margin: float = 0.05
 
 @export_group("Cuerda")
 @export var rope_unit_length = 1.0
@@ -78,6 +81,24 @@ func _is_grappleable(col: Object) -> bool:
 		node = node.get_parent()
 	return false
 
+
+func _is_on_screen(point: Vector3) -> bool:
+	var cam := get_viewport().get_camera_3d()
+	if cam == null:
+		return true
+	# Delante de la cámara
+	if (point - cam.global_position).dot(-cam.global_transform.basis.z) <= 0.0:
+		return false
+	# Dentro del rectángulo de pantalla (con un pequeño margen)
+	var screen_pos := cam.unproject_position(point)
+	var rect := get_viewport().get_visible_rect()
+	var mx := rect.size.x * screen_margin
+	var my := rect.size.y * screen_margin
+	return (
+		screen_pos.x >= -mx and screen_pos.x <= rect.size.x + mx
+		and screen_pos.y >= -my and screen_pos.y <= rect.size.y + my
+	)
+
 func launch():
 	if ray == null or current_grapple <= 0:
 		return
@@ -124,6 +145,12 @@ func launch():
 				# Comparamos distancia desde el JUGADOR, no desde el rayo
 				var point = result.position
 				var d = player.global_position.distance_to(point)
+				
+				# No enganchar fuera de alcance ni fuera de pantalla
+				if d > max_range:
+					break
+				if require_on_screen and not _is_on_screen(point):
+					break
 				
 				if d < best_distance:
 					best_distance = d

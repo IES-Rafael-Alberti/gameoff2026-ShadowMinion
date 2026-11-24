@@ -173,7 +173,7 @@ transform = Transform3D(0.4, 0, 5.3290705e-15, 0, 11.992, 0, -5.3290705e-15, 0, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9802322e-08, 12.197217, -2.5319624)
 
 [node name="palanca" type="CSGBox3D" parent="ganchos" unique_id=898954843]
-transform = Transform3D(0.15500014, -3.0652911e-09, -7.667122e-13, 1.0224225e-10, 4.646476, 0.0023390374, -7.762681e-13, -0.07012587, 0.15498246, -5.1933885, -5.777617, -143.63939)
+transform = Transform3D(0.15500014, -3.0652914e-09, -7.667122e-13, 1.0224225e-10, 4.6464763, 0.0023390374, -7.762681e-13, -0.07012588, 0.15498246, -5.1933885, -5.777617, -143.63939)
 script = ExtResource("1_31vo8")
 
 [node name="InteractionArea" type="Area3D" parent="ganchos/palanca" unique_id=1811321911]
@@ -402,7 +402,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.006341934, 1.4301728, -0.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1690334197]
 physics_interpolation_mode = 1
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 10.9936495, 3.430173, -0.0063420422)
+transform = Transform3D(1.0000001, 0, 0, 0, 0.9999916, 0, 0, 0, 0.99999154, 0.0063415617, 3.430173, 10.9936495)
 top_level = true
 projection = 1
 size = 10.0
@@ -427,6 +427,8 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_islhk")
 camera_3d_resource = SubResource("Resource_ye7io")
 follow_offset = Vector3(0, 2, 10)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=257681334 node_paths=PackedStringArray("follow_target")]
@@ -438,6 +440,8 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_n34eh")
 camera_3d_resource = SubResource("Resource_chea5")
 follow_offset = Vector3(0, 9.25, 6.5)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=920735670]

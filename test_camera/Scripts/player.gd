@@ -32,14 +32,25 @@ var jumpCount = 1
 
 var original_position = Vector3.ZERO
 var facing:int = 1
-# Compensa el giro extra del FBX en cada contenedor.
-const YAW_OFFSET_2D: float = PI / 2.0
-const YAW_OFFSET_3D: float = PI / 2.0
+
+# Yaw del jugador en mundo. Se usa para convertir el yaw deseado del modelo
+# a yaw local, así funciona con cualquier rotación de la raíz del nivel.
+func _player_yaw() -> float:
+	return global_transform.basis.get_euler().y
+
+# Sentido de la "derecha" de la cámara 2D sobre el eje X del mundo.
+# lvl 2/3 -> +1. lvl 4 (cámara 2D girada 180°) -> -1.
+func _screen_x_axis() -> float:
+	if _2d_camera == null:
+		return 1.0
+	var axis := _2d_camera.global_basis.x.x
+	return 1.0 if is_zero_approx(axis) else signf(axis)
+
+
 var is_dead: bool = false
 var is_in_dialogue: bool = false
 var current_animation: StringName = &""
 var jump_replay_pending: bool = false
-var jump_anim_timer: float = 0.0
 const CHARACTER_MODEL: PackedScene = preload("res://Assets/Anims/Neutral Idle.fbx")
 var ghost_animation_player: AnimationPlayer = null
 var ghost_current_animation: StringName = &""
@@ -132,17 +143,24 @@ func _physics_process(delta: float) -> void:
 	
 	_update_animation(delta, is_grappling)
 
+# El yaw se calcula en mundo y se convierte a local con _player_yaw(),
+# así funciona aunque la raíz del nivel tenga otra rotación.
 # basic movement for 3D enviroment
 func movement3D() -> void:
 	var input_dir := Input.get_vector("Left", "Right", "Forward", "Back")
+	# Volvemos al basis LOCAL: es el que hacía que W/A/S/D funcionara en lvl 2 y 3.
 	var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if move_dir:
 		velocity.x = move_dir.x * move_speed
 		velocity.z = move_dir.z * move_speed
 		
-		# El frente del modelo es -Z, por eso se invierten los dos componentes
 		if mesh_ghost != null:
-			mesh_ghost.rotation.y = atan2(-move_dir.x, -move_dir.z) + YAW_OFFSET_3D
+			# Usamos la INPUT, no el vector de movimiento: así W/S/A/D conservan
+			# su animación aunque gires la raíz del nivel.
+			# El FBX mira al revés, por eso sumamos PI:
+			# W -> 0 (arriba), S -> PI (abajo), D -> -PI/2 (derecha), A -> PI/2 (izquierda).
+			var desired_yaw := atan2(input_dir.x, input_dir.y) + PI
+			mesh_ghost.rotation.y = desired_yaw - _player_yaw()
 	else:
 		velocity.x = move_toward(velocity.x, 0, move_speed)
 		velocity.z = move_toward(velocity.z, 0, move_speed)
@@ -158,22 +176,28 @@ func movement2D(delta: float) ->void:
 		return
 		
 	var input_dir := Input.get_axis("Left", "Right")
-	#var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	# Convertimos la entrada a eje X del mundo según la vista de la cámara 2D.
+	# En lvl 4 la cámara mira al revés, así que "derecha" es -X.
+	var world_input := input_dir * _screen_x_axis()
+	
 	if not is_zero_approx(input_dir):
-		facing = 1 if input_dir > 0.0 else -1
+		# facing queda en coordenadas de mundo (+1 = +X, -1 = -X).
+		facing = 1 if world_input > 0.0 else -1
 		
-		# facing 1 = derecha (+X), facing -1 = izquierda (-X)
+		# facing 1 = +X, facing -1 = -X.
 		if mesh != null:
-			mesh.rotation.y = -float(facing) * PI / 2.0 + YAW_OFFSET_2D
+			# En mundo: +X = -90°, -X = +90°.
+			var desired_yaw := -float(facing) * PI / 2.0
+			mesh.rotation.y = desired_yaw - _player_yaw()
 		
 		if is_on_floor():
 			#En el suelo, el movimiento es instantáneo
-			velocity.x = input_dir * (move_speed + dash_velocity)
+			velocity.x = world_input * (move_speed + dash_velocity)
 		else:
 			#En el aire
-			var target_speed = input_dir * (move_speed + dash_velocity)
+			var target_speed = world_input * (move_speed + dash_velocity)
 			#Si venimos del gancho y pulsamos la dirección contraria al movimiento
-			if just_released_grapple and not is_zero_approx(velocity.x) and signf(input_dir) != signf(velocity.x):
+			if just_released_grapple and not is_zero_approx(velocity.x) and signf(world_input) != signf(velocity.x):
 				# Frenado, se reduce la velocidad actual hasta 0
 				velocity.x = move_toward(velocity.x, 0.0, air_brake_accel * delta)
 				#Si ya hemos frenado casi del todo, quitamos el estado para que pueda girar con normalidad
@@ -185,12 +209,7 @@ func movement2D(delta: float) ->void:
 	# frenada
 	else:
 		velocity.x = move_toward(velocity.x, 0, move_speed)
-	#else:
-		##Sin input en el aire, frenar para quitar la inercia
-		velocity.x = move_toward(velocity.x, 0, air_control_accel)
 	velocity.z = 0.0
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, move_speed)
 		
 
 # alternate the movement of the player for 2D and 3D and the camera view
@@ -218,7 +237,8 @@ func changeMovementController() -> void:
 			mesh.reparent(self)
 			#Se alinea de nuevo con el centro del personaje
 			mesh.position = Vector3.ZERO
-			mesh.rotation = Vector3(0.0, -float(facing) * PI / 2.0 + YAW_OFFSET_2D, 0.0)
+			var desired_yaw := -float(facing) * PI / 2.0
+			mesh.rotation = Vector3(0.0, desired_yaw - _player_yaw(), 0.0)
 			mesh.visible = true
 		if mesh_ghost:
 			mesh_ghost.visible = false
@@ -266,6 +286,12 @@ func _ready() -> void:
 	
 	_setup_animations()
 	_setup_ghost_model()
+	
+	# Seguro: si Falling termina antes de tocar suelo, se reinicia desde el frame 0.
+	if animation_player != null:
+		animation_player.animation_finished.connect(_on_animation_finished)
+	if ghost_animation_player != null:
+		ghost_animation_player.animation_finished.connect(_on_ghost_animation_finished)
 		
 func _setup_animations() -> void:
 	if animation_player == null:
@@ -282,11 +308,11 @@ func _setup_animations() -> void:
 			var fixed := p.replace("Armature_001/", "").replace("Armature/", "")
 			if fixed != p:
 				clip.track_set_path(i, NodePath(fixed))
-	var looping: Array[StringName] = [&"Neutral Idle", &"Running", &"Gancho"]
+	var looping: Array[StringName] = [&"Neutral Idle", &"Running", &"Gancho", &"Falling"]
 	for anim_name in looping:
 		if lib.has_animation(anim_name):
 			lib.get_animation(anim_name).loop_mode = 1
-	# El salto se reproduce una sola vez
+	# El salto se reproduce una sola vez; al terminar pasa a Falling
 	if lib.has_animation(&"Jumping"):
 		lib.get_animation(&"Jumping").loop_mode = 0
 
@@ -317,7 +343,7 @@ func _setup_ghost_model() -> void:
 	mesh_ghost.add_child(ghost_animation_player)
 	ghost_animation_player.root_node = ghost_animation_player.get_path_to(model)
 	
-	# La MISMA librería (los 4 clips ya están normalizados por _setup_animations)
+	# La MISMA librería (los 5 clips ya están normalizados por _setup_animations)
 	var lib := animation_player.get_animation_library("player_anims")
 	if lib != null:
 		ghost_animation_player.add_animation_library("player_anims", lib.duplicate(true))
@@ -357,31 +383,43 @@ func _make_ghost_transparent(node: Node, alpha: float) -> void:
 		_make_ghost_transparent(child, alpha)
 
 
+func _on_animation_finished(anim_name: StringName) -> void:
+	if is_dead or is_in_dialogue or is_on_floor():
+		return
+	if anim_name == StringName("player_anims/Falling"):
+		animation_player.play(anim_name, 0.0)
+
+
+func _on_ghost_animation_finished(anim_name: StringName) -> void:
+	if is_dead or is_in_dialogue or is_on_floor() or ghost_animation_player == null:
+		return
+	if anim_name == StringName("player_anims/Falling"):
+		ghost_animation_player.play(anim_name, 0.0)
+
+
 func _update_animation(delta: float, is_grappling: bool) -> void:
 	if is_dead or is_in_dialogue:
 		return
 	if animation_player == null:
 		return
 	
-	# Un salto (o doble salto) fuerza la animación y la reinicia desde el frame 0
+	# Cada salto (incluido el doble) reinicia Jumping desde el frame 0.
 	var force_replay := false
 	if jump_replay_pending:
 		jump_replay_pending = false
-		jump_anim_timer = 0.3
 		force_replay = true
-	if jump_anim_timer > 0.0:
-		jump_anim_timer -= delta
 	
 	var speed := Vector2(velocity.x, velocity.z).length()
 	var anim_name: StringName
 	if not movement3DActivated and is_grappling:
 		anim_name = &"Gancho"
-	elif jump_anim_timer > 0.0:
-		# Solo durante el salto. Caer del borde NO cuenta como salto
+	elif not is_on_floor() and (force_replay or velocity.y > 0.0):
+		# Subiendo: Jumping. En el doble salto velocity.y vuelve a ser positivo,
+		# así que este bloque se repite correctamente.
 		anim_name = &"Jumping"
 	elif not is_on_floor():
-		# En caída libre: pose neutra, nunca animación de salto
-		anim_name = &"Neutral Idle"
+		# Bajando: Falling, tanto tras el primer salto como tras el doble.
+		anim_name = &"Falling"
 	elif speed > 0.5:
 		anim_name = &"Running"
 	else:

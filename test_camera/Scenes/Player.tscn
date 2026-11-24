@@ -8,11 +8,13 @@
 [ext_resource type="Animation" path="res://Assets/Anims/AnimsRes/Running.res" id="6_52ee3"]
 [ext_resource type="Animation" path="res://Assets/Anims/AnimsRes/Jumping.res" id="7_jump1"]
 [ext_resource type="Animation" path="res://Assets/Anims/AnimsRes/Gancho.res" id="8_ganch"]
+[ext_resource type="Animation" path="res://Assets/Anims/AnimsRes/Falling.res" id="9_fall1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jyaov"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nn08x"]
 _data = {
+&"Falling": ExtResource("9_fall1"),
 &"Gancho": ExtResource("8_ganch"),
 &"Jumping": ExtResource("7_jump1"),
 &"Neutral Idle": ExtResource("5_5ixxa"),

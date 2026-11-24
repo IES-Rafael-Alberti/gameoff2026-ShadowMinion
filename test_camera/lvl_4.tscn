@@ -47,7 +47,6 @@ script = ExtResource("4_ufpfk")
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
 [node name="lvl 4" type="Node3D" unique_id=418256283]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2007339120]
 environment = SubResource("Environment_sggpl")
@@ -261,7 +260,7 @@ size = Vector3(1, 0.15283203, 1.9575195)
 script = ExtResource("1_6ntf1")
 
 [node name="2DCamera" type="Node3D" parent="CameraManager" unique_id=967301297 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1.0000001, 0, 0, 0, 0.9999916, 0, 0, 0, 0.9999914, 3.8615303, 2.5993652, 21.00637)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.1384697, 3.5993652, -7.006378)
 top_level = true
 script = ExtResource("2_o7vtu")
 priority = 1
@@ -269,13 +268,15 @@ follow_mode = 5
 follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_sfugp")
 camera_3d_resource = SubResource("Resource_7so1t")
-follow_offset = Vector3(4, 2, 20)
+follow_offset = Vector3(0, 3, -7)
+follow_distance = 0.0
+spring_length = 0.0
 align_transform_with_view = Callable()
 align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=2063658774 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.8090159, 0.58778596, 0, -0.58778596, 0.8090159, -0.1384697, 10.437151, 7.315394)
+transform = Transform3D(1, 0, 0, 0, 0.8090159, 0.58778596, 0, -0.58778596, 0.8090159, 0.1384697, 10.437151, 7.3026376)
 top_level = true
 script = ExtResource("2_o7vtu")
 follow_mode = 5
@@ -300,7 +301,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1384697, 0.59936523, -0.006
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1017863067]
 physics_interpolation_mode = 1
-transform = Transform3D(1.0000001, 0, 0, 0, 0.9999916, 0, 0, 0, 0.9999914, 3.8615303, 2.5993652, 21.00637)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.1384697, 3.5993652, -7.006378)
 top_level = true
 projection = 1
 size = 10.0
