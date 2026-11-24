@@ -18,11 +18,11 @@ var tween: Tween
 @export var air_control_accel: float = 50.0
 #@export_group("Balanceo")
 ## Aceleración horizontal que aplicas con izquierda/derecha mientras estás enganchado
-#@export var grapple_air_accel : float = 10.0
+@export var grapple_air_accel : float = 10.0
 ## Aceleración cuando empujnas en contra. Más baja para no frenar de golpe
-#@export var grapple_brake_accel : float = 4.0
+@export var grapple_brake_accel : float = 4.0
 ##Velocidad horizontal máxima mientras empujas el balanceo
-#@export var grapple_max_speed : float = 22.0
+@export var grapple_max_speed : float = 22.0
 
 
 var move_speed : float = 0.0
@@ -145,8 +145,6 @@ func movement2D(delta: float) ->void:
 		velocity.z = 0.0
 		return
 		
-	var input_dir := Input.get_axis("Left", "Right")
-	#var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if not is_zero_approx(input_dir):
 		facing = 1 if input_dir > 0.0 else -1
 		
@@ -165,14 +163,11 @@ func movement2D(delta: float) ->void:
 					just_released_grapple = false
 			else:
 				#Control aéreo normal
-				velocity.x = move_toward(velocity.x, target_speed, air_control_accel)
-	elif is_on_floor():
-		#Solo frena en el suelo. En el aire conserva la inercia
+				velocity.x = input_dir * (move_speed + dash_velocity)
+	else:
 		velocity.x = move_toward(velocity.x, 0, move_speed)
-	#En el aire sin input no se toca velocity.x para conservar la inercia
 	velocity.z = 0.0
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, move_speed)
+
 
 # alternate the movement of the player for 2D and 3D and the camera view
 func changeMovementController() -> void:

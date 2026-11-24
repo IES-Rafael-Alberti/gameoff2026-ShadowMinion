@@ -18,12 +18,12 @@
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t6wp4"]
 
-[sub_resource type="Sky" id="Sky_t6wp4"]
+[sub_resource type="Sky" id="Sky_v6ada"]
 sky_material = SubResource("ProceduralSkyMaterial_t6wp4")
 
 [sub_resource type="Environment" id="Environment_jyaov"]
 background_mode = 2
-sky = SubResource("Sky_t6wp4")
+sky = SubResource("Sky_v6ada")
 glow_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1ij1a"]
@@ -200,7 +200,7 @@ mesh = SubResource("CylinderMesh_akum8")
 
 [node name="Camera" type="Camera3D" parent="." unique_id=2655336]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.042229, 1.224658, 31.786118)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 31.786118, 1.224658, 13.042228)
 top_level = true
 projection = 1
 size = 10.0
@@ -225,8 +225,6 @@ tween_resource = SubResource("Resource_a1bqk")
 camera_3d_resource = SubResource("Resource_bcbm8")
 follow_distance = 15.0
 spring_length = 15.0
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=563448195 node_paths=PackedStringArray("follow_target")]
@@ -238,8 +236,6 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_clg6b")
 camera_3d_resource = SubResource("Resource_31jyx")
 follow_offset = Vector3(0, 10.92, 15)
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=1649322412]
@@ -503,6 +499,7 @@ shape = SubResource("BoxShape3D_l7s6d")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.740944, 1.1347775, -7.5079)
 lock_rotation = true
 script = ExtResource("2_4snel")
+pushDistance = 1.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Caja movible" unique_id=87704249]
 mesh = SubResource("BoxMesh_jyaov")
