@@ -158,13 +158,16 @@ func movement2D(delta: float) ->void:
 			else:
 				#Control aéreo normal
 				velocity.x = move_toward(velocity.x, target_speed, air_control_accel)
-	elif is_on_floor():
-		#Solo frena en el suelo. En el aire conserva la inercia
+	# frenada
+	else:
 		velocity.x = move_toward(velocity.x, 0, move_speed)
-	#En el aire sin input no se toca velocity.x para conservar la inercia
+	#else:
+		##Sin input en el aire, frenar para quitar la inercia
+		velocity.x = move_toward(velocity.x, 0, air_control_accel)
 	velocity.z = 0.0
 	#else:
 		#velocity.x = move_toward(velocity.x, 0, move_speed)
+		
 
 # alternate the movement of the player for 2D and 3D and the camera view
 func changeMovementController() -> void:

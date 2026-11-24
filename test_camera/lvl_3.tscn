@@ -144,7 +144,7 @@ transform = Transform3D(-4.3711385e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, 
 environment = SubResource("Environment_oj8a2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1875829759]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+transform = Transform3D(-0.43713754, 0.21306024, 0.8737942, 0.74760336, 0.62618315, 0.22132301, -0.5000001, 0.7500001, -0.43301275, 0, 0, 0)
 shadow_enabled = true
 
 [node name="rocas" type="CSGCombiner3D" parent="." unique_id=300729857]
@@ -173,7 +173,7 @@ transform = Transform3D(0.4, 0, 5.3290705e-15, 0, 11.992, 0, -5.3290705e-15, 0, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9802322e-08, 12.197217, -2.5319624)
 
 [node name="palanca" type="CSGBox3D" parent="ganchos" unique_id=898954843]
-transform = Transform3D(0.15500014, -3.0652907e-09, -7.667122e-13, 1.0224225e-10, 4.6464753, 0.0023390374, -7.762681e-13, -0.07012586, 0.15498246, -5.1933885, -5.777617, -143.63939)
+transform = Transform3D(0.15500014, -3.0652911e-09, -7.667122e-13, 1.0224225e-10, 4.646476, 0.0023390374, -7.762681e-13, -0.07012587, 0.15498246, -5.1933885, -5.777617, -143.63939)
 script = ExtResource("1_31vo8")
 
 [node name="InteractionArea" type="Area3D" parent="ganchos/palanca" unique_id=1811321911]
@@ -267,7 +267,7 @@ size = Vector3(4.9710693, 1, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.114397764, 0.19381166, -13.893646)
 
 [node name="Elementos underground" type="CSGCombiner3D" parent="." unique_id=736823651]
-transform = Transform3D(0.99999994, -4.707498e-11, -1.4901158e-08, -3.7680725e-09, 1, 8.423853e-11, -7.450581e-09, -1.868629e-10, 0.9999999, -3.091991e-07, -1.9376221, -43.421654)
+transform = Transform3D(0.9999999, -4.7074976e-11, -1.4901158e-08, -3.7680725e-09, 1, 8.423853e-11, -7.450584e-09, -1.8686289e-10, 0.9999998, -3.091991e-07, -2.220234, -43.42165)
 
 [node name="CSGBox3D14" type="CSGBox3D" parent="Elementos underground" unique_id=620418040]
 transform = Transform3D(1, 4.707499e-11, 1.4901163e-08, 3.7680725e-09, 1, -8.4238484e-11, 7.4505815e-09, 1.8686294e-10, 1.0000001, -0.53238535, -6.0262184, -4.9374123)
@@ -335,7 +335,7 @@ operation = 2
 size = Vector3(3.2127, 3.3752136, 0.27624512)
 
 [node name="CSGBox3D10" type="CSGBox3D" parent="paredes techo y suelo underground" unique_id=144703447]
-transform = Transform3D(-1.3769088e-08, -0.4550061, 1.6342483e-13, 0.30620334, -1.9333653e-08, 0.23468162, -0.07392306, 4.6673776e-09, 0.9720955, -2.8222096, -12.499369, -10.837021)
+transform = Transform3D(-1.3769088e-08, -0.45500612, 1.5987212e-13, 0.30620334, -1.9333658e-08, 0.23468159, -0.07392306, 4.6673794e-09, 0.97209543, -2.8222098, -12.499369, -10.837021)
 size = Vector3(14.677246, 0.1850586, 41.943085)
 
 [node name="CSGBox3D11" type="CSGBox3D" parent="paredes techo y suelo underground" unique_id=1551685227]
@@ -403,6 +403,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.006341934, 1.4301728, -0.0
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1690334197]
 physics_interpolation_mode = 1
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 10.9936495, 3.430173, -0.0063420422)
+top_level = true
 projection = 1
 size = 10.0
 near = 0.001

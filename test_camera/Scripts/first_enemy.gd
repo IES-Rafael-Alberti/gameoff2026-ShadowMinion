@@ -6,7 +6,7 @@ extends BaseEnemy
 
 @export_group("Deambulando 3D")
 #Tieempo en segundos antes de cambiar de dirección aleatoria en 3D
-@export var wander_change_time: float = 3.0
+@export var wander_change_time: float = 1.5
 
 #Variables de control 2D
 var patrol_dir: float = 1.0
