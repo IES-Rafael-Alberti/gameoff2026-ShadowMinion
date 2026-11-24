@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://dh0py6s07qne3" path="res://Scenes/door_example.tscn" id="9_tmnqu"]
 [ext_resource type="PackedScene" uid="uid://ck43m43bci63f" path="res://Scenes/Interaction/InteractionArea.tscn" id="10_tmnqu"]
 [ext_resource type="PackedScene" uid="uid://n38y066u11d0" path="res://Scenes/fall_hazard.tscn" id="19_7gybj"]
+[ext_resource type="PackedScene" uid="uid://djipqb06xnwxk" path="res://Scenes/pause_menu.tscn" id="20_jn2u7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gybj"]
 albedo_color = Color(0.5247767, 0.51870316, 0, 1)
@@ -497,13 +498,36 @@ size = Vector3(8.799225, 0.37597656, 20.012024)
 
 [node name="first_enemy" parent="Plataformas" unique_id=2028063305 instance=ExtResource("1_7rxco")]
 transform = Transform3D(-1.7484555e-07, 0, 4, 0, 4, 0, -4, 0, -1.7484555e-07, 0.30592573, 0.55991554, -17.9804)
+patrol_distance = 8.0
+wander_change_time = 1.5
+track_in_2d = false
+track_in_3d = false
+base_speed = 5.0
+acceleration = 25.0
+stop_distance = 0.8
+use_scale_for_movement = true
 
 [node name="first_enemy2" parent="Plataformas" unique_id=1696870406 instance=ExtResource("1_7rxco")]
 transform = Transform3D(-1.7484555e-07, 0, 4, 0, 4, 0, -4, 0, -1.7484555e-07, 0.3159555, 0.6370964, -7.4095383)
 patrol_distance = 20.0
+wander_change_time = 1.5
+track_in_2d = false
+track_in_3d = false
+base_speed = 5.0
+acceleration = 25.0
+stop_distance = 0.8
+use_scale_for_movement = true
 
 [node name="first_enemy4" parent="Plataformas" unique_id=124067222 instance=ExtResource("1_7rxco")]
 transform = Transform3D(-1.7484555e-07, 0, 4, 0, 4, 0, -4, 0, -1.7484555e-07, 0.11651122, 0.23057175, -29.008121)
+patrol_distance = 8.0
+wander_change_time = 1.5
+track_in_2d = false
+track_in_3d = false
+base_speed = 5.0
+acceleration = 25.0
+stop_distance = 0.8
+use_scale_for_movement = true
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1301385740]
 
@@ -658,6 +682,8 @@ shape = SubResource("SphereShape3D_0mymv")
 
 [node name="fall_hazard" parent="." unique_id=1040016836 instance=ExtResource("19_7gybj")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3.2361467, -8.655119, -71.80441)
+
+[node name="pause_menu" parent="." unique_id=291129629 instance=ExtResource("20_jn2u7")]
 
 [connection signal="body_entered" from="Plataformas/Estanteria 3/InteractionArea" to="Plataformas/Estanteria 3/InteractionArea" method="_on_body_entered"]
 [connection signal="body_exited" from="Plataformas/Estanteria 3/InteractionArea" to="Plataformas/Estanteria 3/InteractionArea" method="_on_body_exited"]

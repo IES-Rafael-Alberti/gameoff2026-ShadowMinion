@@ -15,8 +15,16 @@ radius = 0.66868395
 
 [node name="first_enemy" type="CharacterBody3D" unique_id=2028063305 node_paths=PackedStringArray("hitbox", "visual")]
 script = ExtResource("1_nlobk")
+patrol_distance = null
+wander_change_time = null
 hitbox = NodePath("Hurtbox")
 visual = NodePath("MeshInstance3D")
+track_in_2d = null
+track_in_3d = null
+base_speed = null
+acceleration = null
+stop_distance = null
+use_scale_for_movement = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=693009008]
 mesh = SubResource("BoxMesh_jyaov")

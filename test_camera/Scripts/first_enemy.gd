@@ -37,7 +37,7 @@ func _process_2d_patrol()->void:
 	#Cambia de sentido si choca con una pared, supera la distancia máxima o detecta un precipicio
 	if is_on_wall() or not _is_floor_ahead(current_dir_vec):
 		patrol_dir *= -1.0
-	elif absf(current_offset) >= patrol_distance:
+	elif absf(current_offset) >= patrol_distance * get_movement_scale():
 		patrol_dir = -1.0 if current_offset > 0 else 1.0
 func _process_3d_wander(delta: float)->void:
 	wander_timer -= delta

@@ -16,6 +16,7 @@ var tween: Tween
 @export var air_brake_accel: float = 25.0
 #Aceleración normal en el aire para moverte o girar
 @export var air_control_accel: float = 50.0
+@export_range(0.0, 1.0, 0.05) var ghost_alpha: float = 0.35
 #@export_group("Balanceo")
 ## Aceleración horizontal que aplicas con izquierda/derecha mientras estás enganchado
 #@export var grapple_air_accel : float = 10.0
@@ -31,8 +32,17 @@ var jumpCount = 1
 
 var original_position = Vector3.ZERO
 var facing:int = 1
+# Compensa el giro extra del FBX en cada contenedor.
+const YAW_OFFSET_2D: float = PI / 2.0
+const YAW_OFFSET_3D: float = PI / 2.0
 var is_dead: bool = false
 var is_in_dialogue: bool = false
+var current_animation: StringName = &""
+var jump_replay_pending: bool = false
+var jump_anim_timer: float = 0.0
+const CHARACTER_MODEL: PackedScene = preload("res://Assets/Anims/Neutral Idle.fbx")
+var ghost_animation_player: AnimationPlayer = null
+var ghost_current_animation: StringName = &""
 var was_grappling: bool = false
 var just_released_grapple: bool = false
 
@@ -45,6 +55,7 @@ var just_released_grapple: bool = false
 
 @onready var mesh: Node3D = $Mesh
 @onready var mesh_ghost: Node3D = $MeshGhost
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var cameras3D = [outsideCamera, insideCamera]
 var active3DCamera = outsideCamera
@@ -85,14 +96,17 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("Jump"):
 		if debugMode:
 			velocity.y = jump_velocity
+			jump_replay_pending = true
 		else:
 			if movement3DActivated:
 				if is_on_floor():
 					velocity.y = jump_velocity
+					jump_replay_pending = true
 			else:
 				if jumpCount > 0:
 					jumpCount -=1
 					velocity.y = jump_velocity
+					jump_replay_pending = true
 	
 	if Input.is_action_just_pressed("Debug"):
 		if debugMode:
@@ -115,6 +129,8 @@ func _physics_process(delta: float) -> void:
 	accion_dash()
 	
 	move_and_slide()
+	
+	_update_animation(delta, is_grappling)
 
 # basic movement for 3D enviroment
 func movement3D() -> void:
@@ -123,6 +139,10 @@ func movement3D() -> void:
 	if move_dir:
 		velocity.x = move_dir.x * move_speed
 		velocity.z = move_dir.z * move_speed
+		
+		# El frente del modelo es -Z, por eso se invierten los dos componentes
+		if mesh_ghost != null:
+			mesh_ghost.rotation.y = atan2(-move_dir.x, -move_dir.z) + YAW_OFFSET_3D
 	else:
 		velocity.x = move_toward(velocity.x, 0, move_speed)
 		velocity.z = move_toward(velocity.z, 0, move_speed)
@@ -141,6 +161,10 @@ func movement2D(delta: float) ->void:
 	#var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if not is_zero_approx(input_dir):
 		facing = 1 if input_dir > 0.0 else -1
+		
+		# facing 1 = derecha (+X), facing -1 = izquierda (-X)
+		if mesh != null:
+			mesh.rotation.y = -float(facing) * PI / 2.0 + YAW_OFFSET_2D
 		
 		if is_on_floor():
 			#En el suelo, el movimiento es instantáneo
@@ -186,19 +210,24 @@ func changeMovementController() -> void:
 		#Borra toda velocidad 3D para no salir del plano 2D
 		velocity = Vector3.ZERO
 		
+		ghost_current_animation = &""
+		
 		#Recupera el modelo 3D y lo mete como hijo de player
 		if mesh: 
 			var parent_scene = get_tree().current_scene
 			mesh.reparent(self)
 			#Se alinea de nuevo con el centro del personaje
 			mesh.position = Vector3.ZERO
-			mesh.rotation = Vector3.ZERO
+			mesh.rotation = Vector3(0.0, -float(facing) * PI / 2.0 + YAW_OFFSET_2D, 0.0)
 			mesh.visible = true
 		if mesh_ghost:
 			mesh_ghost.visible = false
 	else:
 		movement3DActivated = true
 		original_position = global_position
+		if animation_player:
+			animation_player.stop()
+		current_animation = &""
 		#Dejamos el modelo 2D estático en el mundo
 		if mesh:
 			var parent_scene = get_tree().current_scene
@@ -234,7 +263,153 @@ func _ready() -> void:
 		mesh_ghost.visible = false
 		
 	GlobalScript.set_3d_mode(false)
+	
+	_setup_animations()
+	_setup_ghost_model()
 		
+func _setup_animations() -> void:
+	if animation_player == null:
+		return
+	var lib := animation_player.get_animation_library("player_anims")
+	if lib == null:
+		return
+	# Por si al reimportar los FBX se regeneran los .res con rutas "Armature/...",
+	# las dejamos como "Skeleton3D:..." que es lo que tiene el modelo del jugador
+	for anim_name in lib.get_animation_list():
+		var clip := lib.get_animation(anim_name)
+		for i in clip.get_track_count():
+			var p := String(clip.track_get_path(i))
+			var fixed := p.replace("Armature_001/", "").replace("Armature/", "")
+			if fixed != p:
+				clip.track_set_path(i, NodePath(fixed))
+	var looping: Array[StringName] = [&"Neutral Idle", &"Running", &"Gancho"]
+	for anim_name in looping:
+		if lib.has_animation(anim_name):
+			lib.get_animation(anim_name).loop_mode = 1
+	# El salto se reproduce una sola vez
+	if lib.has_animation(&"Jumping"):
+		lib.get_animation(&"Jumping").loop_mode = 0
+
+func _setup_ghost_model() -> void:
+	if mesh_ghost == null or animation_player == null:
+		return
+	if mesh_ghost.get_child_count() > 0:
+		return  # Ya hay un modelo dentro (por si lo pusiste a mano en la escena)
+	
+	# Copia del personaje dentro del ghost
+	var model := CHARACTER_MODEL.instantiate() as Node3D
+	model.name = "Neutral Idle"
+	mesh_ghost.add_child(model)
+	
+	# Copia exacta del transform del modelo normal:
+	# escala 0.13, offset en Y y giro del FBX.
+	var source_model := mesh.get_node_or_null("Neutral Idle") as Node3D
+	if source_model == null and mesh.get_child_count() > 0:
+		source_model = mesh.get_child(0) as Node3D
+	if source_model != null:
+		model.transform = source_model.transform
+	
+	_make_ghost_transparent(model, ghost_alpha)
+	
+	# Su propio AnimationPlayer, apuntando a ese modelo
+	ghost_animation_player = AnimationPlayer.new()
+	ghost_animation_player.name = "GhostAnimationPlayer"
+	mesh_ghost.add_child(ghost_animation_player)
+	ghost_animation_player.root_node = ghost_animation_player.get_path_to(model)
+	
+	# La MISMA librería (los 4 clips ya están normalizados por _setup_animations)
+	var lib := animation_player.get_animation_library("player_anims")
+	if lib != null:
+		ghost_animation_player.add_animation_library("player_anims", lib.duplicate(true))
+
+func _ghost_material(mat: BaseMaterial3D, alpha: float) -> BaseMaterial3D:
+	# Duplicamos para no tocar el material del modelo original
+	var copy := mat.duplicate(true) as BaseMaterial3D
+	copy.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	copy.albedo_color.a = alpha
+	copy.depth_draw_mode = BaseMaterial3D.DEPTH_DRAW_ALWAYS
+	return copy
+
+
+func _make_ghost_transparent(node: Node, alpha: float) -> void:
+	if node is MeshInstance3D:
+		var mi := node as MeshInstance3D
+		
+		# Si tuviera un material global puesto a mano
+		var override := mi.material_override as BaseMaterial3D
+		if override != null:
+			mi.material_override = _ghost_material(override, alpha)
+		
+		# Materiales por superficie (los del FBX)
+		if mi.mesh != null:
+			for i in mi.mesh.get_surface_count():
+				var mat := mi.get_surface_override_material(i) as BaseMaterial3D
+				if mat == null:
+					mat = mi.mesh.surface_get_material(i) as BaseMaterial3D
+				if mat != null:
+					mi.set_surface_override_material(i, _ghost_material(mat, alpha))
+		
+		# Evitamos que projete una sombra sólida
+		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	
+	# El esqueleto tiene mallas dentro, así que recorremos los hijos
+	for child in node.get_children():
+		_make_ghost_transparent(child, alpha)
+
+
+func _update_animation(delta: float, is_grappling: bool) -> void:
+	if is_dead or is_in_dialogue:
+		return
+	if animation_player == null:
+		return
+	
+	# Un salto (o doble salto) fuerza la animación y la reinicia desde el frame 0
+	var force_replay := false
+	if jump_replay_pending:
+		jump_replay_pending = false
+		jump_anim_timer = 0.3
+		force_replay = true
+	if jump_anim_timer > 0.0:
+		jump_anim_timer -= delta
+	
+	var speed := Vector2(velocity.x, velocity.z).length()
+	var anim_name: StringName
+	if not movement3DActivated and is_grappling:
+		anim_name = &"Gancho"
+	elif jump_anim_timer > 0.0:
+		# Solo durante el salto. Caer del borde NO cuenta como salto
+		anim_name = &"Jumping"
+	elif not is_on_floor():
+		# En caída libre: pose neutra, nunca animación de salto
+		anim_name = &"Neutral Idle"
+	elif speed > 0.5:
+		anim_name = &"Running"
+	else:
+		anim_name = &"Neutral Idle"
+	
+	var anim_id := StringName("player_anims/" + String(anim_name))
+	if not animation_player.has_animation(anim_id):
+		return
+	
+	if not movement3DActivated:
+		# Modo 2D: se anima el mesh que sigue al jugador
+		if force_replay:
+			animation_player.play(anim_id, 0.0)
+			current_animation = anim_id
+		elif anim_id != current_animation:
+			animation_player.play(anim_id, 0.15)
+			current_animation = anim_id
+	else:
+		# Modo 3D: se anima el ghost. Aquí no existe el gancho.
+		if ghost_animation_player != null and anim_name != &"Gancho":
+			if force_replay:
+				ghost_animation_player.play(anim_id, 0.0)
+				ghost_current_animation = anim_id
+			elif anim_id != ghost_current_animation:
+				ghost_animation_player.play(anim_id, 0.15)
+				ghost_current_animation = anim_id
+
+
 func accion_dash():
 	if Input.is_action_just_pressed("Dash"):
 		dash_velocity = dash
