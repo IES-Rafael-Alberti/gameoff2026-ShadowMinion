@@ -15,7 +15,11 @@ Proyecto de desarrollo de videojuegos del equipo **Shadow Minions** para **Game 
 
 El objetivo es que los jugadores puedan iniciar y jugar la versión web sin instalar el juego. Las versiones descargables para escritorio podrán añadirse más adelante si el equipo lo decide.
 
+## Página de itch.io
 
+La propuesta de diseño de la página (CSS personalizado, descripción en HTML con placeholders y vista previa local) está en [`itchio/INSTRUCCIONES.md`](itchio/INSTRUCCIONES.md).
+
+### Requisitos
 
 - Godot Engine: v4.7.2
 - Plantillas de exportación de Godot correspondientes a esa misma versión.
