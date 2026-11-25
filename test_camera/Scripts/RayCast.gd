@@ -9,5 +9,5 @@ func _process(delta: float):
 	
 	if self.get_collider() == interactionArea:
 		seeObstacle = true
-	else: 
+	else:
 		seeObstacle = false

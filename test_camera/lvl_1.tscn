@@ -200,7 +200,7 @@ mesh = SubResource("CylinderMesh_akum8")
 
 [node name="Camera" type="Camera3D" parent="." unique_id=2655336]
 physics_interpolation_mode = 1
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 31.786118, 1.224658, 13.042228)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 31.786118, 1.224658, 11.663177)
 top_level = true
 projection = 1
 size = 10.0
@@ -215,7 +215,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 script = ExtResource("3_t6wp4")
 
 [node name="2DCamera" type="Node3D" parent="CameraManager" unique_id=859734584 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.042229, 1.224658, 31.786118)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.6631775, 1.224658, 31.786118)
 top_level = true
 script = ExtResource("4_bcbm8")
 priority = 1
@@ -228,7 +228,7 @@ spring_length = 15.0
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=563448195 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.8394176, 0.5434871, 0, -0.5434871, 0.8394176, -13.042229, 12.688145, 32.625534)
+transform = Transform3D(1, 0, 0, 0, 0.8394176, 0.5434871, 0, -0.5434871, 0.8394176, -11.6631775, 12.688145, 32.625534)
 top_level = true
 script = ExtResource("4_bcbm8")
 follow_mode = 5
@@ -549,6 +549,8 @@ shape = SubResource("BoxShape3D_exqi3")
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.7880294e-09, -0.38137567, 0)
 target_position = Vector3(0, -40, 0)
 collision_mask = 4
+collide_with_areas = true
+collide_with_bodies = false
 script = ExtResource("5_g81ij")
 
 [node name="Fuente" type="CSGCombiner3D" parent="." unique_id=1668386595]
@@ -905,7 +907,7 @@ transform = Transform3D(0.25487742, -0.007625356, 0.0020861332, 0.0076348847, 0.
 transform = Transform3D(0.1499279, -0.004485504, 0.0020452265, 0.0044911085, 0.14993124, -0.0011209885, -0.0012064608, 0.00070901116, 0.24998912, 1.1203156, -0.5724969, 0.2778473)
 
 [node name="Player" parent="." unique_id=1352346882 instance=ExtResource("1_6mpcb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.786118, 1.224658, 13.042228)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.786118, 1.224658, 11.663177)
 collision_layer = 3
 
 [node name="passLevel" type="Node3D" parent="." unique_id=1260135198]
