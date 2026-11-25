@@ -22,6 +22,7 @@ InteractionManager="uid://du31ctpdnq28v"
 GlobalScript="*uid://b40mr0xqrxpmv"
 InteractorManager="*uid://brgb5j6ot6ag4"
 Dialogic="*uid://ds2q0uclmolvu"
+MusicManager="*uid://bt4f6mbxpt6xr"
 
 [dialogic]
 
@@ -32,6 +33,7 @@ directories/dtl_directory={
 "acertijo1": "res://acertijo1.dtl",
 "acertijo2": "res://acertijo2.dtl",
 "acertijo3": "res://acertijo3.dtl",
+"acertijo4": "res://acertijo4.dtl",
 "timeline": "res://timeline.dtl"
 }
 layout/style_directory={}

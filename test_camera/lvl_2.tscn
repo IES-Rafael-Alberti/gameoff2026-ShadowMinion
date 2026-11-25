@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_f7f4c"]
 [ext_resource type="Script" uid="uid://c5aa1i2p0qu11" path="res://Scripts/estanteria_4.gd" id="5_q11op"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="6_beans"]
+[ext_resource type="Script" uid="uid://duof8eli7dmat" path="res://estanteria_5.gd" id="7_jn2u7"]
 [ext_resource type="PackedScene" uid="uid://dmg20lagwh8ty" path="res://level_trigger.tscn" id="7_q11op"]
 [ext_resource type="Script" uid="uid://djjnnd714qq0o" path="res://ultima_plataforma.gd" id="7_t7v4x"]
 [ext_resource type="PackedScene" uid="uid://bfed5b06bmvck" path="res://Scenes/key_example.tscn" id="8_beans"]
@@ -35,6 +36,46 @@ size = Vector3(3.3839111, 3.64917, 2.5778809)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jfhai"]
 size = Vector3(2.8243408, 3.6157837, 3.3451538)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jyaov"]
+size = Vector3(4.26593, 4.007324, 2.9465332)
+
+[sub_resource type="Animation" id="Animation_0yrfn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.25977102, -7.977128, -82.44964)]
+}
+
+[sub_resource type="Animation" id="Animation_dbc2e"]
+resource_name = "grappleable_ascend"
+length = 1.4666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.4666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.25977102, -7.977128, -82.44964), Vector3(0.25977102, 12.526412, -82.44964)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vfry8"]
+_data = {
+&"RESET": SubResource("Animation_0yrfn"),
+&"grappleable_ascend": SubResource("Animation_dbc2e")
+}
 
 [sub_resource type="Animation" id="Animation_22vjt"]
 length = 0.001
@@ -457,8 +498,9 @@ metadata/_custom_type_script = "uid://dkpdv1vixkxij"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9121704, 0.8543396, 0.07687378)
 shape = SubResource("BoxShape3D_jfhai")
 
-[node name="Estanteria 5" type="CSGCombiner3D" parent="Plataformas" unique_id=1314326112 groups=["only_in_3d_mode"]]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4.040884, 3.4746072, -66.925224)
+[node name="Estanteria 5" type="CSGCombiner3D" parent="Plataformas" unique_id=1314326112]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4.0408845, 3.4746072, -61.16929)
+script = ExtResource("7_jn2u7")
 
 [node name="CSGBox3D21" type="CSGBox3D" parent="Plataformas/Estanteria 5" unique_id=776410777]
 size = Vector3(0.2602539, 0.084106445, 2.6904602)
@@ -488,6 +530,14 @@ size = Vector3(0.5757446, 3.0187988, 2.615509)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65010643, -0.8979564, 0.055923462)
 size = Vector3(2.6486816, 0.26123047, 3.0931396)
 
+[node name="InteractionArea" type="Area3D" parent="Plataformas/Estanteria 5" unique_id=1730687385]
+script = ExtResource("3_t0ydl")
+metadata/_custom_type_script = "uid://dkpdv1vixkxij"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/Estanteria 5/InteractionArea" unique_id=1532483793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6329651, 0.8684082, 0.6563721)
+shape = SubResource("BoxShape3D_jyaov")
+
 [node name="CSGBox3D11" type="CSGBox3D" parent="Plataformas" unique_id=122437449]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.27723694, 1.007715, -39.65295)
 size = Vector3(8.799225, 0.37597656, 7.5983887)
@@ -499,6 +549,7 @@ size = Vector3(8.799225, 0.37597656, 20.012024)
 [node name="first_enemy" parent="Plataformas" unique_id=2028063305 instance=ExtResource("1_7rxco")]
 transform = Transform3D(-1.7484555e-07, 0, 4, 0, 4, 0, -4, 0, -1.7484555e-07, 0.30592573, 0.55991554, -17.9804)
 patrol_distance = 8.0
+avoid_other_enemies = true
 wander_change_time = 1.5
 track_in_2d = false
 track_in_3d = false
@@ -506,11 +557,11 @@ base_speed = 1.5
 acceleration = 25.0
 stop_distance = 0.8
 use_scale_for_movement = true
-avoid_other_enemies = true
 
 [node name="first_enemy2" parent="Plataformas" unique_id=1696870406 instance=ExtResource("1_7rxco")]
 transform = Transform3D(-1.7484555e-07, 0, 4, 0, 4, 0, -4, 0, -1.7484555e-07, 0.3159555, 0.6370964, -7.4095383)
 patrol_distance = 20.0
+avoid_other_enemies = true
 wander_change_time = 1.5
 track_in_2d = false
 track_in_3d = false
@@ -518,11 +569,11 @@ base_speed = 1.5
 acceleration = 25.0
 stop_distance = 0.8
 use_scale_for_movement = true
-avoid_other_enemies = true
 
 [node name="first_enemy4" parent="Plataformas" unique_id=124067222 instance=ExtResource("1_7rxco")]
 transform = Transform3D(-1.7484555e-07, 0, 4, 0, 4, 0, -4, 0, -1.7484555e-07, 0.11651122, 0.23057175, -29.008121)
 patrol_distance = 8.0
+avoid_other_enemies = true
 wander_change_time = 1.5
 track_in_2d = false
 track_in_3d = false
@@ -530,7 +581,6 @@ base_speed = 1.5
 acceleration = 25.0
 stop_distance = 0.8
 use_scale_for_movement = true
-avoid_other_enemies = true
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1301385740]
 
@@ -550,10 +600,13 @@ transform = Transform3D(0.155, 0, 0, 0, 4.647, 0, 0, 0, 0.155, 0, 15.640406, -25
 transform = Transform3D(0.61, 0, 0, 0, 0.61, 0, 0, 0, 0.61, 0, 12.965387, -25.550598)
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="Ganchos" unique_id=21407842 groups=["grappleable"]]
-transform = Transform3D(0.155, 0, 0, 0, 4.647, 0, 0, 0, 0.155, 0.25977102, 12.6500845, -82.44964)
+transform = Transform3D(0.155, 0, 0, 0, 4.647, 0, 0, 0, 0.155, 0.25977102, -7.977128, -82.44964)
 
-[node name="CSGBox3D10" type="CSGBox3D" parent="Ganchos" unique_id=1330003925 groups=["grappleable"]]
-transform = Transform3D(0.61, 0, 0, 0, 0.61, 0, 0, 0, 0.61, 0.118579, 9.987454, -82.44964)
+[node name="CSGBox3D10" type="CSGBox3D" parent="Ganchos/CSGBox3D9" unique_id=1330003925 groups=["grappleable"]]
+transform = Transform3D(3.9354837, 0, 0, 0, 0.13126749, 0, 0, 0, 3.9354837, -0.91091615, -0.5504596, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Ganchos/CSGBox3D9" unique_id=1559917373]
+libraries/ = SubResource("AnimationLibrary_vfry8")
 
 [node name="Plataformas ajedrez" type="CSGCombiner3D" parent="." unique_id=676904575]
 use_collision = true
@@ -591,7 +644,7 @@ size = Vector3(1, 0.1875, 2.4415894)
 libraries/ = SubResource("AnimationLibrary_0yrfn")
 
 [node name="ultima_plataforma" type="CSGBox3D" parent="Plataformas ajedrez" unique_id=1479610611]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.9605224, 6.1909995, -90.83161)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.9605224, 6.1909995, -90.83161)
 size = Vector3(1, 0.1875, 1.2364197)
 script = ExtResource("7_t7v4x")
 
@@ -692,5 +745,7 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3.23
 [connection signal="body_exited" from="Plataformas/Estanteria 3/InteractionArea" to="Plataformas/Estanteria 3/InteractionArea" method="_on_body_exited"]
 [connection signal="body_entered" from="Plataformas/Estanteria 4/InteractionArea" to="Plataformas/Estanteria 4/InteractionArea" method="_on_body_entered"]
 [connection signal="body_exited" from="Plataformas/Estanteria 4/InteractionArea" to="Plataformas/Estanteria 4/InteractionArea" method="_on_body_exited"]
+[connection signal="body_entered" from="Plataformas/Estanteria 5/InteractionArea" to="Plataformas/Estanteria 5/InteractionArea" method="_on_body_entered"]
+[connection signal="body_exited" from="Plataformas/Estanteria 5/InteractionArea" to="Plataformas/Estanteria 5/InteractionArea" method="_on_body_exited"]
 
 [editable path="Plataformas ajedrez/level_trigger"]

@@ -173,7 +173,7 @@ transform = Transform3D(0.4, 0, 5.3290705e-15, 0, 11.992, 0, -5.3290705e-15, 0, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9802322e-08, 12.197217, -2.5319624)
 
 [node name="palanca" type="CSGBox3D" parent="ganchos" unique_id=898954843]
-transform = Transform3D(0.15500014, -3.0652914e-09, -7.667122e-13, 1.0224225e-10, 4.6464763, 0.0023390374, -7.762681e-13, -0.07012588, 0.15498246, -5.1933885, -5.777617, -143.63939)
+transform = Transform3D(0.15500014, -3.0652918e-09, -7.667122e-13, 1.0224225e-10, 4.6464767, 0.0023390374, -7.762681e-13, -0.070125885, 0.15498246, -5.1933885, -5.777617, -143.63939)
 script = ExtResource("1_31vo8")
 
 [node name="InteractionArea" type="Area3D" parent="ganchos/palanca" unique_id=1811321911]
