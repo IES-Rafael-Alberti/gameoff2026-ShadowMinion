@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://elx0c4sug3sh" path="res://Scenes/Player.tscn" id="1_1c1li"]
 [ext_resource type="Script" uid="uid://c7lwajk7nk5g3" path="res://palanca.gd" id="1_a43gq"]
 [ext_resource type="PackedScene" uid="uid://br2i8owbc74db" path="res://Scenes/checkpoint.tscn" id="1_xha53"]
+[ext_resource type="PackedScene" uid="uid://n38y066u11d0" path="res://Scenes/fall_hazard.tscn" id="2_vu8nk"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_wtk8c"]
 [ext_resource type="Script" uid="uid://b338xlofghkv" path="res://Scripts/cameraManager.gd" id="3_whqay"]
 [ext_resource type="Script" uid="uid://obtot77o08pi" path="res://espejo.gd" id="3_xha53"]
@@ -12,6 +13,8 @@
 [ext_resource type="Script" uid="uid://cxim7v7cooub2" path="res://entrar_cueva.gd" id="7_8j3cs"]
 [ext_resource type="Script" uid="uid://dkpdv1vixkxij" path="res://Scripts/interactionArea.gd" id="8_cs12r"]
 [ext_resource type="Script" uid="uid://bli4flf66yvpc" path="res://salir_cueva.gd" id="9_a43gq"]
+[ext_resource type="PackedScene" uid="uid://dmg20lagwh8ty" path="res://level_trigger.tscn" id="14_2fq18"]
+[ext_resource type="PackedScene" uid="uid://djipqb06xnwxk" path="res://Scenes/pause_menu.tscn" id="15_d6wmu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8epcf"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -181,16 +184,16 @@ transform = Transform3D(-1.3113419e-08, 0, 0.3000001, 0, 8.994, 0, -0.3000001, 0
 [node name="CSGBox3D5" type="CSGBox3D" parent="ganchos/asdasdas" unique_id=575222607]
 transform = Transform3D(3.9354844, 0, -1.4210855e-14, 0, 0.13126753, 0, 1.4210855e-14, 0, 3.9354844, 0, -0.5554482, 0)
 
-[node name="CSGBox3D12" type="CSGBox3D" parent="ganchos" unique_id=898954843]
+[node name="CSGBox3D12" type="CSGBox3D" parent="ganchos" unique_id=898954843 groups=["grappleable"]]
 transform = Transform3D(-1.3113417e-08, 0, 0.3, 0, 8.994, 0, -0.3, 0, -1.3113417e-08, -24.319365, -6.4544005, -112.92627)
 
-[node name="CSGBox3D13" type="CSGBox3D" parent="ganchos/CSGBox3D12" unique_id=548792300]
+[node name="CSGBox3D13" type="CSGBox3D" parent="ganchos/CSGBox3D12" unique_id=548792300 groups=["grappleable"]]
 transform = Transform3D(3.935484, 0, 0, 0, 0.13126759, 0, 0, 0, 3.935484, 0, -0.5554488, 0)
 
-[node name="CSGBox3D14" type="CSGBox3D" parent="ganchos" unique_id=1165548791]
+[node name="CSGBox3D14" type="CSGBox3D" parent="ganchos" unique_id=1165548791 groups=["grappleable"]]
 transform = Transform3D(-1.3113417e-08, 0, 0.3, 0, 8.994, 0, -0.3, 0, -1.3113417e-08, -72.64099, -7.2007256, -112.92627)
 
-[node name="CSGBox3D15" type="CSGBox3D" parent="ganchos/CSGBox3D14" unique_id=2141481983]
+[node name="CSGBox3D15" type="CSGBox3D" parent="ganchos/CSGBox3D14" unique_id=2141481983 groups=["grappleable"]]
 transform = Transform3D(3.9354832, 0, 1.4210855e-14, 0, 0.13126764, 0, -1.4210855e-14, 0, 3.9354832, 0, -0.55544925, 0)
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="ganchos" unique_id=188893114]
@@ -212,13 +215,16 @@ transform = Transform3D(-1.3113417e-08, 0, 0.30000013, 0, 8.994, 0, -0.30000013,
 transform = Transform3D(3.9354846, 0, 1.4210855e-14, 0, 0.13126764, 0, -1.4210855e-14, 0, 3.9354846, 0, -0.5058303, 0)
 
 [node name="CSGBox3D16" type="CSGBox3D" parent="ganchos" unique_id=390189241]
-transform = Transform3D(0.00015705648, -0.015247895, 0.29999954, -2.0756195e-05, 8.993989, 0.0005086132, -0.3, -0.0006302526, 0.00015702107, -3.2193336, 20.194067, -112.92627)
+transform = Transform3D(0.00015705648, -0.015247895, 0.29999954, -2.0756197e-05, 8.99399, 0.00050861324, -0.30000004, -0.00063025265, 0.00015702109, -3.2193336, 21.821947, -112.92627)
 
 [node name="CSGBox3D17" type="CSGBox3D" parent="ganchos/CSGBox3D16" unique_id=1945893272]
 transform = Transform3D(3.935482, -0.0002722872, 0.002060656, 9.198566e-06, 0.1312674, -0.0002225433, -0.0020601924, 0.0066721295, 3.9354775, 0.0012207031, -0.566468, -0.028793335)
 
 [node name="checkpoint" parent="ganchos" unique_id=1413297851 instance=ExtResource("1_xha53")]
 transform = Transform3D(-1.9230771, 0, -1.681207e-07, 0, 1.9230771, 0, 1.681207e-07, 0, -1.9230771, 27.34307, -18.336523, -113.77464)
+
+[node name="fall_hazard" parent="ganchos" unique_id=1040016836 instance=ExtResource("2_vu8nk")]
+transform = Transform3D(-1.9230771, 0, -1.6812069e-07, 0, 1.9230771, 0, 1.6812069e-07, 0, -1.9230771, 86.80392, -33.733845, -104.58095)
 
 [node name="elementos underground (fuera)" type="CSGCombiner3D" parent="." unique_id=1841427891]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.114397764, -0.19381166, -29.528008)
@@ -378,19 +384,19 @@ transform = Transform3D(-4.3711523e-08, 0, 1.0000224, -0.234677, 0.97209543, -9.
 size = Vector3(7.4296875, 0.1850586, 117.70628)
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="paredes techo y suelo underground/CSGBox3D9" unique_id=1280038474]
-transform = Transform3D(7.0919576, -2.7424225e-08, 1.8383805, 2.7880097e-07, 0.77, -5.662254e-07, -0.7355585, 2.7442137e-08, 17.72492, -0.24603081, 0.044300556, -3.8704987)
+transform = Transform3D(7.0919576, -2.7424225e-08, 1.8383805, 2.7880097e-07, 0.77, -5.662254e-07, -0.7355585, 2.7442137e-08, 17.72492, 3.2683678, 0.044301033, -3.8704987)
 operation = 2
 radial_segments = 7
 rings = 5
 
 [node name="CSGSphere3D3" type="CSGSphere3D" parent="paredes techo y suelo underground/CSGBox3D9" unique_id=2076159643]
-transform = Transform3D(6.5798283, -1.1754096e-08, 4.032946, 2.188741e-07, 0.77, -3.5509305e-07, -2.7464092, 3.3204493e-08, 9.662104, -0.06277275, 0.044301987, -15.605362)
+transform = Transform3D(6.5798283, -1.1754096e-08, 4.032946, 2.188741e-07, 0.77, -3.5509305e-07, -2.7464092, 3.3204493e-08, 9.662104, 1.7929344, 0.044301987, -15.605362)
 operation = 2
 radial_segments = 7
 rings = 5
 
 [node name="CSGSphere3D4" type="CSGSphere3D" parent="paredes techo y suelo underground/CSGBox3D9" unique_id=2005057166]
-transform = Transform3D(7.091957, -2.7424225e-08, 1.838381, 2.7880094e-07, 0.77, -5.662254e-07, -0.7355587, 2.7442137e-08, 17.72492, -0.24603081, 0.044300556, 10.037819)
+transform = Transform3D(7.091957, -2.7424225e-08, 1.838381, 2.7880094e-07, 0.77, -5.662254e-07, -0.7355587, 2.7442137e-08, 17.72492, 2.1336021, 0.044301033, 10.037816)
 operation = 2
 radius = 0.51621974
 radial_segments = 7
@@ -403,31 +409,31 @@ radial_segments = 7
 rings = 5
 
 [node name="CSGSphere3D2" type="CSGSphere3D" parent="paredes techo y suelo underground/CSGBox3D9" unique_id=857911133]
-transform = Transform3D(6.446327, -1.3677887e-15, 3.8918958, 1.9789528e-07, 0.7699966, -2.5334776e-07, -4.426862, 3.4421383e-08, 5.6673183, -0.011606216, 0.044299603, -9.228405)
+transform = Transform3D(6.446327, -1.3677887e-15, 3.8918958, 1.9789533e-07, 0.7699966, -2.5334776e-07, -4.426862, 3.4421383e-08, 5.6673183, 1.1271858, 0.04430008, -9.228407)
 operation = 2
 radial_segments = 7
 rings = 5
 
 [node name="CSGSphere3D6" type="CSGSphere3D" parent="paredes techo y suelo underground/CSGBox3D9" unique_id=530282090]
-transform = Transform3D(-6.7305202, 1.3694273e-08, -3.455372, 2.1887412e-07, 0.77, -3.550931e-07, 2.3530853, -3.245249e-08, -9.883387, 0.08822867, 0.044301987, -21.415482)
+transform = Transform3D(-6.7305202, 1.3694273e-08, -3.455372, 2.1887412e-07, 0.77, -3.550931e-07, 2.3530853, -3.245249e-08, -9.883387, 2.332119, 0.044301987, -21.415485)
 operation = 2
 radial_segments = 7
 rings = 5
 
 [node name="CSGSphere3D7" type="CSGSphere3D" parent="paredes techo y suelo underground/CSGBox3D9" unique_id=676295548]
-transform = Transform3D(-6.69648, 2.032546e-09, -3.5504546, 1.9789525e-07, 0.76999646, -2.533478e-07, 4.038487, -3.4361317e-08, -5.8872414, -0.057545394, 0.044299603, -27.795158)
+transform = Transform3D(-6.69648, 2.032546e-09, -3.5504546, 1.9789525e-07, 0.76999646, -2.5334782e-07, 4.038487, -3.4361317e-08, -5.8872414, 2.8025627, 0.04430008, -27.795162)
 operation = 2
 radial_segments = 7
 rings = 5
 
 [node name="CSGSphere3D8" type="CSGSphere3D" parent="paredes techo y suelo underground/CSGBox3D9" unique_id=988122304]
-transform = Transform3D(6.5798283, -1.1754096e-08, 4.032946, 2.188741e-07, 0.77, -3.5509305e-07, -2.7464092, 3.3204493e-08, 9.662104, 0.018120766, 0.044301987, -43.449554)
+transform = Transform3D(6.5798283, -1.1754096e-08, 4.032946, 2.188741e-07, 0.77, -3.5509305e-07, -2.7464092, 3.3204493e-08, 9.662104, 1.6948814, 0.044301987, -43.449554)
 operation = 2
 radial_segments = 7
 rings = 5
 
 [node name="CSGSphere3D9" type="CSGSphere3D" parent="paredes techo y suelo underground/CSGBox3D9" unique_id=1703683620]
-transform = Transform3D(-6.69648, 2.032546e-09, -3.5504546, 1.9789525e-07, 0.76999646, -2.533478e-07, 4.038487, -3.4361317e-08, -5.8872414, -0.057545394, 0.044299603, -55.27487)
+transform = Transform3D(-6.69648, 2.032546e-09, -3.5504546, 1.9789525e-07, 0.76999646, -2.5334782e-07, 4.038487, -3.4361317e-08, -5.8872414, 1.4037514, 0.04430008, -55.27487)
 operation = 2
 radial_segments = 7
 rings = 5
@@ -464,19 +470,19 @@ transform = Transform3D(-2, 0, -3.019916e-07, 0, 2, 0, 3.019916e-07, 0, -2, -59.
 size = Vector3(1, 0.13085938, 0.7149658)
 
 [node name="CSGBox3D12" type="CSGBox3D" parent="Parkour underground" unique_id=579782039]
-transform = Transform3D(-2, 0, -3.019916e-07, 0, 2, 0, 3.019916e-07, 0, -2, -65.886765, -8.826585, -62)
+transform = Transform3D(-2, 0, -3.019916e-07, 0, 2, 0, 3.019916e-07, 0, -2, -65.886765, -9.304383, -62)
 size = Vector3(0.8342285, 0.13085938, 0.7149658)
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="Parkour underground" unique_id=1017246179]
-transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -71.12724, -7.2821035, -62.03801)
+transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -71.047714, -7.759902, -62.03801)
 size = Vector3(1, 0.13085938, 0.7149658)
 
 [node name="CSGBox3D10" type="CSGBox3D" parent="Parkour underground" unique_id=92267992]
-transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -69.020355, -8.316132, -62.03801)
+transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -68.384766, -8.316132, -62.03801)
 size = Vector3(1, 0.13085938, 0.7149658)
 
 [node name="CSGBox3D11" type="CSGBox3D" parent="Parkour underground" unique_id=969421758]
-transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -73.545876, -6.0383825, -62.03801)
+transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -73.545876, -6.891837, -62.03801)
 size = Vector3(1, 0.13085938, 0.7149658)
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="Parkour underground" unique_id=1277788272]
@@ -547,7 +553,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.45794, 1.668396, -61.9115)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1533469182]
 physics_interpolation_mode = 1
-transform = Transform3D(1.0000001, 0, 0, 0, 0.9999916, 0, 0, 0, 0.99999154, -61.457943, 3.668396, 72.91149)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 61.457935, 3.668396, -72.9115)
 top_level = true
 projection = 1
 size = 10.0
@@ -572,8 +578,6 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_a43gq")
 camera_3d_resource = SubResource("Resource_xha53")
 follow_offset = Vector3(0, 2, 10)
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=705197364 node_paths=PackedStringArray("follow_target")]
@@ -585,8 +589,6 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_vu8nk")
 camera_3d_resource = SubResource("Resource_2fq18")
 follow_offset = Vector3(0, 9.25, 6.5)
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=1263752165]
@@ -611,7 +613,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9913101, -5.6327515, 27.855
 shape = SubResource("SphereShape3D_jyaov")
 
 [node name="punto_destino" type="Marker3D" parent="entrar_cueva" unique_id=986545235]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7054739, -8.9348755, -23.035278)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7054739, -8.9348755, -22.636093)
 
 [node name="salir_cueva" type="Node3D" parent="." unique_id=676159990]
 script = ExtResource("9_a43gq")
@@ -626,7 +628,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.420265, 3.5586395, -61.49
 shape = SubResource("SphereShape3D_l7s6d")
 
 [node name="punto_destino" type="Marker3D" parent="salir_cueva" unique_id=2121100621]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9450784, 4.074127, -61.9755)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9450784, 4.074127, -62.17662)
+
+[node name="level_trigger" parent="." unique_id=1353307116 instance=ExtResource("14_2fq18")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -23.055267, 11.17691, -62.62814)
+target_level_path = "uid://itxlshgs8xl0"
+
+[node name="pause_menu" parent="." unique_id=291129629 instance=ExtResource("15_d6wmu")]
 
 [connection signal="body_entered" from="Elementos underground/palanca/InteractionArea" to="Elementos underground/palanca/InteractionArea" method="_on_body_entered"]
 [connection signal="body_exited" from="Elementos underground/palanca/InteractionArea" to="Elementos underground/palanca/InteractionArea" method="_on_body_exited"]
@@ -636,3 +644,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9450784, 4.074127, -61.9755
 [connection signal="body_exited" from="entrar_cueva/InteractionArea" to="entrar_cueva/InteractionArea" method="_on_body_exited"]
 [connection signal="body_entered" from="salir_cueva/InteractionArea" to="salir_cueva/InteractionArea" method="_on_body_entered"]
 [connection signal="body_exited" from="salir_cueva/InteractionArea" to="salir_cueva/InteractionArea" method="_on_body_exited"]
+
+[editable path="level_trigger"]

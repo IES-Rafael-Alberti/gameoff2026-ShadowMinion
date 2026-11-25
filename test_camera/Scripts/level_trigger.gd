@@ -10,7 +10,9 @@ var transitioning: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	body_entered.connect(_on_body_entered)
+	# level_trigger.tscn ya trae la conexión guardada; no duplicarla
+	if not body_entered.is_connected(_on_body_entered):
+		body_entered.connect(_on_body_entered)
 
 
 func _on_body_entered(body: Node3D) -> void:

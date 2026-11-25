@@ -660,14 +660,14 @@ shape = SubResource("BoxShape3D_8cxyx")
 [node name="level_trigger" parent="Plataformas ajedrez" unique_id=1353307116 instance=ExtResource("7_q11op")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.4671859, 3.1280692, -90.7266)
 target_level_path = "uid://buat41qevfxej"
-target_spawn_position = Vector3(-0.006, 1.43, -0.006)
+target_spawn_position = Vector3(61.458, 1.668, -61.911)
 
 [node name="Player" parent="." unique_id=1352346882 instance=ExtResource("1_031k3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05200022, 0.96, 5.041608)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1232808268]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 0.9999915, 0, 0, 0, 0.9999915, -5.041608, 3.96, 8.051991)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8.051991, 3.96, 5.0416074)
 top_level = true
 projection = 1
 size = 10.0
@@ -692,8 +692,6 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_tmnqu")
 camera_3d_resource = SubResource("Resource_vbeg1")
 follow_offset = Vector3(0, 3, 7)
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=1040067592 node_paths=PackedStringArray("follow_target")]
@@ -705,8 +703,6 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_22vjt")
 camera_3d_resource = SubResource("Resource_t0ydl")
 follow_offset = Vector3(0, 9.25, 6.5)
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=1361394772]

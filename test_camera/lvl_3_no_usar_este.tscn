@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://buat41qevfxej"]
+[gd_scene format=3 uid="uid://k7m3q2v9x4rt"]
 
 [ext_resource type="Script" uid="uid://c7lwajk7nk5g3" path="res://palanca.gd" id="1_31vo8"]
 [ext_resource type="PackedScene" uid="uid://elx0c4sug3sh" path="res://Scenes/Player.tscn" id="1_w005c"]

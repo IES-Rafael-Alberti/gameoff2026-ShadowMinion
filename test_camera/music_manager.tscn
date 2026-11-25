@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bt4f6mbxpt6xr"]
 
-[ext_resource type="AudioStream" uid="uid://c1arqj00ptxhl" path="res://Music/Ambience.mp3" id="1_tylfe"]
+[ext_resource type="Script" path="res://music_manager.gd" id="2_script"]
 
 [node name="music_manager" type="AudioStreamPlayer" unique_id=1544658415]
-stream = ExtResource("1_tylfe")
-autoplay = true
+script = ExtResource("2_script")

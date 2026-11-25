@@ -56,6 +56,9 @@ var ghost_animation_player: AnimationPlayer = null
 var ghost_current_animation: StringName = &""
 var was_grappling: bool = false
 var just_released_grapple: bool = false
+var saved_2d_z: float = 0.0
+# Mientras estás en el laberinto, los triggers controlan la cámara: E no hace nada
+var in_maze: bool = false
 
 
 @onready var camera_manager: Node = $"../CameraManager"
@@ -215,6 +218,10 @@ func movement2D(delta: float) ->void:
 # alternate the movement of the player for 2D and 3D and the camera view
 func changeMovementController() -> void:
 	
+	# Dentro del maze la cámara y el modo 3D los fijan los triggers
+	if in_maze:
+		return
+		
 	if not Input.is_action_just_pressed("ChangePerpective"):
 		return
 		
@@ -497,3 +504,65 @@ func _on_dialogic_started() -> void:
 
 func _on_dialogic_ended() -> void:
 	is_in_dialogue = false
+	
+
+func enter_maze_3d() -> void:
+	in_maze = true
+
+	# El trigger manda: aunque ya estuvieras en 3D por la E, va la cámara del maze
+	if camera_manager and camera_manager.has_method("set_inside_3d_camera"):
+		camera_manager.set_inside_3d_camera()
+
+	if movement3DActivated:
+		# Ya veníamos en 3D: recupera el plano 2D que guardó la E
+		saved_2d_z = original_position.z
+		return
+
+	# Guardamos la Z actual del plano 2D
+	saved_2d_z = global_position.z
+
+	movement3DActivated = true
+
+	if animation_player:
+		animation_player.stop()
+	current_animation = &""
+
+	if mesh:
+		var parent_scene = get_tree().current_scene
+		mesh.reparent(parent_scene, true)
+		mesh.visible = true
+	if mesh_ghost:
+		mesh_ghost.visible = true
+
+	GlobalScript.set_3d_mode(true)
+
+func exit_maze_2d() -> void:
+	if not movement3DActivated: return
+	
+	in_maze = false
+	
+	movement3DActivated = false
+	
+	# Usamos la Z que guardamos al entrar al laberinto
+	var new_pos = global_position
+	new_pos.z = saved_2d_z 
+	global_position = new_pos
+	original_position = new_pos # Actualizamos la referencia
+	
+	velocity = Vector3.ZERO
+	ghost_current_animation = &""
+	
+	if mesh:
+		var parent_scene = get_tree().current_scene
+		mesh.reparent(self)
+		mesh.position = Vector3.ZERO
+		var desired_yaw := -float(facing) * PI / 2.0
+		mesh.rotation = Vector3(0.0, desired_yaw - _player_yaw(), 0.0)
+		mesh.visible = true
+	if mesh_ghost:
+		mesh_ghost.visible = false
+		
+	if camera_manager and camera_manager.has_method("set_2d_camera"):
+		camera_manager.set_2d_camera()
+		
+	GlobalScript.set_3d_mode(false)

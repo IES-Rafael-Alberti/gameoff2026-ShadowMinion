@@ -17,6 +17,10 @@ extends Node3D
 #Si está activo, solo puedes enganchar puntos visibles en pantalla
 @export var require_on_screen: bool = true
 @export_range(0.0, 0.5, 0.01) var screen_margin: float = 0.05
+# Grosor del "plano 2D" en Z para tolerar ganchos unos centímetros fuera del plano
+@export_range(0.0, 2.0, 0.05) var plane_thickness: float = 0.75
+# Paso entre muestras dentro del grosor (los colliders de gancho son muy finos en Z)
+@export_range(0.01, 0.5, 0.01) var plane_step: float = 0.1
 
 @export_group("Cuerda")
 @export var rope_unit_length = 1.0
@@ -119,52 +123,63 @@ func launch():
 	for i in range(ray_count):
 		offsets.append((i - (ray_count - 1) / 2.0) * (spread_angle_deg / max(1.0, float(ray_count - 1))))
 	
+	# El modo 2D juega en XY, pero los ganchos pueden estar unos centímetros
+	# fuera del plano Z del jugador. Muestreamos el grosor en pasos cortos:
+	# con solo tres rayos separados 0.75 podían caer en el hueco entre
+	# muestras y no tocar un gancho. No cambia el abanico, el alcance ni el filtro.
+	var z_offsets: Array[float] = []
+	var z_steps := int(round(plane_thickness / maxf(plane_step, 0.01)))
+	for s in range(-z_steps, z_steps + 1):
+		z_offsets.append(float(s) * plane_step)
+
 	for angle_offset in offsets:
-		var a = deg_to_rad(aim_angle_deg + angle_offset)
-		var world_dir = Vector3(cos(a) * float(facing), sin(a), 0.0).normalized()
-		var ray_end = start + (world_dir * max_range)
-		
-		var excluded: Array[RID] = [player.get_rid()]
-		
-		for j in range(20):
-			var query = PhysicsRayQueryParameters3D.create(start, ray_end)
-			query.exclude = excluded
-			query.collide_with_bodies = true
-			query.collide_with_areas = true
-			query.hit_from_inside = true
-			
-			var result = space_state.intersect_ray(query)
-			if result.is_empty():
-				break
-			
-			var col = result.collider
-			if col == null:
-				break
-			
-			if _is_grappleable(col):
-				# Comparamos distancia desde el JUGADOR, no desde el rayo
-				var point = result.position
-				var d = player.global_position.distance_to(point)
-				
-				# No enganchar fuera de alcance ni fuera de pantalla
-				if d > max_range:
+		var a: float = deg_to_rad(aim_angle_deg + angle_offset)
+		var world_dir: Vector3 = Vector3(cos(a) * float(facing), sin(a), 0.0).normalized()
+
+		for z_off in z_offsets:
+			var ray_start: Vector3 = start + Vector3(0.0, 0.0, z_off)
+			var ray_end: Vector3 = ray_start + (world_dir * max_range)
+			var excluded: Array[RID] = [player.get_rid()]
+
+			for j in range(20):
+				var query := PhysicsRayQueryParameters3D.create(ray_start, ray_end)
+				query.exclude = excluded
+				query.collide_with_bodies = true
+				query.collide_with_areas = true
+				query.hit_from_inside = true
+
+				var result = space_state.intersect_ray(query)
+				if result.is_empty():
 					break
-				if require_on_screen and not _is_on_screen(point):
+
+				var col = result.collider
+				if col == null:
 					break
-				
-				if d < best_distance:
-					best_distance = d
-					best_target = point
-					found_target = true
-				
-				# Este rayo ya encontró su primer gancho; los de más allá están más lejos
-				break
-			
-			# Pared/techo/suelo: excluir y relanzar desde el mismo punto
-			if col is CollisionObject3D:
-				excluded.append(col.get_rid())
-			else:
-				break
+
+				if _is_grappleable(col):
+					var point: Vector3 = result.position
+					# Dejamos el enganche en el plano del jugador para que
+					# el péndulo no se tuerza por la diferencia de Z.
+					point.z = player.global_position.z
+
+					var d: float = player.global_position.distance_to(point)
+
+					if d > max_range:
+						break
+					if require_on_screen and not _is_on_screen(point):
+						break
+
+					if d < best_distance:
+						best_distance = d
+						best_target = point
+						found_target = true
+
+					break
+
+				if col is CollisionObject3D:
+					excluded.append(col.get_rid())
+				else:
+					break
 	
 	# Ningún rayo encontró un gancho
 	if not found_target:
