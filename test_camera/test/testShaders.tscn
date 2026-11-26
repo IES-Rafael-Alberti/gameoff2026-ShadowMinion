@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://co7p322uwuwpj"]
+
+[ext_resource type="Texture2D" uid="uid://bjlklt6fxqrdv" path="res://placeholder-portrait-example.png" id="1_unfwt"]
+[ext_resource type="Shader" uid="uid://5afkjmjhso1w" path="res://Shaders/testShader.gdshader" id="2_m5bb5"]
+[ext_resource type="Texture2D" uid="uid://bqckd2wc7m5pl" path="res://Assets/paletaColores.png" id="3_wtinh"]
+[ext_resource type="Texture2D" uid="uid://ggxg88q3yjv4" path="res://Assets/Dither.png" id="4_op5y8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jyaov"]
+shader = ExtResource("2_m5bb5")
+shader_parameter/u_dither_tex = ExtResource("4_op5y8")
+shader_parameter/u_color_tex = ExtResource("3_wtinh")
+shader_parameter/u_bit_depth = 4
+shader_parameter/u_contrast = 0.435
+shader_parameter/u_offset = 0.635
+shader_parameter/u_dither_size = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l7s6d"]
+shader = ExtResource("2_m5bb5")
+shader_parameter/u_bit_depth = 0
+shader_parameter/u_contrast = 0.0
+shader_parameter/u_offset = 0.0
+shader_parameter/u_dither_size = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_jyaov"]
+material = SubResource("ShaderMaterial_l7s6d")
+size = Vector2(2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l7s6d"]
+albedo_color = Color(0.41960785, 0.20392157, 0.65882355, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_jyaov"]
+material = SubResource("StandardMaterial3D_l7s6d")
+
+[node name="TestShaders" type="Node3D" unique_id=1107691786]
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=944800162]
+texture = ExtResource("1_unfwt")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=690131917]
+follow_viewport_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=998143485]
+material = SubResource("ShaderMaterial_jyaov")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1194543092]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.6161194)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=955290090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.6301835)
+visible = false
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_jyaov")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1876482153]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.3455279)
+mesh = SubResource("SphereMesh_jyaov")

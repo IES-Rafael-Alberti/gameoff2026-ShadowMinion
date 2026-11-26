@@ -15,6 +15,9 @@
 [ext_resource type="Script" uid="uid://dd1xugjr4mnpf" path="res://test.gd" id="12_akum8"]
 [ext_resource type="Script" uid="uid://cd3d5s2ttotha" path="res://Scripts/cutGrass.gd" id="13_s5spe"]
 [ext_resource type="Script" uid="uid://bo71jvlo57r0j" path="res://passLevel.gd" id="15_v6ada"]
+[ext_resource type="Shader" uid="uid://5afkjmjhso1w" path="res://Shaders/testShader.gdshader" id="16_ju7kl"]
+[ext_resource type="Texture2D" uid="uid://bqckd2wc7m5pl" path="res://Assets/paletaColores.png" id="17_qkdrd"]
+[ext_resource type="Texture2D" uid="uid://ggxg88q3yjv4" path="res://Assets/Dither.png" id="18_dfe2r"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t6wp4"]
 
@@ -168,6 +171,15 @@ albedo_color = Color(0.21250573, 0.46406358, 0.52401954, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_wp6sk"]
 size = Vector3(7.9716797, 2.0753174, 6.588257)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jyaov"]
+shader = ExtResource("16_ju7kl")
+shader_parameter/u_dither_tex = ExtResource("18_dfe2r")
+shader_parameter/u_color_tex = ExtResource("17_qkdrd")
+shader_parameter/u_bit_depth = 32
+shader_parameter/u_contrast = 0.265
+shader_parameter/u_offset = 0.185
+shader_parameter/u_dither_size = 2
+
 [node name="LVL 1" type="Node3D" unique_id=421194337]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 
@@ -200,7 +212,7 @@ mesh = SubResource("CylinderMesh_akum8")
 
 [node name="Camera" type="Camera3D" parent="." unique_id=2655336]
 physics_interpolation_mode = 1
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 31.786118, 1.224658, 11.663177)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.6631775, 1.224658, 31.786118)
 top_level = true
 projection = 1
 size = 10.0
@@ -225,6 +237,8 @@ tween_resource = SubResource("Resource_a1bqk")
 camera_3d_resource = SubResource("Resource_bcbm8")
 follow_distance = 15.0
 spring_length = 15.0
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=563448195 node_paths=PackedStringArray("follow_target")]
@@ -236,6 +250,8 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_clg6b")
 camera_3d_resource = SubResource("Resource_31jyx")
 follow_offset = Vector3(0, 10.92, 15)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=1649322412]
@@ -923,6 +939,16 @@ metadata/_custom_type_script = "uid://dkpdv1vixkxij"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="passLevel/InteractionArea" unique_id=2108773882]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.67822266, 0.53765845, -2.104599)
 shape = SubResource("BoxShape3D_wp6sk")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2075769056]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=679582155]
+material = SubResource("ShaderMaterial_jyaov")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="body_entered" from="LvlManager/Scissor" to="LvlManager" method="_on_scissor_body_entered"]
 [connection signal="body_entered" from="LvlManager/coleccionable dobón puerta" to="LvlManager" method="_on_coleccionable_dobón_puerta_body_entered"]
