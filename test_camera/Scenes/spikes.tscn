@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cgo4vwocv6edc"]
+
+[ext_resource type="Script" uid="uid://bvncfp2xly7sd" path="res://Scripts/spikes.gd" id="1_a5dqs"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8cxyx"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_0mymv"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gwqs2"]
+data = PackedVector3Array(0, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, -0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, -0.5, -0.5, -0.5, 0, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="spikes" type="StaticBody3D" unique_id=2115643364]
+script = ExtResource("1_a5dqs")
+
+[node name="hitbox" type="Area3D" parent="." unique_id=1845436000]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hitbox" unique_id=1569210027]
+shape = SubResource("BoxShape3D_8cxyx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=536133255]
+mesh = SubResource("PrismMesh_0mymv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1562649897]
+shape = SubResource("ConcavePolygonShape3D_gwqs2")

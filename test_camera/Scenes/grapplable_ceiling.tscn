@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://duhijnmuu6jqb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ts7x6"]
+albedo_color = Color(0.9831343, 0.25027704, 0.99999994, 1)
+
+[node name="grapplable ceiling" type="CSGBox3D" unique_id=38049380]
+transform = Transform3D(1, 0, 0, 0, 0.31372237, 0, 0, 0, 1, 0, 0, 0)
+use_collision = true
+size = Vector3(3.0957031, 0.94750977, 3.9482422)
+material = SubResource("StandardMaterial3D_ts7x6")
