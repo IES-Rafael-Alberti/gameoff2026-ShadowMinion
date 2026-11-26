@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://hmdoof1jcjc7"]
 
 [ext_resource type="PackedScene" uid="uid://elx0c4sug3sh" path="res://Scenes/Player.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://c0h23nu6gwcin" path="res://Scripts/main.gd" id="1_ryguw"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_1bvp3"]
 [ext_resource type="Script" uid="uid://b338xlofghkv" path="res://Scripts/cameraManager.gd" id="3_7mycd"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_lquwl"]
@@ -8,29 +9,27 @@
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://duhijnmuu6jqb" path="res://Scenes/grapplable_ceiling.tscn" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://dq4bfnrhavf5o" path="res://Scenes/enemy.tscn" id="7_ycdy4"]
-[ext_resource type="PackedScene" uid="uid://bfed5b06bmvck" path="res://Scenes/key_example.tscn" id="9_dg77c"]
 [ext_resource type="PackedScene" uid="uid://bkge8vtk2834i" path="res://Scenes/first_enemy.tscn" id="9_w48qg"]
-[ext_resource type="PackedScene" uid="uid://dh0py6s07qne3" path="res://Scenes/door_example.tscn" id="10_ycdy4"]
-[ext_resource type="Script" uid="uid://ol486wt0bgpp" path="res://Scripts/door_example.gd" id="11_w48qg"]
-[ext_resource type="PackedScene" uid="uid://c6notasypvblo" path="res://interaction/interaction area/interaction_area.tscn" id="12_vivmo"]
 [ext_resource type="PackedScene" uid="uid://cgo4vwocv6edc" path="res://Scenes/spikes.tscn" id="15_vivmo"]
 [ext_resource type="PackedScene" uid="uid://br2i8owbc74db" path="res://Scenes/checkpoint.tscn" id="16_2cqfq"]
 [ext_resource type="PackedScene" uid="uid://n38y066u11d0" path="res://Scenes/fall_hazard.tscn" id="17_yaehf"]
 [ext_resource type="Script" uid="uid://mjvg5yfrq1an" path="res://Scripts/obstaculo.gd" id="18_getpj"]
+[ext_resource type="PackedScene" uid="uid://bjo0oxgynkxnv" path="res://second_enemy.tscn" id="19_cegan"]
 [ext_resource type="PackedScene" uid="uid://ck43m43bci63f" path="res://Scenes/Interaction/InteractionArea.tscn" id="19_ryguw"]
 [ext_resource type="Script" uid="uid://dv04tax4an2ob" path="res://Scripts/platform.gd" id="20_d13ii"]
 [ext_resource type="Script" uid="uid://blvwbktqwk4vl" path="res://Scripts/RayCast.gd" id="21_1u8w0"]
+[ext_resource type="PackedScene" uid="uid://djipqb06xnwxk" path="res://Scenes/pause_menu.tscn" id="21_getpj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[sub_resource type="Sky" id="Sky_h2yge"]
+[sub_resource type="Sky" id="Sky_ryguw"]
 sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
 
 [sub_resource type="Environment" id="Environment_1bvp3"]
 background_mode = 2
-sky = SubResource("Sky_h2yge")
+sky = SubResource("Sky_ryguw")
 glow_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_exqi3"]
@@ -63,14 +62,9 @@ metadata/_custom_type_script = "uid://b8hhnqsugykly"
 [sub_resource type="BoxShape3D" id="BoxShape3D_jyaov"]
 size = Vector3(1.7452393, 2.7973633, 0.001)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_2cqfq"]
-radius = 3.1850216
+[sub_resource type="BoxShape3D" id="BoxShape3D_658jc"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_getpj"]
-albedo_color = Color(0, 0.39215687, 1, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ryguw"]
-size = Vector3(3.1837158, 0.54711914, 3.668747)
+[sub_resource type="BoxMesh" id="BoxMesh_8cxyx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d13ii"]
 albedo_color = Color(1, 0, 0, 1)
@@ -88,6 +82,7 @@ radius = 0.001
 height = 43.128326
 
 [node name="Main" type="Node3D" unique_id=1650990334]
+script = ExtResource("1_ryguw")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1362615538]
 environment = SubResource("Environment_1bvp3")
@@ -215,7 +210,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012145996, -0.52905273, 0.
 shape = SubResource("BoxShape3D_jyaov")
 
 [node name="grapplable ceiling" parent="." unique_id=38049380 instance=ExtResource("7_272bh")]
-transform = Transform3D(2.5227647, 0, 0, 0, 0.7914477, 0, 0, 0, 2.5227647, 20.317186, 7.6706557, 5.487257)
+transform = Transform3D(2.5227647, 0, 0, 0, 0.7914477, 0, 0, 0, 2.5227647, 20.317186, 7.6706557, 62.203445)
 
 [node name="Floor" type="CSGBox3D" parent="." unique_id=1518112844]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.93319, 0, 3.4036255)
@@ -226,19 +221,6 @@ size = Vector3(16.1441, 1, 13.002197)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.563282, 0, 0.5083008)
 use_collision = true
 size = Vector3(27.224882, 1, 13.002197)
-
-[node name="key_example" parent="." unique_id=1280721075 instance=ExtResource("9_dg77c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.64509, 2.3173656, 2.3380876)
-
-[node name="door_example" parent="." unique_id=2118036215 instance=ExtResource("10_ycdy4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.989025, 1, 7.3503437)
-script = ExtResource("11_w48qg")
-
-[node name="door_zone" parent="door_example" unique_id=1737456431 instance=ExtResource("12_vivmo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56428766, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="door_example/door_zone" unique_id=1483032515]
-shape = SubResource("SphereShape3D_2cqfq")
 
 [node name="first_enemy" parent="." unique_id=2028063305 instance=ExtResource("9_w48qg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.40831, 1.4221802, 8.98822)
@@ -257,10 +239,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.75161, -5.8257465, -866.1
 [node name="Obstaculo" type="Node3D" parent="." unique_id=42917941]
 transform = Transform3D(0.49943534, 0, 0, 0, 1, 0, 0, 0, 0.3584353, 2.939826, 2.8068526, 7.8225927)
 
-[node name="Obstaculo3D" type="CSGBox3D" parent="Obstaculo" unique_id=1718127638]
-transform = Transform3D(2.0022616, 0, 0, 0, 1, 0, 0, 0, 2.7899039, 0, -0.49209428, -8.577285)
-use_collision = true
-material = SubResource("StandardMaterial3D_getpj")
+[node name="Obstaculo3D" type="RigidBody3D" parent="Obstaculo" unique_id=863354814]
+transform = Transform3D(0.717, 0, 0, 0, 0.359, 0, 0, 0, 1, 0, -0.49209428, -8.577285)
 script = ExtResource("18_getpj")
 pushDistance = 1.0
 
@@ -269,8 +249,8 @@ collision_layer = 5
 collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obstaculo/Obstaculo3D/InteractionArea" unique_id=906459722]
-transform = Transform3D(0.4994601, 0, 0, 0, 1, 0, 0, 0, 0.3584353, 0.007954121, 0.17189264, -0.0020256042)
-shape = SubResource("BoxShape3D_ryguw")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007954121, 0.17189264, -0.0020256042)
+shape = SubResource("BoxShape3D_658jc")
 
 [node name="RightRayCast" type="RayCast3D" parent="Obstaculo/Obstaculo3D/InteractionArea/CollisionShape3D" unique_id=1332453675]
 transform = Transform3D(-6.1193994e-08, -1.3999554, 0, 1.4, -6.119594e-08, 0, 0, 0, 1.4000002, -0.015925884, -0.029664516, -0.08638096)
@@ -295,6 +275,9 @@ transform = Transform3D(2, 0, 0, 0, -8.742278e-08, -2, 0, 2, -8.742278e-08, 0, 0
 collision_mask = 2
 debug_shape_custom_color = Color(0.96862745, 0, 0, 1)
 debug_shape_thickness = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstaculo/Obstaculo3D" unique_id=774059091]
+mesh = SubResource("BoxMesh_8cxyx")
 
 [node name="Plataforma2D" type="RigidBody3D" parent="Obstaculo" unique_id=34664335]
 transform = Transform3D(1.0000011, 0, 0, 0, 1, 0, 0, 0, 1, 0.01743555, -0.050014257, -0.05893135)
@@ -334,10 +317,15 @@ script = ExtResource("21_1u8w0")
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 3.5762787e-07, -0.09259796, -7.1525574e-07)
 mesh = SubResource("CapsuleMesh_a6jrf")
 
+[node name="pause_menu" parent="." unique_id=291129629 instance=ExtResource("21_getpj")]
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="." unique_id=274976110 groups=["grappleable"]]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 21.369, 7.6663055, 7.539)
+use_collision = true
+
+[node name="second_enemy" parent="." unique_id=106871295 instance=ExtResource("19_cegan")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2, 8)
+
 [connection signal="body_entered" from="Area3D" to="Player" method="_on_area_3d_body_entered"]
-[connection signal="door_opened" from="key_example" to="door_example" method="_on_key_example_door_opened"]
-[connection signal="key_needed" from="key_example" to="door_example" method="_on_key_example_key_needed"]
-[connection signal="body_entered" from="door_example/door_zone" to="key_example" method="_on_door_zone_body_entered"]
-[connection signal="body_exited" from="door_example/door_zone" to="key_example" method="_on_door_zone_body_exited"]
 [connection signal="body_entered" from="Obstaculo/Plataforma2D/Area3D" to="Obstaculo/Plataforma2D" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Obstaculo/Plataforma2D/Area3D" to="Obstaculo/Plataforma2D" method="_on_area_3d_body_exited"]

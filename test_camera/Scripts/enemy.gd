@@ -18,6 +18,10 @@ extends CharacterBody3D
 @export var acceleration : float = 25.0
 #Distancia a la que deja de acercarse al jugador
 @export var stop_distance : float = 0.8
+## Multiplica velocidades y distancias por la escala del enemigo (x4 = 4 veces más rápido).
+@export var use_scale_for_movement: bool = true
+
+var movement_scale: float = 1.0
 
 
 var move_speed : float = 0.0
@@ -30,12 +34,25 @@ var player: CharacterBody3D = null
 
 
 func _ready() -> void:
-	move_speed = base_speed
+	_update_movement_scale()
 	original_position = global_position
 	_find_player()
 	
 	if hitbox:
 		hitbox.body_entered.connect(_on_hitbox_body_entered)
+
+func _update_movement_scale() -> void:
+	if not use_scale_for_movement:
+		movement_scale = 1.0
+	else:
+		# global_scale es un método en Godot 4.7: hay que leer la escala desde global_transform.
+		var s := global_transform.basis.get_scale().x
+		# Si escalaste solo el nodo visual en vez del root, usa ese tamaño.
+		if is_zero_approx(s - 1.0) and visual != null:
+			s = visual.global_transform.basis.get_scale().x
+		movement_scale = maxf(0.001, absf(s))
+	
+	move_speed = base_speed * movement_scale
 
 func _find_player()-> void:
 	player = get_tree().get_first_node_in_group("player") as CharacterBody3D
@@ -53,8 +70,9 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	
 	_update_movement_mode()
+	_update_movement_scale()
 	
-	var dir = _get_move_direction() 
+	var dir = _get_move_direction()
 	
 	if movement3DActivated:
 		_move_3d(dir, delta)
@@ -104,7 +122,7 @@ func _get_player_direction()-> Vector3:
 		to_player.z = 0.0
 	
 	var dist = to_player.length()
-	if dist <= stop_distance:
+	if dist <= stop_distance * movement_scale:
 		return Vector3.ZERO
 	
 	return to_player / dist
@@ -112,7 +130,7 @@ func _get_player_direction()-> Vector3:
 
 func _move_2d(dir: Vector3, delta: float) ->void:
 	var target_x = dir.x * move_speed
-	velocity.x = move_toward(velocity.x, target_x, acceleration * delta)
+	velocity.x = move_toward(velocity.x, target_x, acceleration * movement_scale * delta)
 	velocity.z = 0.0
 	if absf(dir.x) > 0.01:
 		_set_facing(1 if dir.x > 0.0 else -1)
@@ -124,8 +142,9 @@ func _move_3d(dir: Vector3, delta: float) ->void:
 		flat = flat.normalized()
 	
 	var target = flat * move_speed
-	velocity.x = move_toward(velocity.x, target.x, acceleration * delta)
-	velocity.z = move_toward(velocity.z, target.z, acceleration * delta)
+	var accel := acceleration * movement_scale * delta
+	velocity.x = move_toward(velocity.x, target.x, accel)
+	velocity.z = move_toward(velocity.z, target.z, accel)
 	
 	if absf(flat.x) > 0.01:
 		_set_facing(1 if flat.x > 0.0 else -1)
@@ -158,3 +177,6 @@ func _get_custom_direction() -> Vector3:
 #Para añadir lógica adicional
 func _custom_physics_process(_delta: float) -> void:
 	pass
+
+func get_movement_scale() -> float:
+	return movement_scale

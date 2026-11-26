@@ -1,0 +1,434 @@
+[gd_scene format=3 uid="uid://itxlshgs8xl0"]
+
+[ext_resource type="Script" uid="uid://b338xlofghkv" path="res://Scripts/cameraManager.gd" id="1_6ntf1"]
+[ext_resource type="PackedScene" uid="uid://br2i8owbc74db" path="res://Scenes/checkpoint.tscn" id="1_i37vr"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_o7vtu"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_emw0k"]
+[ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="4_ufpfk"]
+[ext_resource type="PackedScene" uid="uid://elx0c4sug3sh" path="res://Scenes/Player.tscn" id="5_i37vr"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_eidr8"]
+[ext_resource type="PackedScene" uid="uid://dmg20lagwh8ty" path="res://level_trigger.tscn" id="8_eidr8"]
+[ext_resource type="Script" uid="uid://ccyoas6jsaonw" path="res://maze_trigger.gd" id="9_sfugp"]
+[ext_resource type="Script" uid="uid://bbrfh5fxhqwk3" path="res://maze_trigger_exit.gd" id="10_7so1t"]
+[ext_resource type="PackedScene" uid="uid://djipqb06xnwxk" path="res://Scenes/pause_menu.tscn" id="11_eidr8"]
+[ext_resource type="PackedScene" uid="uid://n38y066u11d0" path="res://Scenes/fall_hazard.tscn" id="12_sfugp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2jw7a"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_hmyab"]
+sky_material = SubResource("ProceduralSkyMaterial_2jw7a")
+
+[sub_resource type="Environment" id="Environment_sggpl"]
+background_mode = 2
+sky = SubResource("Sky_hmyab")
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ntf1"]
+albedo_color = Color(0.34129697, 0.18833286, 6.016344e-07, 1)
+
+[sub_resource type="Resource" id="Resource_sfugp"]
+script = ExtResource("3_emw0k")
+
+[sub_resource type="Resource" id="Resource_7so1t"]
+script = ExtResource("4_ufpfk")
+projection = 1
+size = 10.0
+near = 0.001
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
+[sub_resource type="Resource" id="Resource_yqkdm"]
+script = ExtResource("3_emw0k")
+
+[sub_resource type="Resource" id="Resource_niheu"]
+script = ExtResource("4_ufpfk")
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
+[sub_resource type="Resource" id="Resource_d7q7f"]
+script = ExtResource("3_emw0k")
+
+[sub_resource type="Resource" id="Resource_s24pw"]
+script = ExtResource("4_ufpfk")
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7so1t"]
+size = Vector3(28.438187, 3.2265625, 13.638428)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0mymv"]
+radius = 5.3830214
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8cxyx"]
+radius = 6.796528
+
+[node name="lvl 4" type="Node3D" unique_id=418256283]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2007339120]
+environment = SubResource("Environment_sggpl")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=167757981]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1376618804]
+use_collision = true
+
+[node name="suelo" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1780626006]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 15, -395.331, -0.45019913, -0.016853333)
+size = Vector3(80.09986, 0.099609375, 0.99853516)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D/suelo" unique_id=382151514]
+transform = Transform3D(0.2105, 0, 0, 0, 1.33, 0, 0, 0, 0.14433333, 17.655901, 0.06313813, 0.0013478319)
+operation = 2
+size = Vector3(1.5976563, 1, 2.1446533)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/suelo" unique_id=141887943]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 0.06666667, -32.500202, 0.03303337, 0.0060719172)
+operation = 2
+size = Vector3(89.22507, 1, 12.301758)
+
+[node name="pare" type="CSGBox3D" parent="CSGCombiner3D" unique_id=463570101]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -395.35037, 25.303686, 7.3730116)
+size = Vector3(801.00964, 51.75953, 0.10632324)
+material = SubResource("StandardMaterial3D_6ntf1")
+
+[node name="Piezas parkour" type="CSGCombiner3D" parent="." unique_id=1890948369]
+use_collision = true
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Piezas parkour" unique_id=726153934]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1.5, 0.5)
+size = Vector3(1, 4, 16)
+
+[node name="CSGBox3D22" type="CSGBox3D" parent="Piezas parkour" unique_id=1443918182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.630135, 5.277483, 0.059481144)
+size = Vector3(6.260254, 0.20385742, 5.015259)
+
+[node name="CSGBox3D23" type="CSGBox3D" parent="Piezas parkour" unique_id=434577401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.22363, 6.805948, 0.059481144)
+size = Vector3(6.260254, 0.20385742, 5.015259)
+
+[node name="CSGBox3D24" type="CSGBox3D" parent="Piezas parkour" unique_id=1423971602]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103.22015, 8.311331, -0.065686665)
+size = Vector3(6.260254, 0.20385742, 14.852203)
+
+[node name="CSGBox3D25" type="CSGBox3D" parent="Piezas parkour" unique_id=1455295503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -127.699326, 9.822642, -0.06568639)
+size = Vector3(14.120331, 0.20385742, 14.852203)
+
+[node name="CSGBox3D26" type="CSGBox3D" parent="Piezas parkour" unique_id=428470984]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -396.16357, 17.177517, 4.9135003)
+size = Vector3(13.463501, 0.20385742, 14.852203)
+
+[node name="doble salto dash" type="CSGBox3D" parent="Piezas parkour" unique_id=1045850499]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -160.18137, 10.927172, -0.06568585)
+size = Vector3(26.322258, 0.20385742, 14.852203)
+
+[node name="doble salto dash2" type="CSGBox3D" parent="Piezas parkour" unique_id=283368463]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -252.28362, 18.945873, 2.6384072)
+size = Vector3(23.94223, 0.20385742, 12.148109)
+
+[node name="doble salto dash3" type="CSGBox3D" parent="Piezas parkour" unique_id=2049481684]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -305.56607, 11.912021, 3.3320947)
+size = Vector3(25.600548, 0.20385742, 11.454422)
+
+[node name="CSGBox3D27" type="CSGBox3D" parent="Piezas parkour" unique_id=1544117120]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -419.59863, 15.534906, 0.38018417)
+size = Vector3(2.1020508, 0.40148926, 2.532959)
+
+[node name="CSGBox3D28" type="CSGBox3D" parent="Piezas parkour" unique_id=286877447]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -430.8636, 13.6143265, 0.32511282)
+size = Vector3(2.1020508, 0.40148926, 2.532959)
+
+[node name="CSGBox3D29" type="CSGBox3D" parent="Piezas parkour" unique_id=204139405]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -442.54758, 11.449465, -0.50640154)
+size = Vector3(2.1020508, 0.40148926, 2.532959)
+
+[node name="CSGBox3D30" type="CSGBox3D" parent="Piezas parkour" unique_id=994484825]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -455.5964, 9.009892, 0.029859543)
+size = Vector3(5.47876, 0.40148926, 2.532959)
+
+[node name="CSGBox3D34" type="CSGBox3D" parent="Piezas parkour" unique_id=995343783]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -556.0381, 9.009892, 1.9725418)
+size = Vector3(5.255249, 0.40148926, 2.532959)
+
+[node name="CSGBox3D35" type="CSGBox3D" parent="Piezas parkour" unique_id=2097840467]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -572.0286, 10.579935, 1.9725418)
+size = Vector3(4.94458, 0.40148926, 2.532959)
+
+[node name="CSGBox3D36" type="CSGBox3D" parent="Piezas parkour" unique_id=438713031]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -595.38934, 11.8100605, 1.9725418)
+size = Vector3(6.490967, 0.40148926, 2.532959)
+
+[node name="CSGBox3D41" type="CSGBox3D" parent="Piezas parkour" unique_id=700002084]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -649.13257, 11.8100605, 1.9725418)
+size = Vector3(12.0868225, 0.40148926, 2.532959)
+
+[node name="CSGBox3D42" type="CSGBox3D" parent="Piezas parkour" unique_id=1372106890]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -669.79895, 13.537281, -0.30460358)
+size = Vector3(3.9052734, 0.40148926, 12.00528)
+
+[node name="CSGBox3D31" type="CSGBox3D" parent="Piezas parkour" unique_id=189077114]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -502.78366, 4.4511003, 0.16052103)
+size = Vector3(76.10608, 9.5190735, 15.23555)
+
+[node name="CSGBox3D32" type="CSGBox3D" parent="Piezas parkour" unique_id=1612911589]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -474.88425, 15.316076, -3.2174377)
+size = Vector3(1, 12.0859375, 9.480164)
+
+[node name="CSGBox3D33" type="CSGBox3D" parent="Piezas parkour" unique_id=2010181791]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -495.35843, 15.615637, 1.5673275)
+size = Vector3(1, 12.685059, 11.76709)
+
+[node name="CSGBox3D45" type="CSGBox3D" parent="Piezas parkour" unique_id=283693584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -528.9601, 12.947912, -1.6714373)
+size = Vector3(1, 7.3496094, 11.551086)
+
+[node name="CSGBox3D46" type="CSGBox3D" parent="Piezas parkour" unique_id=1833914182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -501.08807, 16.151953, -2.9650784)
+size = Vector3(1, 13.75769, 9.089355)
+
+[node name="CSGBox3D47" type="CSGBox3D" parent="Piezas parkour" unique_id=2121870908]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -506.46234, 16.26084, 1.9795871)
+size = Vector3(11.748535, 13.975464, 1)
+
+[node name="CSGBox3D48" type="CSGBox3D" parent="Piezas parkour" unique_id=1629434717]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -519.57025, 15.748449, 1.9540982)
+size = Vector3(1, 12.950684, 11.100586)
+
+[node name="CSGBox3D49" type="CSGBox3D" parent="Piezas parkour" unique_id=57249389]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -521.4804, 15.719946, -4.0096126)
+size = Vector3(4.8203125, 12.893677, 1)
+
+[node name="CSGBox3D50" type="CSGBox3D" parent="Piezas parkour" unique_id=265587776]
+transform = Transform3D(0.999999, 0.0011943964, 0.00073509157, -0.0011944788, 0.9999993, 0.00010918483, -0.00073495746, -0.00011008389, 0.99999976, -482.21436, 15.416458, 1.1159315)
+size = Vector3(14.290161, 12.28894, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Piezas parkour" unique_id=1653297524]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -5.903512, 0.32835484, -0.0104979975)
+size = Vector3(1, 0.15283203, 1.9575195)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Piezas parkour" unique_id=485342613]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -9.758009, 2.4204168, -0.0104971165)
+size = Vector3(1, 0.15283203, 1.9575195)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Piezas parkour" unique_id=562926149]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -14.1618395, 3.9820206, -0.030513944)
+size = Vector3(1, 0.15283203, 1.9575195)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Piezas parkour" unique_id=661824918]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -27.28637, 4.7202096, -0.010498047)
+size = Vector3(1, 0.15283203, 1.9575195)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Piezas parkour" unique_id=996129628]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -31.003922, 4.491625, -1.7480924)
+size = Vector3(1, 0.15283203, 1.9575195)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Piezas parkour" unique_id=461109255]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -35.545746, 4.4916253, -1.5957313)
+size = Vector3(1, 0.15283203, 1.9575195)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Piezas parkour" unique_id=811534351]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -41.292553, 3.9590888, 0.037218526)
+size = Vector3(1, 0.15283203, 1.9575195)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Piezas parkour" unique_id=1291778950]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -65.67206, 3.9590888, 0.03721881)
+size = Vector3(1, 0.15283203, 1.9575195)
+
+[node name="checkpoint" parent="Piezas parkour" unique_id=1413297851 instance=ExtResource("1_i37vr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.89265, 10.629232, 0.47676325)
+
+[node name="checkpoint2" parent="Piezas parkour" unique_id=83368473 instance=ExtResource("1_i37vr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -384.31607, 19.118889, -8.039612)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Piezas parkour" unique_id=897481548]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -356.17535, 13.711245, -2.4969082)
+size = Vector3(28.21442, 1, 13.387573)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Piezas parkour" unique_id=1104719319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.25476, 0.48388672, -3.4262695)
+size = Vector3(5.7805176, 1.9677734, 7.852539)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="Piezas parkour" unique_id=1730762267]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -199.7997, 11.997742, 0.23235893)
+use_collision = true
+size = Vector3(28.390839, 1.9086914, 14.225616)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="Piezas parkour/CSGBox3D12" unique_id=292158122]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.342728, 1.9333897, 0.14183235)
+size = Vector3(11.968506, 1.2901521, 12.822998)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Piezas parkour/CSGBox3D12/CSGBox3D13" unique_id=94792161]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5262299, 1.007782, 0.9122009)
+size = Vector3(6.428192, 3.015564, 11.488342)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="Piezas parkour" unique_id=369641959]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -718.02075, 15.680717, -0.4553833)
+size = Vector3(57.327705, 1, 17.08728)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="Piezas parkour" unique_id=129688472]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -366.0398, 15.300423, -2.7979126)
+size = Vector3(8.12088, 1.8634033, 13.181641)
+
+[node name="checkpoint3" parent="Piezas parkour" unique_id=998658012 instance=ExtResource("1_i37vr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -263.22614, 20.711227, -1.1343384)
+
+[node name="Ganchos parkour" type="CSGCombiner3D" parent="." unique_id=82118433 groups=["grappleable"]]
+use_collision = true
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="Ganchos parkour" unique_id=907797590]
+transform = Transform3D(0.5, 0, 0, 0, 14.99, 0, 0, 0, 0.5, -284.61685, 34.477547, -0.79312944)
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="Ganchos parkour/CSGBox3D16" unique_id=39146834]
+transform = Transform3D(3.3333333, 0, 0, 0, 0.11118523, 0, 0, 0, 3.3333333, 0, -0.52866626, 0)
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="Ganchos parkour" unique_id=1809803636 groups=["grappleable"]]
+transform = Transform3D(0.4, 0, 0, 0, 11.992, 0, 0, 0, 0.4, -334.42996, 25.605476, -0.79312944)
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="Ganchos parkour/CSGBox3D18" unique_id=1033024507 groups=["grappleable"]]
+transform = Transform3D(3.3333333, 0, 0, 0, 0.11118523, 0, 0, 0, 3.3333333, 0, -0.56154346, 0)
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="Ganchos parkour" unique_id=574732243 groups=["grappleable"]]
+transform = Transform3D(0.5, 0, 0, 0, 14.99, 0, 0, 0, 0.5, -375.01663, 29.652817, -0.79312944)
+
+[node name="CSGBox3D21" type="CSGBox3D" parent="Ganchos parkour/CSGBox3D20" unique_id=1219958265 groups=["grappleable"]]
+transform = Transform3D(3.3333333, 0, 0, 0, 0.11118523, 0, 0, 0, 3.3333333, 0, -0.5376344, 0)
+
+[node name="CSGBox3D37" type="CSGBox3D" parent="Ganchos parkour" unique_id=1248668425 groups=["grappleable"]]
+transform = Transform3D(0.5, 0, 0, 0, 14.99, 0, 0, 0, 0.5, -610.84576, 26.45232, -0.79312944)
+
+[node name="CSGBox3D38" type="CSGBox3D" parent="Ganchos parkour/CSGBox3D37" unique_id=803683262 groups=["grappleable"]]
+transform = Transform3D(3.3333333, 0, 0, 0, 0.11118523, 0, 0, 0, 3.3333333, 0, -0.5480671, 0)
+
+[node name="CSGBox3D39" type="CSGBox3D" parent="Ganchos parkour" unique_id=1680920793 groups=["grappleable"]]
+transform = Transform3D(0.5, 0, 0, 0, 14.99, 0, 0, 0, 0.5, -627.8498, 29.159796, -0.79312944)
+
+[node name="CSGBox3D40" type="CSGBox3D" parent="Ganchos parkour/CSGBox3D39" unique_id=1437390370 groups=["grappleable"]]
+transform = Transform3D(3.3333333, 0, 0, 0, 0.11118523, 0, 0, 0, 3.3333333, 0, -0.5614331, 0)
+
+[node name="CSGBox3D43" type="CSGBox3D" parent="Ganchos parkour" unique_id=1028699686 groups=["grappleable"]]
+transform = Transform3D(0.5, 0, 0, 0, 14.99, 0, 0, 0, 0.5, -680.58704, 29.433754, -0.79312944)
+
+[node name="CSGBox3D44" type="CSGBox3D" parent="Ganchos parkour/CSGBox3D43" unique_id=1160579113 groups=["grappleable"]]
+transform = Transform3D(3.3333333, 0, 0, 0, 0.11118523, 0, 0, 0, 3.3333333, 0, -0.56301785, 0)
+
+[node name="CameraManager" type="Node" parent="." unique_id=1203971448]
+script = ExtResource("1_6ntf1")
+
+[node name="2DCamera" type="Node3D" parent="CameraManager" unique_id=967301297 node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -3.9833374, 4.1325684, -13.006378)
+top_level = true
+script = ExtResource("2_o7vtu")
+priority = 1
+follow_mode = 5
+follow_target = NodePath("../../Player")
+tween_resource = SubResource("Resource_sfugp")
+camera_3d_resource = SubResource("Resource_7so1t")
+follow_offset = Vector3(-7, 2, -13)
+follow_distance = 0.0
+spring_length = 0.0
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=2063658774 node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(1, 0, 0, 0, 0.8090159, 0.58778596, 0, -0.58778596, 0.8090159, 3.0166626, 11.970354, 7.3026376)
+top_level = true
+script = ExtResource("2_o7vtu")
+follow_mode = 5
+follow_target = NodePath("../../Player")
+tween_resource = SubResource("Resource_yqkdm")
+camera_3d_resource = SubResource("Resource_niheu")
+follow_offset = Vector3(0, 9.25, 6.5)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=1366540974]
+transform = Transform3D(-0.6852582, -0.48553723, 0.54283917, 0, 0.7453514, 0.66667145, -0.72830033, 0.45684233, -0.5107576, -484.28287, 56.965828, -46.26629)
+script = ExtResource("2_o7vtu")
+look_at_mode = 2
+tween_resource = SubResource("Resource_d7q7f")
+camera_3d_resource = SubResource("Resource_s24pw")
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="Player" parent="." unique_id=1352346882 instance=ExtResource("5_i37vr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0166626, 2.1325684, -0.006378196)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1017863067]
+physics_interpolation_mode = 1
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -3.9833374, 4.1325684, -13.006378)
+top_level = true
+projection = 1
+size = 10.0
+near = 0.001
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1342375472]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("6_eidr8")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="ganchos" type="CSGCombiner3D" parent="." unique_id=240802078 groups=["grappleable"]]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+use_collision = true
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="ganchos" unique_id=425843041 groups=["grappleable"]]
+transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 14.99, 0, 7.54979e-08, 0, -0.5, 220.5039, 31.565514, 0.17684583)
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="ganchos/CSGBox3D14" unique_id=830117017 groups=["grappleable"]]
+transform = Transform3D(4, 0, 1.7053026e-13, 0, 0.134, 0, -1.7053026e-13, 0, 4, -0.073638916, -0.45214212, 2.9802322e-08)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="ganchos" unique_id=652532763 groups=["grappleable"]]
+transform = Transform3D(-0.3, 0, -4.5298744e-08, 0, 8.994, 0, 4.5298744e-08, 0, -0.3, 178.2694, 20.877636, 0.17684926)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="ganchos/CSGBox3D12" unique_id=2093952423 groups=["grappleable"]]
+transform = Transform3D(4, 0, 1.5916157e-13, 0, 0.134, 0, -1.5916157e-13, 0, 4, -0.049560547, -0.518525, -2.9802322e-08)
+
+[node name="CSGBox3D51" type="CSGBox3D" parent="ganchos" unique_id=1848861062 groups=["grappleable"]]
+transform = Transform3D(-0.5, 0, -4.371139e-08, 0, 14.99, 0, 4.371139e-08, 0, -0.5, 18.276413, 16.11171, 0.05851721)
+size = Vector3(0.7392578, 0.5262451, 0.5266113)
+
+[node name="CSGBox3D52" type="CSGBox3D" parent="ganchos/CSGBox3D51" unique_id=393020968 groups=["grappleable"]]
+transform = Transform3D(2, 0, 0, 0, 0.06671114, 0, 0, 0, 2, -0.1947174, -0.30104995, 0.13036156)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="ganchos" unique_id=800295908 groups=["grappleable"]]
+transform = Transform3D(-0.3, 0, -4.5298744e-08, 0, 8.994, 0, 4.5298744e-08, 0, -0.3, 49.556168, 14.645042, 0.17686175)
+size = Vector3(1, 0.6826172, 1)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="ganchos/CSGBox3D10" unique_id=757080921 groups=["grappleable"]]
+transform = Transform3D(3.3333333, 0, -2.842171e-14, 0, 0.11118523, 0, 2.842171e-14, 0, 3.3333333, -0.009048462, -0.3685336, 0)
+
+[node name="level_trigger" parent="." unique_id=1353307116 instance=ExtResource("8_eidr8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -771.1719, 2.9151611, -0.18767071)
+target_level_path = "uid://5pmee5obe42"
+
+[node name="CollisionShape3D" parent="level_trigger" index="0" unique_id=1818880549]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.155945, -1.1132813, -1.2357178)
+shape = SubResource("BoxShape3D_7so1t")
+
+[node name="maze_trigger" type="Area3D" parent="." unique_id=1811371734]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -484.55005, 6.8570557, 7.3408203)
+script = ExtResource("9_sfugp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="maze_trigger" unique_id=464087398]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.584412, 7.6705933, -7.243224)
+shape = SubResource("SphereShape3D_0mymv")
+
+[node name="maze_trigger_exit" type="Area3D" parent="." unique_id=740861836]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -541.9834, 4.9438477, 9.980591)
+script = ExtResource("10_7so1t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="maze_trigger_exit" unique_id=1018198]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.449829, 7.7249756, -10.1188965)
+shape = SubResource("SphereShape3D_8cxyx")
+
+[node name="pause_menu" parent="." unique_id=291129629 instance=ExtResource("11_eidr8")]
+
+[node name="checkpoint" parent="." unique_id=1998037302 instance=ExtResource("1_i37vr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -553.9338, 15.1050415, 0.73028564)
+
+[node name="fall_hazard" parent="." unique_id=1040016836 instance=ExtResource("12_sfugp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -784.8845, -15.089958, 11.496094)
+
+[editable path="level_trigger"]

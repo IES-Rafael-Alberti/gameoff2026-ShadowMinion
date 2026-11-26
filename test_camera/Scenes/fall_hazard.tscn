@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://n38y066u11d0"]
 
-[ext_resource type="Script" uid="uid://d06o57rscn4le" path="res://Scenes/fall_hazard.gd" id="1_v3jkd"]
+[ext_resource type="Script" uid="uid://d06o57rscn4le" path="res://Scripts/fall_hazard.gd" id="1_v3jkd"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_0mymv"]
 
