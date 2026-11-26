@@ -14,13 +14,14 @@
 [ext_resource type="Script" uid="uid://c5aa1i2p0qu11" path="res://Scripts/estanteria_4.gd" id="5_q11op"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="6_beans"]
 [ext_resource type="Script" uid="uid://duof8eli7dmat" path="res://estanteria_5.gd" id="7_jn2u7"]
-[ext_resource type="PackedScene" uid="uid://dmg20lagwh8ty" path="res://level_trigger.tscn" id="7_q11op"]
+[ext_resource type="PackedScene" uid="uid://dmg20lagwh8ty" path="res://Scenes/level_trigger.tscn" id="7_q11op"]
 [ext_resource type="Script" uid="uid://djjnnd714qq0o" path="res://ultima_plataforma.gd" id="7_t7v4x"]
 [ext_resource type="PackedScene" uid="uid://bfed5b06bmvck" path="res://Scenes/key_example.tscn" id="8_beans"]
 [ext_resource type="PackedScene" uid="uid://dh0py6s07qne3" path="res://Scenes/door_example.tscn" id="9_tmnqu"]
 [ext_resource type="PackedScene" uid="uid://ck43m43bci63f" path="res://Scenes/Interaction/InteractionArea.tscn" id="10_tmnqu"]
 [ext_resource type="PackedScene" uid="uid://n38y066u11d0" path="res://Scenes/fall_hazard.tscn" id="19_7gybj"]
 [ext_resource type="PackedScene" uid="uid://djipqb06xnwxk" path="res://Scenes/pause_menu.tscn" id="20_jn2u7"]
+[ext_resource type="PackedScene" uid="uid://1k6v10y3sji3" path="res://Scenes/dialogue_trigger.tscn" id="22_0yrfn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gybj"]
 albedo_color = Color(0.5247767, 0.51870316, 0, 1)
@@ -553,7 +554,7 @@ avoid_other_enemies = true
 wander_change_time = 1.5
 track_in_2d = false
 track_in_3d = false
-base_speed = 1.5
+base_speed = 1.0
 acceleration = 25.0
 stop_distance = 0.8
 use_scale_for_movement = true
@@ -565,7 +566,7 @@ avoid_other_enemies = true
 wander_change_time = 1.5
 track_in_2d = false
 track_in_3d = false
-base_speed = 1.5
+base_speed = 1.0
 acceleration = 25.0
 stop_distance = 0.8
 use_scale_for_movement = true
@@ -577,10 +578,18 @@ avoid_other_enemies = true
 wander_change_time = 1.5
 track_in_2d = false
 track_in_3d = false
-base_speed = 1.5
+base_speed = 1.0
 acceleration = 25.0
 stop_distance = 0.8
 use_scale_for_movement = true
+
+[node name="dialogue_trigger" parent="Plataformas" unique_id=56123754 instance=ExtResource("22_0yrfn")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.28485113, 1.3469803, -35.318356)
+dialogo = "uid://j4an0myygs2r"
+
+[node name="dialogue_trigger2" parent="Plataformas" unique_id=563288835 instance=ExtResource("22_0yrfn")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.52889013, 1.1956787, -39.39544)
+dialogo = "uid://cfdvm7hd8xx87"
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1301385740]
 
@@ -638,7 +647,7 @@ size = Vector3(1, 0.1875, 1.230835)
 
 [node name="plataforma3_desc" type="CSGBox3D" parent="Plataformas ajedrez" unique_id=1291274678]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9605224, 17.91287, -75.54887)
-size = Vector3(1, 0.1875, 2.4415894)
+size = Vector3(4.980438, 0.1875, 2.4415894)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Plataformas ajedrez/plataforma3_desc" unique_id=1986723083]
 libraries/ = SubResource("AnimationLibrary_0yrfn")
@@ -662,12 +671,16 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.4
 target_level_path = "uid://buat41qevfxej"
 target_spawn_position = Vector3(61.458, 1.668, -61.911)
 
+[node name="dialogue_trigger" parent="Plataformas ajedrez" unique_id=2140447849 instance=ExtResource("22_0yrfn")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.1747433, 8.439098, -90.7749)
+dialogo = "uid://w8x6gpli780e"
+
 [node name="Player" parent="." unique_id=1352346882 instance=ExtResource("1_031k3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05200022, 0.96, 5.041608)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05200036, 0.96, 8.206932)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1232808268]
 physics_interpolation_mode = 1
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8.051991, 3.96, 5.0416074)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8.051991, 3.96, 8.206932)
 top_level = true
 projection = 1
 size = 10.0
@@ -683,7 +696,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 script = ExtResource("3_bmf8x")
 
 [node name="2DCamera" type="Node3D" parent="CameraManager" unique_id=1369896271 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.9999915, 0, 0, 0, 0.9999915, -5.041608, 3.96, 8.051991)
+transform = Transform3D(1, 0, 0, 0, 0.9999915, 0, 0, 0, 0.9999915, -8.206932, 3.96, 8.051991)
 top_level = true
 script = ExtResource("4_7rxco")
 priority = 1
@@ -692,10 +705,12 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_tmnqu")
 camera_3d_resource = SubResource("Resource_vbeg1")
 follow_offset = Vector3(0, 3, 7)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=1040067592 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.8090159, 0.58778596, 0, -0.58778596, 0.8090159, -5.041608, 10.797786, 7.361016)
+transform = Transform3D(1, 0, 0, 0, 0.8090159, 0.58778596, 0, -0.58778596, 0.8090159, -8.206932, 10.797786, 7.361016)
 top_level = true
 script = ExtResource("4_7rxco")
 follow_mode = 5
@@ -703,6 +718,8 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_22vjt")
 camera_3d_resource = SubResource("Resource_t0ydl")
 follow_offset = Vector3(0, 9.25, 6.5)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=1361394772]
@@ -736,6 +753,14 @@ shape = SubResource("SphereShape3D_0mymv")
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3.2361467, -8.655119, -71.80441)
 
 [node name="pause_menu" parent="." unique_id=291129629 instance=ExtResource("20_jn2u7")]
+
+[node name="dialogue_trigger" parent="." unique_id=1184874443 instance=ExtResource("22_0yrfn")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.30352753, 1.624917, 8.330855)
+dialogo = "uid://bypss6euqyxix"
+
+[node name="dialogue_trigger2" parent="." unique_id=1124402198 instance=ExtResource("22_0yrfn")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.39542913, 0.11360985, 6.102893)
+dialogo = "uid://nwc03157q7jb"
 
 [connection signal="body_entered" from="Plataformas/Estanteria 3/InteractionArea" to="Plataformas/Estanteria 3/InteractionArea" method="_on_body_entered"]
 [connection signal="body_exited" from="Plataformas/Estanteria 3/InteractionArea" to="Plataformas/Estanteria 3/InteractionArea" method="_on_body_exited"]

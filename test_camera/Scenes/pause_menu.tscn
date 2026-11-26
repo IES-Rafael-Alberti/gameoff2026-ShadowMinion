@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://djipqb06xnwxk"]
 
 [ext_resource type="Script" uid="uid://37npp5i04gig" path="res://Scripts/pause_menu.gd" id="1_emv3i"]
+[ext_resource type="PackedScene" uid="uid://hdxkd8ag3hmn" path="res://Scenes/settings_menu.tscn" id="2_k0w1u"]
 
 [node name="pause_menu" type="CanvasLayer" unique_id=291129629]
 process_mode = 3
@@ -26,29 +27,40 @@ vertical_alignment = 1
 
 [node name="Resume" type="Button" parent="ColorRect" unique_id=1146908228]
 layout_mode = 0
-offset_left = 251.0
-offset_top = 159.0
-offset_right = 465.0
-offset_bottom = 232.0
+offset_left = 255.0
+offset_top = 146.0
+offset_right = 469.0
+offset_bottom = 211.0
 theme_override_font_sizes/font_size = 16
 text = "Resume"
 
+[node name="Options" type="Button" parent="ColorRect" unique_id=621469644]
+layout_mode = 0
+offset_left = 265.0
+offset_top = 221.0
+offset_right = 462.0
+offset_bottom = 277.0
+text = "Options"
+
 [node name="Return to last checkpoint" type="Button" parent="ColorRect" unique_id=1714060198]
 layout_mode = 0
-offset_left = 253.0
-offset_top = 252.0
-offset_right = 465.0
-offset_bottom = 318.0
+offset_left = 254.0
+offset_top = 284.0
+offset_right = 466.0
+offset_bottom = 350.0
 text = "Return to last checkpoint"
 
 [node name="Return to title screen" type="Button" parent="ColorRect" unique_id=1330256512]
 layout_mode = 0
-offset_left = 252.0
-offset_top = 346.0
-offset_right = 464.0
-offset_bottom = 412.0
+offset_left = 251.0
+offset_top = 364.0
+offset_right = 463.0
+offset_bottom = 430.0
 text = "Return to title screen"
 
+[node name="settings_menu" parent="." unique_id=139413209 instance=ExtResource("2_k0w1u")]
+
 [connection signal="pressed" from="ColorRect/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="ColorRect/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="ColorRect/Return to last checkpoint" to="." method="_on_return_to_last_checkpoint_pressed"]
 [connection signal="pressed" from="ColorRect/Return to title screen" to="." method="_on_return_to_title_screen_pressed"]

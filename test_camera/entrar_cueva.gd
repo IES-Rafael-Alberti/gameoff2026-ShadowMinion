@@ -13,7 +13,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _on_interact_entrar_cueva()->void:
-	print("¡La función de entrar a la cueva se ha activado!") # <--- AÑADE ESTO
+	print("¡La función de entrar a la cueva se ha activado!")
 	
 	var jugador = get_tree().get_first_node_in_group("player")
 	

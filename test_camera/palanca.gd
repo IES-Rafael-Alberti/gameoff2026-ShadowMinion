@@ -27,6 +27,8 @@ func _player_move_lever() -> void:
 	
 	if animation_player:
 		animation_player.play("abrir_puerta")
+		Dialogic.start("lvl3_after_lever")
+		Dialogic.end_timeline()
 	
 	#Desactivar detector para que no vuelva a saltar
 	interaction_area.set_deferred("monitoring", false)

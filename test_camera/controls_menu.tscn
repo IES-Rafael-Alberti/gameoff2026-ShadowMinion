@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://rfuxrtlyg5py"]
+
+[ext_resource type="Script" uid="uid://b6mpatkf3m886" path="res://controls_menu.gd" id="1_7yx0y"]
+
+[node name="ControlsScreen" type="PanelContainer" unique_id=1246244777]
+offset_left = 2.0
+offset_top = 4.0
+offset_right = 1145.0
+offset_bottom = 646.0
+script = ExtResource("1_7yx0y")
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1654999539]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="VBox" unique_id=1040264594]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Controls"
+horizontal_alignment = 1
+
+[node name="ControlsText" type="RichTextLabel" parent="VBox" unique_id=743554495]
+custom_minimum_size = Vector2(0, 220)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "Jump - Space
+Interact - R
+Change Perspective - E
+Dash - Q
+Movement - W A S D
+Sprint - Shift
+Grapple - Left click
+Pause - Tab"
+fit_content = true
+
+[node name="Back" type="Button" parent="VBox" unique_id=1423705501]
+custom_minimum_size = Vector2(180, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Back"
+
+[connection signal="pressed" from="VBox/Back" to="." method="_on_back_pressed"]

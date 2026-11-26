@@ -1,17 +1,17 @@
-[gd_scene format=3 uid="uid://k7m3q2v9x4rt"]
+[gd_scene format=3 uid="uid://k7m3q2wax4rt"]
 
 [ext_resource type="Script" uid="uid://c7lwajk7nk5g3" path="res://palanca.gd" id="1_31vo8"]
 [ext_resource type="PackedScene" uid="uid://elx0c4sug3sh" path="res://Scenes/Player.tscn" id="1_w005c"]
 [ext_resource type="Script" uid="uid://dkpdv1vixkxij" path="res://Scripts/interactionArea.gd" id="2_dc44f"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_urlp7"]
-[ext_resource type="PackedScene" uid="uid://bjo0oxgynkxnv" path="res://second_enemy.tscn" id="3_dc44f"]
+[ext_resource type="PackedScene" uid="uid://bjo0oxgynkxnv" path="res://Scenes/second_enemy.tscn" id="3_dc44f"]
 [ext_resource type="Script" uid="uid://b338xlofghkv" path="res://Scripts/cameraManager.gd" id="3_rno80"]
 [ext_resource type="PackedScene" uid="uid://br2i8owbc74db" path="res://Scenes/checkpoint.tscn" id="3_ye7io"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_31vo8"]
 [ext_resource type="PackedScene" uid="uid://n38y066u11d0" path="res://Scenes/fall_hazard.tscn" id="4_islhk"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_dc44f"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="6_sbval"]
-[ext_resource type="PackedScene" uid="uid://dmg20lagwh8ty" path="res://level_trigger.tscn" id="11_ye7io"]
+[ext_resource type="PackedScene" uid="uid://dmg20lagwh8ty" path="res://Scenes/level_trigger.tscn" id="11_ye7io"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lyj2s"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)

@@ -1,0 +1,139 @@
+[gd_scene format=3 uid="uid://hdxkd8ag3hmn"]
+
+[ext_resource type="Script" uid="uid://bd5yte8wjolp8" path="res://settings_menu.gd" id="1_ufg0w"]
+[ext_resource type="PackedScene" uid="uid://rfuxrtlyg5py" path="res://controls_menu.tscn" id="2_0cmel"]
+
+[node name="settings_menu" type="CanvasLayer" unique_id=139413209]
+script = ExtResource("1_ufg0w")
+
+[node name="Panel" type="Panel" parent="." unique_id=242303068]
+offset_left = 2.0
+offset_top = 4.0
+offset_right = 1145.0
+offset_bottom = 646.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=1105031219]
+layout_mode = 0
+offset_left = 86.0
+offset_top = 53.0
+offset_right = 1060.0
+offset_bottom = 572.0
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Panel/VBox" unique_id=1568309663]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="TitleSpacer" type="Control" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 40)
+mouse_filter = 2
+
+[node name="VolumeRows" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 60
+
+[node name="MusicRow" type="HBoxContainer" parent="Panel/VBox/VolumeRows"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MusicLabel" type="Label" parent="Panel/VBox/VolumeRows/MusicRow" unique_id=1908102310]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Music"
+
+[node name="MusicStepper" type="VBoxContainer" parent="Panel/VBox/VolumeRows/MusicRow"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="UpButton" type="Button" parent="Panel/VBox/VolumeRows/MusicRow/MusicStepper"]
+layout_mode = 2
+custom_minimum_size = Vector2(80, 36)
+theme_override_font_sizes/font_size = 24
+text = "▲"
+
+[node name="ValueLabel" type="Label" parent="Panel/VBox/VolumeRows/MusicRow/MusicStepper"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "100"
+horizontal_alignment = 1
+
+[node name="DownButton" type="Button" parent="Panel/VBox/VolumeRows/MusicRow/MusicStepper"]
+layout_mode = 2
+custom_minimum_size = Vector2(80, 36)
+theme_override_font_sizes/font_size = 24
+text = "▼"
+
+[node name="SfxRow" type="HBoxContainer" parent="Panel/VBox/VolumeRows"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SfxLabel" type="Label" parent="Panel/VBox/VolumeRows/SfxRow" unique_id=1891907333]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "SFX"
+
+[node name="SfxStepper" type="VBoxContainer" parent="Panel/VBox/VolumeRows/SfxRow"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="UpButton" type="Button" parent="Panel/VBox/VolumeRows/SfxRow/SfxStepper"]
+layout_mode = 2
+custom_minimum_size = Vector2(80, 36)
+theme_override_font_sizes/font_size = 24
+text = "▲"
+
+[node name="ValueLabel" type="Label" parent="Panel/VBox/VolumeRows/SfxRow/SfxStepper"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "100"
+horizontal_alignment = 1
+
+[node name="DownButton" type="Button" parent="Panel/VBox/VolumeRows/SfxRow/SfxStepper"]
+layout_mode = 2
+custom_minimum_size = Vector2(80, 36)
+theme_override_font_sizes/font_size = 24
+text = "▼"
+
+[node name="Spacer" type="Control" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 40)
+mouse_filter = 2
+
+[node name="ControlsButton" type="Button" parent="Panel/VBox" unique_id=1116291497]
+layout_mode = 2
+size_flags_horizontal = 4
+custom_minimum_size = Vector2(180, 50)
+theme_override_font_sizes/font_size = 32
+text = "Controls"
+
+[node name="Back" type="Button" parent="Panel/VBox" unique_id=1943427127]
+layout_mode = 2
+size_flags_horizontal = 4
+custom_minimum_size = Vector2(180, 50)
+theme_override_font_sizes/font_size = 32
+text = "Back"
+
+[node name="ControlsScreen" parent="." unique_id=1246244777 instance=ExtResource("2_0cmel")]
+
+[node name="RepeatTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="button_down" from="Panel/VBox/VolumeRows/MusicRow/MusicStepper/UpButton" to="." method="_on_music_up_button_down"]
+[connection signal="button_up" from="Panel/VBox/VolumeRows/MusicRow/MusicStepper/UpButton" to="." method="_stop_repeat"]
+[connection signal="mouse_exited" from="Panel/VBox/VolumeRows/MusicRow/MusicStepper/UpButton" to="." method="_stop_repeat"]
+[connection signal="button_down" from="Panel/VBox/VolumeRows/MusicRow/MusicStepper/DownButton" to="." method="_on_music_down_button_down"]
+[connection signal="button_up" from="Panel/VBox/VolumeRows/MusicRow/MusicStepper/DownButton" to="." method="_stop_repeat"]
+[connection signal="mouse_exited" from="Panel/VBox/VolumeRows/MusicRow/MusicStepper/DownButton" to="." method="_stop_repeat"]
+[connection signal="button_down" from="Panel/VBox/VolumeRows/SfxRow/SfxStepper/UpButton" to="." method="_on_sfx_up_button_down"]
+[connection signal="button_up" from="Panel/VBox/VolumeRows/SfxRow/SfxStepper/UpButton" to="." method="_stop_repeat"]
+[connection signal="mouse_exited" from="Panel/VBox/VolumeRows/SfxRow/SfxStepper/UpButton" to="." method="_stop_repeat"]
+[connection signal="button_down" from="Panel/VBox/VolumeRows/SfxRow/SfxStepper/DownButton" to="." method="_on_sfx_down_button_down"]
+[connection signal="button_up" from="Panel/VBox/VolumeRows/SfxRow/SfxStepper/DownButton" to="." method="_stop_repeat"]
+[connection signal="mouse_exited" from="Panel/VBox/VolumeRows/SfxRow/SfxStepper/DownButton" to="." method="_stop_repeat"]
+[connection signal="pressed" from="Panel/VBox/ControlsButton" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="Panel/VBox/Back" to="." method="_on_back_pressed"]

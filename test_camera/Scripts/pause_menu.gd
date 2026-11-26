@@ -1,15 +1,21 @@
 extends CanvasLayer
 
+@onready var color_rect: ColorRect = $ColorRect
+@onready var settings_menu: CanvasLayer = $settings_menu
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Permite que el menú funcione aunque el juego esté pausado
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	set_paused(false)
+	settings_menu.closed.connect(_on_settings_closed)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _input(event: InputEvent) -> void:
+	if settings_menu.visible:
+		return
 	if Input.is_action_just_pressed("pause"):
 		set_paused(not get_tree().paused)
 		#if get_tree().paused:
@@ -42,3 +48,11 @@ func _on_return_to_title_screen_pressed() -> void:
 	set_paused(false) 
 	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 	
+
+
+func _on_options_pressed() -> void:
+	color_rect.hide()
+	settings_menu.open()
+
+func _on_settings_closed() -> void:
+	color_rect.show()

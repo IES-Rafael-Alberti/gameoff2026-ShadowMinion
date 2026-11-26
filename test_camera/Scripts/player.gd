@@ -49,6 +49,9 @@ func _screen_x_axis() -> float:
 
 var is_dead: bool = false
 var is_in_dialogue: bool = false
+var dialogue_idle_pending: bool = false
+var dialogue_idle_timer: Timer = null
+var _dialogue_active_last_frame: bool = false
 var current_animation: StringName = &""
 var jump_replay_pending: bool = false
 const CHARACTER_MODEL: PackedScene = preload("res://Assets/Anims/Neutral Idle.fbx")
@@ -77,10 +80,25 @@ var active3DCamera = outsideCamera
 var debugMode = false
 
 func _physics_process(delta: float) -> void:
+	# Detectamos cambios de is_in_dialogue aunque vengan de otro script (p. ej. main.gd).
+	if is_in_dialogue != _dialogue_active_last_frame:
+		_set_dialogue_state(is_in_dialogue)
+	_dialogue_active_last_frame = is_in_dialogue
+
 	if is_in_dialogue:
-		#Si hay diálogo, se bloquea el movimiento
-		velocity = Vector3.ZERO
+		# Solo frenamos lo horizontal; la gravedad sigue para caer al suelo
+		velocity.x = move_toward(velocity.x, 0.0, move_speed)
+		velocity.z = move_toward(velocity.z, 0.0, move_speed)
+		if not is_on_floor():
+			velocity += get_gravity() * delta
+		else:
+			velocity.y = minf(velocity.y, 0.0)
 		move_and_slide()
+		# Si no había animación sonando, no hay animation_finished que esperar
+		if dialogue_idle_pending and is_on_floor():
+			var anim: AnimationPlayer = ghost_animation_player if movement3DActivated else animation_player
+			if anim == null or not anim.is_playing():
+				_force_dialogue_idle()
 		return
 		
 	changeMovementController()
@@ -271,6 +289,16 @@ func _ready() -> void:
 	#Conectamos las señales de dialogic para congelar al jugador
 	Dialogic.timeline_started.connect(_on_dialogic_started)
 	Dialogic.timeline_ended.connect(_on_dialogic_ended)
+
+	# Temporizador para esperar a que acabe el ciclo de la animación en curso.
+	# Los clips en bucle (Running/Falling/Gancho) NO emiten animation_finished.
+	dialogue_idle_timer = Timer.new()
+	dialogue_idle_timer.name = "DialogueIdleTimer"
+	dialogue_idle_timer.one_shot = true
+	dialogue_idle_timer.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(dialogue_idle_timer)
+	dialogue_idle_timer.timeout.connect(_on_dialogue_idle_timer_timeout)
+	_dialogue_active_last_frame = is_in_dialogue
 	
 	#Comprobamos si venimos de un cambio de nivel
 	if GlobalScript.use_next_spawn:
@@ -391,14 +419,30 @@ func _make_ghost_transparent(node: Node, alpha: float) -> void:
 
 
 func _on_animation_finished(anim_name: StringName) -> void:
-	if is_dead or is_in_dialogue or is_on_floor():
+	if is_dead:
+		return
+	if is_in_dialogue:
+		if is_on_floor():
+			_force_dialogue_idle()
+		else:
+			_schedule_dialogue_idle()
+		return
+	if is_on_floor():
 		return
 	if anim_name == StringName("player_anims/Falling"):
 		animation_player.play(anim_name, 0.0)
 
 
 func _on_ghost_animation_finished(anim_name: StringName) -> void:
-	if is_dead or is_in_dialogue or is_on_floor() or ghost_animation_player == null:
+	if is_dead or ghost_animation_player == null:
+		return
+	if is_in_dialogue:
+		if is_on_floor():
+			_force_dialogue_idle()
+		else:
+			_schedule_dialogue_idle()
+		return
+	if is_on_floor():
 		return
 	if anim_name == StringName("player_anims/Falling"):
 		ghost_animation_player.play(anim_name, 0.0)
@@ -497,13 +541,87 @@ func _getMovement3DActive():
 	return movement3DActivated
 	
 func _on_dialogic_started() -> void:
-	is_in_dialogue = true
-	# Detener la velocidad horizontal por si venía corriendo
-	velocity.x = 0
-	velocity.z = 0
+	_set_dialogue_state(true)
+
 
 func _on_dialogic_ended() -> void:
-	is_in_dialogue = false
+	_set_dialogue_state(false)
+
+
+# Punto único de entrada. También lo llama _physics_process si otro script
+# (main.gd, por ejemplo) escribe is_in_dialogue directamente.
+func _set_dialogue_state(active: bool) -> void:
+	if is_in_dialogue == active:
+		return
+
+	is_in_dialogue = active
+	if active:
+		dialogue_idle_pending = true
+		# Frenamos solo lo horizontal; velocity.y se conserva para caer al suelo.
+		velocity.x = 0
+		velocity.z = 0
+		_schedule_dialogue_idle()
+	else:
+		dialogue_idle_pending = false
+		current_animation = &""
+		ghost_current_animation = &""
+		if dialogue_idle_timer != null:
+			dialogue_idle_timer.stop()
+
+
+# Running/Falling/Gancho son loops y nunca emiten animation_finished.
+# Esperamos a que acabe el ciclo que ya estaba sonando y entonces pasamos a idle.
+func _schedule_dialogue_idle() -> void:
+	if not is_in_dialogue or not dialogue_idle_pending:
+		return
+	if dialogue_idle_timer == null:
+		_force_dialogue_idle()
+		return
+
+	dialogue_idle_timer.stop()
+
+	var anim: AnimationPlayer = ghost_animation_player if movement3DActivated else animation_player
+	if anim == null or not anim.is_playing() or anim.current_animation == StringName():
+		_force_dialogue_idle()
+		return
+
+	var clip: Animation = anim.get_animation(anim.current_animation)
+	if clip == null:
+		_force_dialogue_idle()
+		return
+
+	# Lo que queda del ciclo actual (mínimo un frame para no cortarlo).
+	var remaining := maxf(clip.length - anim.current_animation_position, 0.03)
+	dialogue_idle_timer.start(remaining)
+
+
+func _on_dialogue_idle_timer_timeout() -> void:
+	if not is_in_dialogue or not dialogue_idle_pending:
+		return
+	if not is_on_floor():
+		# Seguimos cayendo; al aterrizar se fuerza el idle en el próximo ciclo.
+		_schedule_dialogue_idle()
+		return
+	_force_dialogue_idle()
+
+
+func _force_dialogue_idle() -> void:
+	if not is_in_dialogue or not is_on_floor():
+		return
+
+	var idle_id := StringName("player_anims/Neutral Idle")
+	if not movement3DActivated:
+		if animation_player != null:
+			animation_player.play(idle_id, 0.15)
+			current_animation = idle_id
+	else:
+		if ghost_animation_player != null:
+			ghost_animation_player.play(idle_id, 0.15)
+			ghost_current_animation = idle_id
+
+	dialogue_idle_pending = false
+	if dialogue_idle_timer != null:
+		dialogue_idle_timer.stop()
 	
 
 func enter_maze_3d() -> void:

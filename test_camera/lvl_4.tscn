@@ -7,7 +7,8 @@
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="4_ufpfk"]
 [ext_resource type="PackedScene" uid="uid://elx0c4sug3sh" path="res://Scenes/Player.tscn" id="5_i37vr"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_eidr8"]
-[ext_resource type="PackedScene" uid="uid://dmg20lagwh8ty" path="res://level_trigger.tscn" id="8_eidr8"]
+[ext_resource type="PackedScene" uid="uid://1k6v10y3sji3" path="res://Scenes/dialogue_trigger.tscn" id="8_7so1t"]
+[ext_resource type="PackedScene" uid="uid://dmg20lagwh8ty" path="res://Scenes/level_trigger.tscn" id="8_eidr8"]
 [ext_resource type="Script" uid="uid://ccyoas6jsaonw" path="res://maze_trigger.gd" id="9_sfugp"]
 [ext_resource type="Script" uid="uid://bbrfh5fxhqwk3" path="res://maze_trigger_exit.gd" id="10_7so1t"]
 [ext_resource type="PackedScene" uid="uid://djipqb06xnwxk" path="res://Scenes/pause_menu.tscn" id="11_eidr8"]
@@ -148,24 +149,24 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -455.5964, 9.009892, 0.029859
 size = Vector3(5.47876, 0.40148926, 2.532959)
 
 [node name="CSGBox3D34" type="CSGBox3D" parent="Piezas parkour" unique_id=995343783]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -556.0381, 9.009892, 1.9725418)
-size = Vector3(5.255249, 0.40148926, 2.532959)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -556.0381, 9.009892, -0.06401825)
+size = Vector3(5.255249, 0.40148926, 4.569519)
 
 [node name="CSGBox3D35" type="CSGBox3D" parent="Piezas parkour" unique_id=2097840467]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -572.0286, 10.579935, 1.9725418)
-size = Vector3(4.94458, 0.40148926, 2.532959)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -572.0286, 10.579935, -0.008598328)
+size = Vector3(4.94458, 0.40148926, 4.514099)
 
 [node name="CSGBox3D36" type="CSGBox3D" parent="Piezas parkour" unique_id=438713031]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -595.38934, 11.8100605, 1.9725418)
-size = Vector3(6.490967, 0.40148926, 2.532959)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -595.38934, 11.8100605, -0.10186005)
+size = Vector3(6.490967, 0.40148926, 4.607361)
 
 [node name="CSGBox3D41" type="CSGBox3D" parent="Piezas parkour" unique_id=700002084]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -649.13257, 11.8100605, 1.9725418)
-size = Vector3(12.0868225, 0.40148926, 2.532959)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -649.13257, 11.8100605, -1.9123459)
+size = Vector3(12.0868225, 0.40148926, 6.4178467)
 
 [node name="CSGBox3D42" type="CSGBox3D" parent="Piezas parkour" unique_id=1372106890]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -669.79895, 13.537281, -0.30460358)
-size = Vector3(3.9052734, 0.40148926, 12.00528)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -669.79895, 13.537281, 0.40311432)
+size = Vector3(3.9052734, 0.40148926, 11.297562)
 
 [node name="CSGBox3D31" type="CSGBox3D" parent="Piezas parkour" unique_id=189077114]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -502.78366, 4.4511003, 0.16052103)
@@ -263,8 +264,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5262299, 1.007782, 0.91220
 size = Vector3(6.428192, 3.015564, 11.488342)
 
 [node name="CSGBox3D13" type="CSGBox3D" parent="Piezas parkour" unique_id=369641959]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -718.02075, 15.680717, -0.4553833)
-size = Vector3(57.327705, 1, 17.08728)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -718.02075, 15.680717, -1.0597763)
+size = Vector3(57.327705, 1, 18.296066)
 
 [node name="CSGBox3D14" type="CSGBox3D" parent="Piezas parkour" unique_id=129688472]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -366.0398, 15.300423, -2.7979126)
@@ -399,6 +400,14 @@ size = Vector3(1, 0.6826172, 1)
 [node name="CSGBox3D11" type="CSGBox3D" parent="ganchos/CSGBox3D10" unique_id=757080921 groups=["grappleable"]]
 transform = Transform3D(3.3333333, 0, -2.842171e-14, 0, 0.11118523, 0, 2.842171e-14, 0, 3.3333333, -0.009048462, -0.3685336, 0)
 
+[node name="dialogue_trigger" parent="ganchos" unique_id=56123754 instance=ExtResource("8_7so1t")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2.4262333, 1.5238953, 0.94689965)
+dialogo = "uid://bi386pv6vvwpm"
+
+[node name="dialogue_trigger2" parent="ganchos" unique_id=1585073 instance=ExtResource("8_7so1t")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 738.7588, 22.05597, -0.19049427)
+dialogo = "uid://cnscyeu5mmirr"
+
 [node name="level_trigger" parent="." unique_id=1353307116 instance=ExtResource("8_eidr8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -771.1719, 2.9151611, -0.18767071)
 target_level_path = "uid://5pmee5obe42"
@@ -426,7 +435,7 @@ shape = SubResource("SphereShape3D_8cxyx")
 [node name="pause_menu" parent="." unique_id=291129629 instance=ExtResource("11_eidr8")]
 
 [node name="checkpoint" parent="." unique_id=1998037302 instance=ExtResource("1_i37vr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -553.9338, 15.1050415, 0.73028564)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -553.9338, 10.952209, 0.21302414)
 
 [node name="fall_hazard" parent="." unique_id=1040016836 instance=ExtResource("12_sfugp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -784.8845, -15.089958, 11.496094)

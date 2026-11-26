@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b88h1b8ju0uss"]
 
-[ext_resource type="Script" uid="uid://cahyrmyjjre5j" path="res://Scripts/main_menu.gd" id="1_28flt"]
+[ext_resource type="Script" uid="uid://bsj56up1km2ly" path="res://Scripts/main_menu.gd" id="1_28flt"]
+[ext_resource type="PackedScene" uid="uid://hdxkd8ag3hmn" path="res://Scenes/settings_menu.tscn" id="2_48xlc"]
 
 [node name="main_menu" type="Node3D" unique_id=269056240]
 script = ExtResource("1_28flt")
@@ -14,18 +15,27 @@ offset_bottom = 40.0
 [node name="Start" type="Button" parent="Button Manager" unique_id=133595305]
 layout_mode = 0
 offset_left = 450.0
-offset_top = 375.0
+offset_top = 348.0
 offset_right = 672.0
-offset_bottom = 445.0
+offset_bottom = 418.0
 theme_override_font_sizes/font_size = 32
 text = "Start"
 
+[node name="Options" type="Button" parent="Button Manager" unique_id=1948234658]
+layout_mode = 0
+offset_left = 449.0
+offset_top = 445.0
+offset_right = 666.0
+offset_bottom = 512.0
+theme_override_font_sizes/font_size = 32
+text = "Options"
+
 [node name="Exit" type="Button" parent="Button Manager" unique_id=1133764808]
 layout_mode = 0
-offset_left = 452.0
-offset_top = 469.0
-offset_right = 672.0
-offset_bottom = 539.0
+offset_left = 451.0
+offset_top = 549.0
+offset_right = 671.0
+offset_bottom = 619.0
 theme_override_font_sizes/font_size = 32
 text = "Exit"
 
@@ -35,9 +45,12 @@ offset_top = 160.0
 offset_right = 792.0
 offset_bottom = 268.0
 theme_override_font_sizes/font_size = 64
-text = "Game title"
+text = "Manifest"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="settings_menu" parent="." unique_id=139413209 instance=ExtResource("2_48xlc")]
+
 [connection signal="pressed" from="Button Manager/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Button Manager/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="Button Manager/Exit" to="." method="_on_exit_pressed"]

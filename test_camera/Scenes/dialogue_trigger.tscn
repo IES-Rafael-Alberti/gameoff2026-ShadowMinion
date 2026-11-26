@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://1k6v10y3sji3"]
+
+[ext_resource type="Script" uid="uid://da7g206xo1qom" path="res://dialogue_trigger.gd" id="1_mui1w"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jyaov"]
+radius = 1.0146301
+
+[node name="dialogue_trigger" type="Node3D" unique_id=56123754]
+script = ExtResource("1_mui1w")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=111594991]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1008714740]
+shape = SubResource("SphereShape3D_jyaov")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
