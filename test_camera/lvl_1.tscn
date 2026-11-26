@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://blvwbktqwk4vl" path="res://Scripts/RayCast.gd" id="5_g81ij"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="6_t6wp4"]
 [ext_resource type="Script" uid="uid://dd1xugjr4mnpf" path="res://test.gd" id="12_akum8"]
-[ext_resource type="Script" uid="uid://cd3d5s2ttotha" path="res://cutGrass.gd" id="13_s5spe"]
+[ext_resource type="Script" uid="uid://cd3d5s2ttotha" path="res://Scripts/cutGrass.gd" id="13_s5spe"]
 [ext_resource type="Script" uid="uid://bo71jvlo57r0j" path="res://passLevel.gd" id="15_v6ada"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t6wp4"]
@@ -200,7 +200,7 @@ mesh = SubResource("CylinderMesh_akum8")
 
 [node name="Camera" type="Camera3D" parent="." unique_id=2655336]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.6631775, 1.224658, 31.786118)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 31.786118, 1.224658, 11.663177)
 top_level = true
 projection = 1
 size = 10.0
@@ -225,8 +225,6 @@ tween_resource = SubResource("Resource_a1bqk")
 camera_3d_resource = SubResource("Resource_bcbm8")
 follow_distance = 15.0
 spring_length = 15.0
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=563448195 node_paths=PackedStringArray("follow_target")]
@@ -238,8 +236,6 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_clg6b")
 camera_3d_resource = SubResource("Resource_31jyx")
 follow_offset = Vector3(0, 10.92, 15)
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=1649322412]

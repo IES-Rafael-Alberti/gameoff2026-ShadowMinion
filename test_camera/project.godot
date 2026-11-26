@@ -34,6 +34,7 @@ directories/dtl_directory={
 "acertijo2": "res://acertijo2.dtl",
 "acertijo3": "res://acertijo3.dtl",
 "acertijo4": "res://acertijo4.dtl",
+"lvl5Arbol": "res://lvl5Arbol.dtl",
 "lvl5Cuadro": "res://lvl5Cuadro.dtl",
 "lvl5PassRiver": "res://lvl5PassRiver.dtl",
 "timeline": "res://timeline.dtl"
