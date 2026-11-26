@@ -27,3 +27,18 @@ func set_paused(is_paused: bool) -> void:
 
 func _on_resume_pressed() -> void:
 	set_paused(false)
+
+
+func _on_return_to_last_checkpoint_pressed() -> void:
+	set_paused(false)
+	
+	var player = get_tree().get_first_node_in_group("player")
+	
+	if player and player.has_method("die"):
+		player.die()
+
+
+func _on_return_to_title_screen_pressed() -> void:
+	set_paused(false) 
+	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+	

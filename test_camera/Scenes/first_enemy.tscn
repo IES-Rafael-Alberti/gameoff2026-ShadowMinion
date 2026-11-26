@@ -11,12 +11,20 @@ material = SubResource("StandardMaterial3D_ycdy4")
 [sub_resource type="BoxShape3D" id="BoxShape3D_eqyok"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_l7s6d"]
-radius = 0.99614
+radius = 0.66868395
 
 [node name="first_enemy" type="CharacterBody3D" unique_id=2028063305 node_paths=PackedStringArray("hitbox", "visual")]
 script = ExtResource("1_nlobk")
+patrol_distance = null
+wander_change_time = null
 hitbox = NodePath("Hurtbox")
 visual = NodePath("MeshInstance3D")
+track_in_2d = null
+track_in_3d = null
+base_speed = null
+acceleration = null
+stop_distance = null
+use_scale_for_movement = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=693009008]
 mesh = SubResource("BoxMesh_jyaov")

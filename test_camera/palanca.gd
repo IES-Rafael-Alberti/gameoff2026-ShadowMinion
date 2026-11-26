@@ -1,8 +1,7 @@
 extends CSGBox3D
 
 @onready var interaction_area = $InteractionArea
-@onready var animation_player_palanca: AnimationPlayer = $AnimationPlayerPalanca
-@onready var animation_player_trampilla: AnimationPlayer = $"../../trampilla/AnimationPlayerTrampilla"
+@onready var animation_player: AnimationPlayer = $"../../paredes techo y suelo underground/CSGBox3D12/CSGBox3D19/AnimationPlayer"
 
 var ya_activado: bool = false
 
@@ -22,21 +21,13 @@ func _player_move_lever() -> void:
 	
 	ya_activado = true
 	
-	#Reproducimos la animación
-	if animation_player_palanca:
-		animation_player_palanca.play("mover_palanca")
+	##Reproducimos la animación
+	#if animation_player_palanca:
+		#animation_player_palanca.play("mover_palanca")
 	
-	if animation_player_trampilla:
-		animation_player_trampilla.play("abrir_trampilla")
+	if animation_player:
+		animation_player.play("abrir_puerta")
 	
 	#Desactivar detector para que no vuelva a saltar
 	interaction_area.set_deferred("monitoring", false)
 	interaction_area.queue_free()
-
-
-func _on_interaction_area_body_entered(body: Node3D) -> void:
-	pass # Replace with function body.
-
-
-func _on_interaction_area_body_exited(body: Node3D) -> void:
-	pass # Replace with function body.

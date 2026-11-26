@@ -1,7 +1,7 @@
 extends Node3D
 
 @onready var interactionArea: InteractionArea = $InteractionArea
-@onready var player: Player = $"../Player"
+#@onready var player: Player = $"../Player"
 @onready var object: RigidBody3D = $"../OBJETO MOVIBLE PUZLE VIDA MUERTE"
 
 var answer
