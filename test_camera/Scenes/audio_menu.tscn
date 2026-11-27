@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://baudio0menu1"]
+
+[ext_resource type="Script" path="res://audio_menu.gd" id="1_audio_menu"]
+[ext_resource type="Texture2D" uid="uid://d0o5e2736mkpt" path="res://Assets/Menu/ResumeMenu/MENU DE PASUSA.png" id="2_bg"]
+[ext_resource type="Texture2D" uid="uid://ciroa87u2ktbe" path="res://Assets/Menu/ResumeMenu/AUDIO.png" id="3_audio"]
+[ext_resource type="Texture2D" uid="uid://1wopqj07mkgp" path="res://Assets/Menu/TitleMenu/exit.png" id="4_exit"]
+[ext_resource type="Script" path="res://audio_meter.gd" id="5_meter"]
+[ext_resource type="Script" path="res://hover_effect.gd" id="6_hover"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_audio_label"]
+atlas = ExtResource("3_audio")
+region = Rect2(834, 252, 668, 212)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_back"]
+atlas = ExtResource("4_exit")
+region = Rect2(938.28015, 877.1405, 451.35266, 189.62964)
+
+[node name="audio_menu" type="CanvasLayer"]
+script = ExtResource("1_audio_menu")
+
+[node name="Panel" type="TextureRect" parent="."]
+offset_left = 102.0
+offset_top = 59.0
+offset_right = 1046.0
+offset_bottom = 649.0
+texture = ExtResource("2_bg")
+expand_mode = 1
+
+[node name="AudioLabel" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 316.0
+offset_top = 90.0
+offset_right = 575.0
+offset_bottom = 168.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_audio_label")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AudioMeter" type="Control" parent="Panel"]
+layout_mode = 0
+anchors_preset = 0
+offset_left = 184.0
+offset_top = 228.0
+offset_right = 760.0
+offset_bottom = 272.0
+script = ExtResource("5_meter")
+
+[node name="Back" type="TextureButton" parent="Panel"]
+custom_minimum_size = Vector2(180, 50)
+layout_mode = 0
+offset_left = 361.0
+offset_top = 400.0
+offset_right = 544.0
+offset_bottom = 472.0
+size_flags_horizontal = 4
+texture_normal = SubResource("AtlasTexture_back")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("6_hover")
+
+[connection signal="pressed" from="Panel/Back" to="." method="_on_back_pressed"]

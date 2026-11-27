@@ -28,6 +28,7 @@ InteractorManager="*uid://brgb5j6ot6ag4"
 Dialogic="*uid://ds2q0uclmolvu"
 MusicManager="*uid://bt4f6mbxpt6xr"
 SettingsManager="*uid://bfkg84jiqrtav"
+FadeManager="*res://fade_manager.gd"
 
 [dialogic]
 

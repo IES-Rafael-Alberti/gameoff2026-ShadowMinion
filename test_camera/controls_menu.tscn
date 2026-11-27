@@ -1,27 +1,42 @@
 [gd_scene format=3 uid="uid://rfuxrtlyg5py"]
 
 [ext_resource type="Script" uid="uid://b6mpatkf3m886" path="res://controls_menu.gd" id="1_7yx0y"]
+[ext_resource type="Texture2D" uid="uid://d0o5e2736mkpt" path="res://Assets/Menu/ResumeMenu/MENU DE PASUSA.png" id="2_bg"]
+[ext_resource type="FontFile" uid="uid://bihn43puqusc5" path="res://Crimson Horror One.ttf" id="3_urwwa"]
+[ext_resource type="Texture2D" uid="uid://1wopqj07mkgp" path="res://Assets/Menu/TitleMenu/exit.png" id="4_2qtxy"]
+[ext_resource type="Script" uid="uid://jccvfjvh7d32" path="res://hover_effect.gd" id="5_hover"]
 
-[node name="ControlsScreen" type="PanelContainer" unique_id=1246244777]
-offset_left = 2.0
-offset_top = 4.0
-offset_right = 1145.0
-offset_bottom = 646.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_jyaov"]
+atlas = ExtResource("4_2qtxy")
+region = Rect2(941.7477, 881.317, 446.1239, 177.15613)
+
+[node name="ControlsScreen" type="Control" unique_id=1246244777]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_7yx0y")
 
-[node name="VBox" type="VBoxContainer" parent="." unique_id=1654999539]
-layout_mode = 2
-theme_override_constants/separation = 16
+[node name="Background" type="TextureRect" parent="." unique_id=1363197461]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 59.0
+offset_right = 1046.0
+offset_bottom = 649.0
+texture = ExtResource("2_bg")
+expand_mode = 1
 
-[node name="Label" type="Label" parent="VBox" unique_id=1040264594]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "Controls"
-horizontal_alignment = 1
-
-[node name="ControlsText" type="RichTextLabel" parent="VBox" unique_id=743554495]
+[node name="ControlsText" type="RichTextLabel" parent="." unique_id=743554495]
 custom_minimum_size = Vector2(0, 220)
-layout_mode = 2
+layout_mode = 0
+offset_left = 210.0
+offset_top = 156.0
+offset_right = 1074.0
+offset_bottom = 516.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("3_urwwa")
 theme_override_font_sizes/normal_font_size = 32
 text = "Jump - Space
 Interact - R
@@ -33,11 +48,17 @@ Grapple - Left click
 Pause - Tab"
 fit_content = true
 
-[node name="Back" type="Button" parent="VBox" unique_id=1423705501]
+[node name="Back" type="TextureButton" parent="." unique_id=599230728]
 custom_minimum_size = Vector2(180, 50)
-layout_mode = 2
+layout_mode = 0
+offset_left = 699.0
+offset_top = 441.0
+offset_right = 887.0
+offset_bottom = 512.0
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 32
-text = "Back"
+texture_normal = SubResource("AtlasTexture_jyaov")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("5_hover")
 
-[connection signal="pressed" from="VBox/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

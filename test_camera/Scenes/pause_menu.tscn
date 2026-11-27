@@ -1,62 +1,85 @@
 [gd_scene format=3 uid="uid://djipqb06xnwxk"]
 
 [ext_resource type="Script" uid="uid://37npp5i04gig" path="res://Scripts/pause_menu.gd" id="1_emv3i"]
+[ext_resource type="Texture2D" uid="uid://d0o5e2736mkpt" path="res://Assets/Menu/ResumeMenu/MENU DE PASUSA.png" id="2_bpi0q"]
 [ext_resource type="PackedScene" uid="uid://hdxkd8ag3hmn" path="res://Scenes/settings_menu.tscn" id="2_k0w1u"]
+[ext_resource type="Texture2D" uid="uid://byahgxaehmm8v" path="res://Assets/Menu/ResumeMenu/RESUME.png" id="3_vmyb1"]
+[ext_resource type="Texture2D" uid="uid://dg7agmly6vrvc" path="res://Assets/Menu/ResumeMenu/settings resume.png" id="4_sjs17"]
+[ext_resource type="Texture2D" uid="uid://3ekvitcw2xbo" path="res://Assets/Menu/ResumeMenu/back to chechpoint.png" id="5_u8tnp"]
+[ext_resource type="Texture2D" uid="uid://1wopqj07mkgp" path="res://Assets/Menu/TitleMenu/exit.png" id="6_stj27"]
+[ext_resource type="Script" uid="uid://jccvfjvh7d32" path="res://hover_effect.gd" id="7_hover"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7s6d"]
+atlas = ExtResource("3_vmyb1")
+region = Rect2(644.93536, 164.24944, 1011.56, 241.21815)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_weqku"]
+atlas = ExtResource("4_sjs17")
+region = Rect2(755.42053, 685.5897, 821.03174, 181.23077)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_myy0f"]
+atlas = ExtResource("5_u8tnp")
+region = Rect2(349.71594, 466.46365, 1688.1615, 194.02347)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjs17"]
+atlas = ExtResource("6_stj27")
+region = Rect2(942.1802, 880.4602, 446.49023, 175.45007)
 
 [node name="pause_menu" type="CanvasLayer" unique_id=291129629]
 process_mode = 3
 script = ExtResource("1_emv3i")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1324703982]
-offset_left = 195.0
-offset_top = 81.0
-offset_right = 972.0
-offset_bottom = 542.0
-color = Color(0, 0, 0, 0.60784316)
+[node name="ColorRect" type="TextureRect" parent="." unique_id=1805331240]
+offset_left = 102.0
+offset_top = 59.0
+offset_right = 1046.0
+offset_bottom = 649.0
+texture = ExtResource("2_bpi0q")
+expand_mode = 1
 
-[node name="pause_title" type="Label" parent="ColorRect" unique_id=1526392653]
+[node name="Resume" type="TextureButton" parent="ColorRect" unique_id=612781127]
 layout_mode = 0
-offset_left = 183.0
-offset_top = 4.0
-offset_right = 553.0
-offset_bottom = 179.0
-theme_override_font_sizes/font_size = 64
-text = "Pause"
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_left = 360.0
+offset_top = 118.0
+offset_right = 574.0
+offset_bottom = 183.0
+texture_normal = SubResource("AtlasTexture_l7s6d")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("7_hover")
 
-[node name="Resume" type="Button" parent="ColorRect" unique_id=1146908228]
+[node name="Options" type="TextureButton" parent="ColorRect" unique_id=1740249725]
 layout_mode = 0
-offset_left = 255.0
-offset_top = 146.0
-offset_right = 469.0
-offset_bottom = 211.0
-theme_override_font_sizes/font_size = 16
-text = "Resume"
+offset_left = 353.0
+offset_top = 192.0
+offset_right = 588.0
+offset_bottom = 260.0
+texture_normal = SubResource("AtlasTexture_weqku")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("7_hover")
 
-[node name="Options" type="Button" parent="ColorRect" unique_id=621469644]
+[node name="Return to last checkpoint" type="TextureButton" parent="ColorRect" unique_id=414264972]
 layout_mode = 0
-offset_left = 265.0
-offset_top = 221.0
-offset_right = 462.0
-offset_bottom = 277.0
-text = "Options"
+offset_left = 206.0
+offset_top = 271.0
+offset_right = 726.0
+offset_bottom = 348.0
+texture_normal = SubResource("AtlasTexture_myy0f")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("7_hover")
 
-[node name="Return to last checkpoint" type="Button" parent="ColorRect" unique_id=1714060198]
+[node name="Return to title screen" type="TextureButton" parent="ColorRect" unique_id=1310222166]
 layout_mode = 0
-offset_left = 254.0
-offset_top = 284.0
-offset_right = 466.0
-offset_bottom = 350.0
-text = "Return to last checkpoint"
-
-[node name="Return to title screen" type="Button" parent="ColorRect" unique_id=1330256512]
-layout_mode = 0
-offset_left = 251.0
-offset_top = 364.0
-offset_right = 463.0
-offset_bottom = 430.0
-text = "Return to title screen"
+offset_left = 369.0
+offset_top = 361.0
+offset_right = 545.0
+offset_bottom = 421.0
+texture_normal = SubResource("AtlasTexture_sjs17")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("7_hover")
 
 [node name="settings_menu" parent="." unique_id=139413209 instance=ExtResource("2_k0w1u")]
 

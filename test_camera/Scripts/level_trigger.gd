@@ -29,4 +29,8 @@ func _on_body_entered(body: Node3D) -> void:
 	# Se limpia el checkpoint anterior para que no interfiera
 	GlobalScript.checkpoint_pos = Vector3(-999, -999, -999) 
 	
+	FadeManager.transition(_change_level)
+
+
+func _change_level() -> void:
 	get_tree().change_scene_to_file(target_level_path)

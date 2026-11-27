@@ -1,7 +1,9 @@
 extends CanvasLayer
 
-@onready var color_rect: ColorRect = $ColorRect
+@onready var color_rect: TextureRect = $ColorRect
 @onready var settings_menu: CanvasLayer = $settings_menu
+
+var _dialogue_active := false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -10,10 +12,14 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	set_paused(false)
 	settings_menu.closed.connect(_on_settings_closed)
+	Dialogic.timeline_started.connect(_on_dialogic_started)
+	Dialogic.timeline_ended.connect(_on_dialogic_ended)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _input(event: InputEvent) -> void:
+	if _dialogue_active:
+		return
 	if settings_menu.visible:
 		return
 	if Input.is_action_just_pressed("pause"):
@@ -56,3 +62,11 @@ func _on_options_pressed() -> void:
 
 func _on_settings_closed() -> void:
 	color_rect.show()
+
+
+func _on_dialogic_started() -> void:
+	_dialogue_active = true
+
+
+func _on_dialogic_ended() -> void:
+	_dialogue_active = false

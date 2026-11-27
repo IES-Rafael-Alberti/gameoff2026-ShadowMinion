@@ -524,8 +524,12 @@ func die()->void:
 	# Espera un frame para que terminen las señales de este frame
 	await get_tree().process_frame
 	
-	#Recarga la escena
-	get_tree().call_deferred("reload_current_scene")
+	#Recarga la escena con fade a negro y fade de vuelta
+	FadeManager.transition(_reload_current_scene)
+
+
+func _reload_current_scene() -> void:
+	get_tree().reload_current_scene()
 
 #func _on_area_3d_body_entered(body: Node3D) -> void:
 	#if active3DCamera == outsideCamera:

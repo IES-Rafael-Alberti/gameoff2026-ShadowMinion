@@ -1,16 +1,20 @@
-extends PanelContainer
+extends Control
 
-@onready var back_button: Button = $VBox/Back
+@onready var back_button: Control = get_node_or_null("Back") as Control
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	# Compatibilidad con la versión anterior que tenía el botón dentro de VBox.
+	if back_button == null:
+		back_button = get_node_or_null("VBox/Back") as Control
 	hide()
 
 
 func open() -> void:
 	show()
-	back_button.grab_focus()
+	if back_button != null:
+		back_button.grab_focus()
 
 
 func close() -> void:

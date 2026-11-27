@@ -1,10 +1,74 @@
 [gd_scene format=3 uid="uid://b88h1b8ju0uss"]
 
 [ext_resource type="Script" uid="uid://bsj56up1km2ly" path="res://Scripts/main_menu.gd" id="1_28flt"]
+[ext_resource type="Texture2D" uid="uid://dcibhfakxv75y" path="res://Assets/Menu/ScreenTitle/FONDO MENU.png" id="2_1ehe0"]
 [ext_resource type="PackedScene" uid="uid://hdxkd8ag3hmn" path="res://Scenes/settings_menu.tscn" id="2_48xlc"]
+[ext_resource type="Texture2D" uid="uid://dchp8v13t61kp" path="res://Assets/Menu/ScreenTitle/Faro.png" id="3_ce3w2"]
+[ext_resource type="Texture2D" uid="uid://b15f6famdfda5" path="res://Assets/Menu/ScreenTitle/Prota y gusano.png" id="4_opfnp"]
+[ext_resource type="Texture2D" uid="uid://dnty7tf3lk2rr" path="res://Assets/Menu/TitleMenu/Botones menu principal.png" id="5_cp0ys"]
+[ext_resource type="Texture2D" uid="uid://ra0tk0p7ni6k" path="res://Assets/Menu/ScreenTitle/efecto gusano.png" id="5_yhxw7"]
+[ext_resource type="Texture2D" uid="uid://cy7k024dtuhs0" path="res://Assets/Menu/ScreenTitle/efecto boton.png" id="8_yhxw7"]
 
-[node name="main_menu" type="Node3D" unique_id=269056240]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvxav"]
+atlas = ExtResource("5_cp0ys")
+region = Rect2(312.11005, 159.05786, 904.80365, 230.57858)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opfnp"]
+atlas = ExtResource("5_cp0ys")
+region = Rect2(525.3051, 423, 479.16022, 174.24915)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trj04"]
+atlas = ExtResource("5_cp0ys")
+region = Rect2(526.3328, 631.9835, 474.3864, 170.84552)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhxw7"]
+atlas = ExtResource("8_yhxw7")
+region = Rect2(266.3308, 0, 1043.0594, 530.0453)
+
+[node name="main_menu" type="CanvasLayer" unique_id=1993003239]
 script = ExtResource("1_28flt")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1911981878]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_1ehe0")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="faro" type="TextureRect" parent="TextureRect" unique_id=110365466]
+layout_mode = 1
+offset_top = 2.0
+offset_right = 520.0
+offset_bottom = 1318.0
+texture = ExtResource("3_ce3w2")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="prota" type="TextureRect" parent="TextureRect" unique_id=1220204360]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -588.0
+offset_top = -23.0
+offset_right = 129.0
+offset_bottom = 910.0
+grow_horizontal = 0
+texture = ExtResource("4_opfnp")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="efecto_gusano" type="TextureRect" parent="TextureRect" unique_id=2026272469]
+layout_mode = 0
+offset_left = 742.0
+offset_top = 269.0
+offset_right = 937.0
+offset_bottom = 395.0
+texture = ExtResource("5_yhxw7")
+expand_mode = 1
 
 [node name="Button Manager" type="Control" parent="." unique_id=617059277]
 layout_mode = 3
@@ -12,45 +76,52 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Start" type="Button" parent="Button Manager" unique_id=133595305]
+[node name="Start" type="TextureButton" parent="Button Manager" unique_id=1803414381]
 layout_mode = 0
-offset_left = 450.0
-offset_top = 348.0
-offset_right = 672.0
-offset_bottom = 418.0
-theme_override_font_sizes/font_size = 32
-text = "Start"
+offset_left = 313.0
+offset_top = 128.0
+offset_right = 774.0
+offset_bottom = 240.0
+texture_normal = SubResource("AtlasTexture_rvxav")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="Options" type="Button" parent="Button Manager" unique_id=1948234658]
+[node name="Options" type="TextureButton" parent="Button Manager" unique_id=1347178800]
 layout_mode = 0
-offset_left = 449.0
-offset_top = 445.0
-offset_right = 666.0
-offset_bottom = 512.0
-theme_override_font_sizes/font_size = 32
-text = "Options"
+offset_left = 376.0
+offset_top = 251.0
+offset_right = 704.0
+offset_bottom = 372.0
+texture_normal = SubResource("AtlasTexture_opfnp")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="Exit" type="Button" parent="Button Manager" unique_id=1133764808]
+[node name="Exit" type="TextureButton" parent="Button Manager" unique_id=1258845838]
 layout_mode = 0
-offset_left = 451.0
-offset_top = 549.0
-offset_right = 671.0
-offset_bottom = 619.0
-theme_override_font_sizes/font_size = 32
-text = "Exit"
-
-[node name="Label" type="Label" parent="." unique_id=58212648]
-offset_left = 357.0
-offset_top = 160.0
-offset_right = 792.0
-offset_bottom = 268.0
-theme_override_font_sizes/font_size = 64
-text = "Manifest"
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_left = 389.0
+offset_top = 384.0
+offset_right = 679.0
+offset_bottom = 485.0
+texture_normal = SubResource("AtlasTexture_trj04")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="settings_menu" parent="." unique_id=139413209 instance=ExtResource("2_48xlc")]
 
+[node name="efecto_boton" type="TextureRect" parent="." unique_id=816468077]
+offset_left = 319.0
+offset_top = 115.0
+offset_right = 717.0
+offset_bottom = 289.0
+texture = SubResource("AtlasTexture_yhxw7")
+expand_mode = 1
+
+[connection signal="mouse_entered" from="Button Manager/Start" to="." method="_on_start_mouse_entered"]
+[connection signal="mouse_exited" from="Button Manager/Start" to="." method="_on_start_mouse_exited"]
 [connection signal="pressed" from="Button Manager/Start" to="." method="_on_start_pressed"]
+[connection signal="mouse_entered" from="Button Manager/Options" to="." method="_on_options_mouse_entered"]
+[connection signal="mouse_exited" from="Button Manager/Options" to="." method="_on_options_mouse_exited"]
 [connection signal="pressed" from="Button Manager/Options" to="." method="_on_options_pressed"]
+[connection signal="mouse_entered" from="Button Manager/Exit" to="." method="_on_exit_mouse_entered"]
+[connection signal="mouse_exited" from="Button Manager/Exit" to="." method="_on_exit_mouse_exited"]
 [connection signal="pressed" from="Button Manager/Exit" to="." method="_on_exit_pressed"]
