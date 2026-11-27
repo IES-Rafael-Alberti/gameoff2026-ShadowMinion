@@ -1,24 +1,27 @@
 [gd_scene format=3 uid="uid://bkge8vtk2834i"]
 
 [ext_resource type="Script" uid="uid://pfpj5wf5ymy8" path="res://Scripts/first_enemy.gd" id="1_nlobk"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ycdy4"]
-albedo_color = Color(0.82953316, 0.17503357, 0.23564005, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_jyaov"]
-material = SubResource("StandardMaterial3D_ycdy4")
+[ext_resource type="PackedScene" uid="uid://dgu12sr7bjx0f" path="res://Assets/Anims/crabidle.fbx" id="2_crabidle"]
+[ext_resource type="Animation" path="res://Assets/Anims/AnimsRes/crabwalk.res" id="3_crabwalk"]
+[ext_resource type="Animation" path="res://Assets/Anims/AnimsRes/crabidle.res" id="4_crabidle"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eqyok"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_l7s6d"]
-radius = 0.66868395
+[sub_resource type="BoxShape3D" id="BoxShape3D_ts7x6"]
+size = Vector3(1.2877197, 0.9192505, 1.8388672)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_crab"]
+_data = {
+&"crabidle": ExtResource("4_crabidle"),
+&"crabwalk": ExtResource("3_crabwalk")
+}
 
 [node name="first_enemy" type="CharacterBody3D" unique_id=2028063305 node_paths=PackedStringArray("hitbox", "visual")]
 script = ExtResource("1_nlobk")
 patrol_distance = null
 wander_change_time = null
 hitbox = NodePath("Hurtbox")
-visual = NodePath("MeshInstance3D")
+visual = NodePath("CrabVisual")
 track_in_2d = null
 track_in_3d = null
 base_speed = null
@@ -26,8 +29,11 @@ acceleration = null
 stop_distance = null
 use_scale_for_movement = null
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=693009008]
-mesh = SubResource("BoxMesh_jyaov")
+[node name="CrabVisual" type="Node3D" parent="." unique_id=693009008]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9911367, 0)
+
+[node name="CrabIdle" parent="CrabVisual" unique_id=712345678 instance=ExtResource("2_crabidle")]
+transform = Transform3D(0.26, 0, 0, 0, 0.26, 0, 0, 0, 0.26, 0.085571, 0.53096, -0.039729)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=625149773]
 shape = SubResource("BoxShape3D_eqyok")
@@ -35,4 +41,9 @@ shape = SubResource("BoxShape3D_eqyok")
 [node name="Hurtbox" type="Area3D" parent="." unique_id=989431461]
 
 [node name="Collision-hurtbox" type="CollisionShape3D" parent="Hurtbox" unique_id=558607830]
-shape = SubResource("SphereShape3D_l7s6d")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0037231445, -0.20367062, -0.4194336)
+shape = SubResource("BoxShape3D_ts7x6")
+
+[node name="CrabAnimationPlayer" type="AnimationPlayer" parent="." unique_id=712345679]
+root_node = NodePath("../CrabVisual/CrabIdle")
+libraries/crab_anims = SubResource("AnimationLibrary_crab")
