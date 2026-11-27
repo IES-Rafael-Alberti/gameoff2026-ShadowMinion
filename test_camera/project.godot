@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="test camera"
-run/main_scene="uid://l4caiv0fjr1j"
+run/main_scene="uid://kmn35hkh80hj"
 config/features=PackedStringArray("4.7")
 config/icon="res://icon.svg"
 
