@@ -1,6 +1,7 @@
 extends Node
 
 @onready var _2d_camera: PhantomCamera3D = $"2DCamera"
+#@onready var _3d_camera: PhantomCamera3D = $"3DCamera"
 @onready var outsideCamera: PhantomCamera3D = $"../CameraManager/OutsideCamera"
 @onready var insideCamera: PhantomCamera3D = $"../CameraManager/InsideCamera"
 

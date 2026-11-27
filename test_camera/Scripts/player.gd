@@ -19,11 +19,11 @@ var tween: Tween
 @export_range(0.0, 1.0, 0.05) var ghost_alpha: float = 0.35
 #@export_group("Balanceo")
 ## Aceleración horizontal que aplicas con izquierda/derecha mientras estás enganchado
-#@export var grapple_air_accel : float = 10.0
+@export var grapple_air_accel : float = 10.0
 ## Aceleración cuando empujnas en contra. Más baja para no frenar de golpe
-#@export var grapple_brake_accel : float = 4.0
+@export var grapple_brake_accel : float = 4.0
 ##Velocidad horizontal máxima mientras empujas el balanceo
-#@export var grapple_max_speed : float = 22.0
+@export var grapple_max_speed : float = 22.0
 
 
 var move_speed : float = 0.0
@@ -76,6 +76,8 @@ var in_maze: bool = false
 
 var cameras3D = [outsideCamera, insideCamera]
 var active3DCamera = outsideCamera
+
+var fixedZ: float
 
 var debugMode = false
 
@@ -187,6 +189,12 @@ func movement3D() -> void:
 		velocity.z = move_toward(velocity.z, 0, move_speed)
 		
 func movement2D(delta: float) ->void:
+	global_position.z = fixedZ
+	var input_dir := Input.get_axis("Left", "Right")
+	#var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if not is_zero_approx(input_dir):
+		facing = 1 if input_dir > 0.0 else -1
+		
 	#Busca si el nodo del gancho está en uso
 	var grapple_node = get_node_or_null("GrapplingController")
 	var is_grappling:bool = grapple_node != null and grapple_node.launched
@@ -196,7 +204,7 @@ func movement2D(delta: float) ->void:
 		velocity.z = 0.0
 		return
 		
-	var input_dir := Input.get_axis("Left", "Right")
+	#var input_dir := Input.get_axis("Left", "Right")
 	# Convertimos la entrada a eje X del mundo según la vista de la cámara 2D.
 	# En lvl 4 la cámara mira al revés, así que "derecha" es -X.
 	var world_input := input_dir * _screen_x_axis()
@@ -285,6 +293,8 @@ func changeMovementController() -> void:
 	GlobalScript.set_3d_mode(movement3DActivated)
 
 func _ready() -> void:
+	
+	fixedZ = global_position.z
 	
 	#Conectamos las señales de dialogic para congelar al jugador
 	Dialogic.timeline_started.connect(_on_dialogic_started)

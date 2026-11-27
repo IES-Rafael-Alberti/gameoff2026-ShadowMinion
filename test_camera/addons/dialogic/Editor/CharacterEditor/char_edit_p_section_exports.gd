@@ -77,6 +77,8 @@ func _recheck(data: Dictionary, force:=false):
 		get_parent().get_child(get_index()-1).hide()
 		get_parent().get_child(get_index()+1).hide()
 
+	scene.free()
+
 
 ## On any change, save the export override to the portrait items metadata.
 func set_export_override(property_name:String, value:String = "") -> void:

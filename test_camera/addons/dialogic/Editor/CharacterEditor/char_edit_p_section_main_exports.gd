@@ -68,6 +68,8 @@ func load_portrait_scene_export_variables() -> void:
 				skip = true
 				continue
 
+	scene.free()
+
 func set_export_override(property_name:String, value:String = "") -> void:
 	var data: Dictionary = selected_item.get_metadata(0)
 	if !data.has('export_overrides'):

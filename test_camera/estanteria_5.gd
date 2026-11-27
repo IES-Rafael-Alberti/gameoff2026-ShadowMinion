@@ -1,7 +1,7 @@
 extends CSGCombiner3D
 
 @onready var interaction_area = $InteractionArea
-@onready var animation_player: AnimationPlayer = $"../../Ganchos/CSGBox3D9/AnimationPlayer"
+@onready var animation_player: AnimationPlayer = $"../../Ganchos/Cadena4/AnimationPlayer"
 
 
 

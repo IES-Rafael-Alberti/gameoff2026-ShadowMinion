@@ -1,6 +1,7 @@
 extends Area3D
 
-@onready var mesh_key: MeshInstance3D = $MeshInstance3D
+@onready var moneda: MeshInstance3D = $Moneda
+
 
 var key_taken = false
 
@@ -12,4 +13,4 @@ func _on_body_entered(body: Node3D) -> void:
 	
 	if key_taken == false:
 		key_taken = true
-		mesh_key.queue_free()
+		moneda.queue_free()

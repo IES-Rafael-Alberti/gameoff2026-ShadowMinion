@@ -202,6 +202,10 @@ func _on_undoredo_changed() -> void:
 	update_content_list()
 
 
+func _exit_tree() -> void:
+	TimelineUndoRedo.free()
+
+
 func load_event_buttons() -> void:
 	sidebar_collapsed = DialogicUtil.get_editor_setting("dialogic/editor/right_sidebar_collapsed", false)
 

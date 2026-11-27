@@ -1,11 +1,12 @@
 extends Node3D
 
-@onready var animation_player: AnimationPlayer = $AnimatableBody3D/AnimationPlayer
-@onready var message_without_key: Label3D = $Message_without_key
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var message_without_key: Label3D = get_node_or_null("Message_without_key") as Label3D
 # Aquí pon el nombre exacto que le hayas dado al Area3D de la puerta en lvl_2
 @onready var interaction_area = $InteractionArea 
 # Ruta a la llave (asumiendo que es hermana de la puerta en lvl_2)
-@onready var key_example = $"../key_example" 
+# En lvl_2 la llave está en la raíz, bajo "Monedas(llaves)"
+@onready var key_example: Area3D = $"../../../Monedas(llaves)/key_example" as Area3D
 
 var showing_message = false
 var door_opened = false
