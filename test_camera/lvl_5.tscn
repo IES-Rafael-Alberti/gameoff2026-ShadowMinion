@@ -203,7 +203,7 @@ script = ExtResource("1_43e0g")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1428436002]
 physics_interpolation_mode = 1
-transform = Transform3D(0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0, 1, 37.821304, 0.464, 26.076996)
+transform = Transform3D(0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0, 1, 37.821312, 0.464, 26.076996)
 top_level = true
 projection = 1
 size = 8.0
@@ -218,7 +218,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 script = ExtResource("2_33ycm")
 
 [node name="2DCamera" type="Node3D" parent="CameraManager" unique_id=206258872 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0, 1, 37.821304, 0.464, 26.076996)
+transform = Transform3D(0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0, 1, 37.821312, 0.464, 26.076996)
 top_level = true
 script = ExtResource("2_3p4g5")
 priority = 1
@@ -227,10 +227,12 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_yfixo")
 camera_3d_resource = SubResource("Resource_rvxav")
 follow_offset = Vector3(0, 0, 9.025)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=1047536917 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.90630734, 0.42261806, 0, -0.42261806, 0.90630734, 37.821304, 10.891618, 27.423304)
+transform = Transform3D(1, 0, 0, 0, 0.90630734, 0.42261806, 0, -0.42261806, 0.90630734, 37.821312, 10.891618, 27.423304)
 top_level = true
 script = ExtResource("2_3p4g5")
 follow_mode = 5
@@ -238,6 +240,8 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_yfixo")
 camera_3d_resource = SubResource("Resource_exqi3")
 follow_offset = Vector3(0, 10.005, 10.465)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=1765328130]
