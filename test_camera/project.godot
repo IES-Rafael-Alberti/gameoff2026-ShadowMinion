@@ -35,8 +35,10 @@ directories/dtl_directory={
 "acertijo3": "res://acertijo3.dtl",
 "acertijo4": "res://acertijo4.dtl",
 "lvl5Arbol": "res://lvl5Arbol.dtl",
+"lvl5Ataud": "res://lvl5Ataud.dtl",
 "lvl5Cuadro": "res://lvl5Cuadro.dtl",
 "lvl5PassRiver": "res://lvl5PassRiver.dtl",
+"lvl5ThreeDoors": "res://lvl5ThreeDoors.dtl",
 "timeline": "res://timeline.dtl"
 }
 layout/style_directory={}

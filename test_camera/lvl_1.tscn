@@ -12,7 +12,9 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_31jyx"]
 [ext_resource type="Script" uid="uid://blvwbktqwk4vl" path="res://Scripts/RayCast.gd" id="5_g81ij"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="6_t6wp4"]
+[ext_resource type="Shader" uid="uid://6smmcotjrhlt" path="res://Shaders/shaderBueno.gdshader" id="7_6heee"]
 [ext_resource type="Texture2D" uid="uid://cf8b64ov2ud65" path="res://Assets/Texturas/Suelos y paredes/PavingStones139_1K-JPG_Color.jpg" id="7_u43gl"]
+[ext_resource type="Texture2D" uid="uid://cudvixnermg7m" path="res://Assets/apollo-32x.png" id="8_u25bp"]
 [ext_resource type="Texture2D" uid="uid://c3yc3ewoie2e7" path="res://Assets/Texturas/Suelos y paredes/Ground037_1K-JPG_Color.jpg" id="8_uve8o"]
 [ext_resource type="Texture2D" uid="uid://do1mu2jaeq4nq" path="res://Assets/Texturas/Caja de madera/wooden-crate-various-views-cargo-box-isolated-white-background-d-rendering-205221249.webp" id="9_3da4y"]
 [ext_resource type="Texture2D" uid="uid://brwhr7wkwopep" path="res://Assets/Texturas/Suelos y paredes/PavingStones081_1K-JPG_Color.jpg" id="9_l3h3x"]
@@ -77,6 +79,17 @@ metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
 [sub_resource type="Resource" id="Resource_t6wp4"]
 script = ExtResource("5_31jyx")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l7s6d"]
+shader = ExtResource("7_6heee")
+shader_parameter/shader_enabled = true
+shader_parameter/palette = ExtResource("8_u25bp")
+shader_parameter/dithering = true
+shader_parameter/dithering_size = 16
+shader_parameter/resolution_scale = 2
+shader_parameter/quantization_level = 5
+shader_parameter/palette_size = 16
+shader_parameter/use_palette = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e56j4"]
 albedo_texture = ExtResource("7_u43gl")
@@ -1065,7 +1078,7 @@ mesh = SubResource("CylinderMesh_akum8")
 
 [node name="Camera" type="Camera3D" parent="." unique_id=2655336]
 physics_interpolation_mode = 1
-transform = Transform3D(0.6293204, 0, 0.7771459, 0, 1, 0, -0.7771459, 0, 0.6293204, 11.055088, 2.0645595, 22.871656)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.054716, 2.0645595, 31.786118)
 top_level = true
 projection = 1
 size = 10.0
@@ -1111,6 +1124,17 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 script = ExtResource("4_bcbm8")
 tween_resource = SubResource("Resource_t6wp4")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=815243642]
+follow_viewport_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=530337925]
+material = SubResource("ShaderMaterial_l7s6d")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Suelos" type="Node" parent="." unique_id=921242454]
 

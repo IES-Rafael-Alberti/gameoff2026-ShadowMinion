@@ -3,6 +3,7 @@ extends Node3D
 @onready var interactionArea: InteractionArea = $InteractionArea
 #@onready var player: Player = $"../Player"
 @onready var object: RigidBody3D = $"../OBJETO MOVIBLE PUZLE VIDA MUERTE"
+@onready var lvlManager: Node = $"../LvlManager"
 
 var answer = false
 
@@ -24,9 +25,9 @@ func _on_interact()->void:
 
 func _on_dialogic_signal(arg: String)->void:
 	if arg == "lvl5Cuadro" and not answer:
-		print("a")
 		answer = true
 		object.freeze = false
+		lvlManager.pictureRidleResolve = true
 	
 		if interactionArea:
 			interactionArea.monitoring = false

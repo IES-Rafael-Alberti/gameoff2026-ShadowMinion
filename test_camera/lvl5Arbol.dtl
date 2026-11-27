@@ -1,2 +1,3 @@
 2+2
-[text_input]
+[text_input var="response"]
+[signal arg="lvl5Arbol"]

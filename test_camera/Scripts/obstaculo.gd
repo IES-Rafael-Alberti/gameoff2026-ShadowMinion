@@ -34,7 +34,7 @@ func _onInteract():
 	#lerp(linear_velocity, linear_velocity + pushDirection, 0.5)
 	var pushDirection: Vector3
 	var obstacleTween = get_tree().create_tween()
-	var platformTween = get_tree().create_tween()
+	#var platformTween = get_tree().create_tween()
 	if right_ray_cast.is_colliding():
 		pushDirection = Vector3(-pushDistance, 0, 0)
 		print("right colliding")

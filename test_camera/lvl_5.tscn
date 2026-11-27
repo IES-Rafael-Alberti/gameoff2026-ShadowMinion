@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://buycseojlpn1e" path="res://lvl5Manager.gd" id="1_43e0g"]
 [ext_resource type="PackedScene" uid="uid://elx0c4sug3sh" path="res://Scenes/Player.tscn" id="1_f6r2k"]
-[ext_resource type="Script" uid="uid://d1svhmwgycfnp" path="res://lvl_5.gd" id="1_k3sha"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_yfixo"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_3p4g5"]
 [ext_resource type="Script" uid="uid://b338xlofghkv" path="res://Scripts/cameraManager.gd" id="2_33ycm"]
@@ -12,11 +11,16 @@
 [ext_resource type="Script" uid="uid://dkpdv1vixkxij" path="res://Scripts/interactionArea.gd" id="8_43e0g"]
 [ext_resource type="Script" uid="uid://dl2uo7qcj23vn" path="res://Scripts/StaticPlatform.gd" id="8_80jhk"]
 [ext_resource type="Script" uid="uid://mjvg5yfrq1an" path="res://Scripts/obstaculo.gd" id="8_qxytp"]
+[ext_resource type="Shader" uid="uid://6smmcotjrhlt" path="res://Shaders/shaderBueno.gdshader" id="9_sxaqm"]
+[ext_resource type="Texture2D" uid="uid://cudvixnermg7m" path="res://Assets/apollo-32x.png" id="10_hf0gh"]
 [ext_resource type="Script" uid="uid://dv04tax4an2ob" path="res://Scripts/platform.gd" id="10_hvaau"]
 [ext_resource type="Script" uid="uid://blvwbktqwk4vl" path="res://Scripts/RayCast.gd" id="11_10k7t"]
 [ext_resource type="Shader" uid="uid://b7gm6kn7f38n8" path="res://Shaders/dither.gdshader" id="12_4h6ko"]
 [ext_resource type="Script" uid="uid://dav815l5umlsd" path="res://Scripts/CuadroVida.gd" id="12_hvaau"]
 [ext_resource type="Script" uid="uid://bky10qi3dwlvt" path="res://Scripts/puzleArbol.gd" id="13_10k7t"]
+[ext_resource type="Script" uid="uid://bclphp2q8ldul" path="res://Scripts/puzleAtaud.gd" id="19_hf0gh"]
+[ext_resource type="Script" uid="uid://m4xdp3t3jguh" path="res://Scripts/threeDoors.gd" id="20_hf0gh"]
+[ext_resource type="Script" uid="uid://bsvyxnisnn1ny" path="res://endLevel.gd" id="21_e42rp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l7s6d"]
 render_priority = 0
@@ -52,11 +56,18 @@ script = ExtResource("4_mv8lu")
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_svrt2"]
-render_priority = 0
-shader = ExtResource("12_4h6ko")
-shader_parameter/color_depth = 5
+shader = ExtResource("9_sxaqm")
+shader_parameter/shader_enabled = true
+shader_parameter/palette = ExtResource("10_hf0gh")
 shader_parameter/dithering = true
-shader_parameter/resolution_scale = 15
+shader_parameter/dithering_size = 16
+shader_parameter/resolution_scale = 2
+shader_parameter/quantization_level = 5
+shader_parameter/palette_size = 16
+shader_parameter/use_palette = true
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jyaov"]
+radius = 3.4078279
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jmbie"]
 
@@ -81,15 +92,11 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_l7s6d"]
 size = Vector3(4.147, 0.423, 4.317)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jyaov"]
-render_priority = 0
-shader = ExtResource("12_4h6ko")
-shader_parameter/color_depth = 5
-shader_parameter/dithering = true
-shader_parameter/resolution_scale = 4
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sxaqm"]
+albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_jyaov"]
-material = SubResource("ShaderMaterial_jyaov")
+material = SubResource("StandardMaterial3D_sxaqm")
 size = Vector3(4.147, 0.423, 4.317)
 
 [sub_resource type="Animation" id="Animation_80jhk"]
@@ -159,6 +166,9 @@ size = Vector3(6.385, 0.1, 1)
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_hvaau"]
 albedo_color = Color(0.2159017, 0.21590173, 0.2159017, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_koe77"]
+size = Vector3(8.5, 1, 9.5)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_jyaov"]
 size = Vector3(3.227246, 0, 1)
 
@@ -168,14 +178,14 @@ size = Vector3(3.227, 0.15, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_10k7t"]
 albedo_color = Color(1, 0, 0, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_nrhby"]
+size = Vector3(5.015, 1.5, 16.755)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4h6ko"]
 albedo_color = Color(0.48685753, 0.2523284, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qxytp"]
 albedo_color = Color(0, 0, 1, 1)
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_jyaov"]
-radius = 3.4078279
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1ij1a"]
 size = Vector3(16.47999, 0, 1)
@@ -183,9 +193,11 @@ size = Vector3(16.47999, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_wm6ej"]
 size = Vector3(16.48, 0.15, 1)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_l7s6d"]
+radius = 1.8285004
+
 [node name="lvl 5" type="Node3D" unique_id=796736418]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
-script = ExtResource("1_k3sha")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1655240737]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 43.749474, 0, 0)
@@ -203,7 +215,7 @@ script = ExtResource("1_43e0g")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1428436002]
 physics_interpolation_mode = 1
-transform = Transform3D(0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0, 1, 37.821312, 0.464, 26.076996)
+transform = Transform3D(0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0, 1, -0.19130567, 0.464, 26.077)
 top_level = true
 projection = 1
 size = 8.0
@@ -218,7 +230,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 script = ExtResource("2_33ycm")
 
 [node name="2DCamera" type="Node3D" parent="CameraManager" unique_id=206258872 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0, 1, 37.821312, 0.464, 26.076996)
+transform = Transform3D(0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0, 1, -0.19130567, 0.464, 26.077)
 top_level = true
 script = ExtResource("2_3p4g5")
 priority = 1
@@ -232,7 +244,7 @@ align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=1047536917 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.90630734, 0.42261806, 0, -0.42261806, 0.90630734, 37.821312, 10.891618, 27.423304)
+transform = Transform3D(1, 0, 0, 0, 0.90630734, 0.42261806, 0, -0.42261806, 0.90630734, -0.19130567, 10.891618, 27.423307)
 top_level = true
 script = ExtResource("2_3p4g5")
 follow_mode = 5
@@ -253,7 +265,6 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 follow_viewport_enabled = true
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1040176680]
-modulate = Color(1, 1, 1, 0)
 material = SubResource("ShaderMaterial_svrt2")
 anchors_preset = 15
 anchor_right = 1.0
@@ -262,7 +273,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Player" parent="." unique_id=1352346882 instance=ExtResource("1_f6r2k")]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -37.821312, 0.464, -16.052)
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.19130707, 0.464, -16.052)
 collision_layer = 3
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=182313047]
@@ -346,8 +357,21 @@ size = Vector3(2.6486816, 0.26123047, 3.0931396)
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -13.107329, -0.8977822, -15.881733)
 size = Vector3(6.6934814, 1.8074951, 2.5161133)
 
+[node name="PassRiver" type="Node3D" parent="." unique_id=943342702]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -9.604087, 0, -16.030565)
+script = ExtResource("7_mv8lu")
+
+[node name="InteractionArea" type="Area3D" parent="PassRiver" unique_id=142244082]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("8_43e0g")
+metadata/_custom_type_script = "uid://dkpdv1vixkxij"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PassRiver/InteractionArea" unique_id=21410945]
+shape = SubResource("SphereShape3D_jyaov")
+
 [node name="OBJETO MOVIBLE PUZLE VIDA MUERTE" type="RigidBody3D" parent="." unique_id=76985770]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -44.42327, 13.266205, 3.0909557)
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -44.42327, 13.465423, 3.0909557)
 collision_layer = 129
 collision_mask = 129
 lock_rotation = true
@@ -420,6 +444,7 @@ transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -59.31373, 
 shape = SubResource("BoxShape3D_l7s6d")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="plataforma en movimiento" unique_id=524126370]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
 mesh = SubResource("BoxMesh_jyaov")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="plataforma en movimiento" unique_id=1443975531]
@@ -527,6 +552,19 @@ size = Vector3(0.2548828, 0.42822266, 1)
 transform = Transform3D(0.059145678, 0, 0.99824935, 0, 1, 0, -0.99824935, 0, 0.059145678, -0.023147583, 1.1880836, 0.2665825)
 size = Vector3(0.2548828, 0.42822266, 1)
 
+[node name="puzleAtaud" type="Node3D" parent="." unique_id=1032304317]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.26925, 0, -21.610691)
+script = ExtResource("19_hf0gh")
+
+[node name="DetectObjectZone" type="Area3D" parent="puzleAtaud" unique_id=1016551017]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="puzleAtaud/DetectObjectZone" unique_id=327721069]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
+shape = SubResource("BoxShape3D_koe77")
+
 [node name="CoffinPlatform" type="RigidBody3D" parent="." unique_id=860077348]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -39.171257, 1.8231461, -16.020205)
 lock_rotation = true
@@ -578,6 +616,17 @@ size = Vector3(1, 7.3880615, 4.005127)
 transform = Transform3D(0.84, 0, 0, 0, 0.84, 0, 0, 0, 0.84, -0.18652344, 0, 0)
 operation = 2
 size = Vector3(6.786865, 7.3880615, 4.005127)
+
+[node name="threeDoors" type="Node3D" parent="." unique_id=1456131936]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.649, 15.4830475, -7.141965)
+script = ExtResource("20_hf0gh")
+
+[node name="InteractionArea" type="Area3D" parent="threeDoors" unique_id=1063451786]
+script = ExtResource("8_43e0g")
+metadata/_custom_type_script = "uid://dkpdv1vixkxij"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="threeDoors/InteractionArea" unique_id=1131636195]
+shape = SubResource("BoxShape3D_nrhby")
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=658990583]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -7.6293945e-06, 0, -1.9073493e-06)
@@ -758,19 +807,6 @@ transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -54.50932, 
 use_collision = true
 material = SubResource("StandardMaterial3D_qxytp")
 
-[node name="PassRiver" type="Node3D" parent="." unique_id=943342702]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -9.604087, 0, -16.030565)
-script = ExtResource("7_mv8lu")
-
-[node name="InteractionArea" type="Area3D" parent="PassRiver" unique_id=142244082]
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("8_43e0g")
-metadata/_custom_type_script = "uid://dkpdv1vixkxij"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PassRiver/InteractionArea" unique_id=21410945]
-shape = SubResource("SphereShape3D_jyaov")
-
 [node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=2104117727]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -41.15937, 12.747903, -16.00893)
 lock_rotation = true
@@ -787,6 +823,22 @@ disabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("BoxShape3D_wm6ej")
 
+[node name="EndLevel" type="Node3D" parent="." unique_id=1409000477]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.9950967, 0, -15.999896)
+script = ExtResource("21_e42rp")
+
+[node name="InteractionArea" type="Area3D" parent="EndLevel" unique_id=729425066]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("8_43e0g")
+metadata/_custom_type_script = "uid://dkpdv1vixkxij"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EndLevel/InteractionArea" unique_id=870258436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.53595066, 0, 0)
+shape = SubResource("SphereShape3D_l7s6d")
+
+[connection signal="body_entered" from="PassRiver/InteractionArea" to="PassRiver/InteractionArea" method="_on_body_entered"]
+[connection signal="body_exited" from="PassRiver/InteractionArea" to="PassRiver/InteractionArea" method="_on_body_exited"]
 [connection signal="body_entered" from="OBJETO MOVIBLE PUZLE VIDA MUERTE/InteractionArea" to="OBJETO MOVIBLE PUZLE VIDA MUERTE/InteractionArea" method="_on_body_entered"]
 [connection signal="body_exited" from="OBJETO MOVIBLE PUZLE VIDA MUERTE/InteractionArea" to="OBJETO MOVIBLE PUZLE VIDA MUERTE/InteractionArea" method="_on_body_exited"]
 [connection signal="body_entered" from="OBJETO MOVIBLE PUZLE VIDA MUERTE/Plataforma2D/Area3D" to="OBJETO MOVIBLE PUZLE VIDA MUERTE/Plataforma2D" method="_on_area_3d_body_entered"]
@@ -799,9 +851,13 @@ shape = SubResource("BoxShape3D_wm6ej")
 [connection signal="body_exited" from="puzleArbol/InteractionArea" to="puzleArbol/InteractionArea" method="_on_body_exited"]
 [connection signal="body_entered" from="TreePlaftorm/Area3D" to="TreePlaftorm" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="TreePlaftorm/Area3D" to="TreePlaftorm" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="puzleAtaud/DetectObjectZone" to="puzleAtaud" method="_on_detect_object_zone_body_entered"]
+[connection signal="body_exited" from="puzleAtaud/DetectObjectZone" to="puzleAtaud" method="_on_detect_object_zone_body_exited"]
 [connection signal="body_entered" from="CoffinPlatform/Area3D" to="CoffinPlatform" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="CoffinPlatform/Area3D" to="CoffinPlatform" method="_on_area_3d_body_exited"]
-[connection signal="body_entered" from="PassRiver/InteractionArea" to="PassRiver/InteractionArea" method="_on_body_entered"]
-[connection signal="body_exited" from="PassRiver/InteractionArea" to="PassRiver/InteractionArea" method="_on_body_exited"]
+[connection signal="body_entered" from="threeDoors/InteractionArea" to="threeDoors/InteractionArea" method="_on_body_entered"]
+[connection signal="body_exited" from="threeDoors/InteractionArea" to="threeDoors/InteractionArea" method="_on_body_exited"]
 [connection signal="body_entered" from="RigidBody3D/Area3D" to="RigidBody3D" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="RigidBody3D/Area3D" to="RigidBody3D" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="EndLevel/InteractionArea" to="EndLevel/InteractionArea" method="_on_body_entered"]
+[connection signal="body_exited" from="EndLevel/InteractionArea" to="EndLevel/InteractionArea" method="_on_body_exited"]
