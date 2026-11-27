@@ -51,5 +51,8 @@ func transition(action: Callable, duration: float = DEFAULT_DURATION) -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 
+	# La escena recién cargada vuelve con sus materiales originales: reaplicamos el ocultado.
+	GlobalScript.hide_esconder_gancho_feo()
+
 	await fade_in(duration)
 	_busy = false

@@ -9,11 +9,24 @@ var use_next_spawn: bool = false
 var _hook_hidden_material: StandardMaterial3D = null
 
 func _ready() -> void:
+	get_tree().scene_changed.connect(_on_scene_changed)
 	get_tree().node_added.connect(_on_node_added)
 	call_deferred("hide_esconder_gancho_feo")
 
+func _on_scene_changed() -> void:
+	# reload_current_scene() reinstantifica los nodos con su material original.
+	hide_esconder_gancho_feo()
+
 func _on_node_added(nodo: Node) -> void:
+	# Los grupos del .tscn se aplican justo después de node_added: diferimos la comprobación.
+	call_deferred("check_nodo_esconder", nodo)
+
+func check_nodo_esconder(nodo: Node) -> void:
+	if not is_instance_valid(nodo):
+		return
 	if nodo is CSGBox3D and nodo.is_in_group("grappleable"):
+		_esconder_gancho(nodo)
+	elif nodo.is_in_group("esconder_gancho_feo"):
 		_esconder_gancho(nodo)
 
 func hide_esconder_gancho_feo() -> void:
@@ -38,6 +51,8 @@ func _esconder_gancho(nodo: Node) -> void:
 		nodo.visible = true
 	if "material" in nodo:
 		nodo.set("material", _get_hook_hidden_material())
+	if "material_override" in nodo:
+		nodo.set("material_override", _get_hook_hidden_material())
 
 func set_3d_mode(active: bool) -> void:
 	is_3d_mode = active
