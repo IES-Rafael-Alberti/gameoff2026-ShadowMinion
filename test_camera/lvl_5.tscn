@@ -12,14 +12,22 @@
 [ext_resource type="Script" uid="uid://dkpdv1vixkxij" path="res://Scripts/interactionArea.gd" id="8_43e0g"]
 [ext_resource type="Script" uid="uid://dl2uo7qcj23vn" path="res://Scripts/StaticPlatform.gd" id="8_80jhk"]
 [ext_resource type="Script" uid="uid://mjvg5yfrq1an" path="res://Scripts/obstaculo.gd" id="8_qxytp"]
-[ext_resource type="Shader" uid="uid://5afkjmjhso1w" path="res://Shaders/testShader.gdshader" id="9_k3sha"]
-[ext_resource type="Texture2D" uid="uid://bqckd2wc7m5pl" path="res://Assets/paletaColores.png" id="10_hf0gh"]
 [ext_resource type="Script" uid="uid://dv04tax4an2ob" path="res://Scripts/platform.gd" id="10_hvaau"]
 [ext_resource type="Script" uid="uid://blvwbktqwk4vl" path="res://Scripts/RayCast.gd" id="11_10k7t"]
-[ext_resource type="Texture2D" uid="uid://ggxg88q3yjv4" path="res://Assets/Dither.png" id="11_e42rp"]
 [ext_resource type="Shader" uid="uid://b7gm6kn7f38n8" path="res://Shaders/dither.gdshader" id="12_4h6ko"]
 [ext_resource type="Script" uid="uid://dav815l5umlsd" path="res://Scripts/CuadroVida.gd" id="12_hvaau"]
 [ext_resource type="Script" uid="uid://bky10qi3dwlvt" path="res://Scripts/puzleArbol.gd" id="13_10k7t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l7s6d"]
+render_priority = 0
+shader = ExtResource("12_4h6ko")
+shader_parameter/color_depth = 5
+shader_parameter/dithering = true
+shader_parameter/resolution_scale = 4
+
+[sub_resource type="QuadMesh" id="QuadMesh_jyaov"]
+material = SubResource("ShaderMaterial_l7s6d")
+size = Vector2(2, 2)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rvxav"]
 
@@ -43,14 +51,12 @@ metadata/_custom_type_script = "uid://b8hhnqsugykly"
 script = ExtResource("4_mv8lu")
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k3sha"]
-shader = ExtResource("9_k3sha")
-shader_parameter/u_dither_tex = ExtResource("11_e42rp")
-shader_parameter/u_color_tex = ExtResource("10_hf0gh")
-shader_parameter/u_bit_depth = 32
-shader_parameter/u_contrast = 0.85
-shader_parameter/u_offset = 0.54
-shader_parameter/u_dither_size = 2
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_svrt2"]
+render_priority = 0
+shader = ExtResource("12_4h6ko")
+shader_parameter/color_depth = 5
+shader_parameter/dithering = true
+shader_parameter/resolution_scale = 15
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jmbie"]
 
@@ -178,8 +184,13 @@ size = Vector3(16.47999, 0, 1)
 size = Vector3(16.48, 0.15, 1)
 
 [node name="lvl 5" type="Node3D" unique_id=796736418]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_k3sha")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1655240737]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 43.749474, 0, 0)
+extra_cull_margin = 10000.0
+mesh = SubResource("QuadMesh_jyaov")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1263239203]
 environment = SubResource("Environment_jyaov")
@@ -192,7 +203,7 @@ script = ExtResource("1_43e0g")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1428436002]
 physics_interpolation_mode = 1
-transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, -37.821312, 0.464, -26.077)
+transform = Transform3D(0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0, 1, 37.821312, 0.464, 26.076996)
 top_level = true
 projection = 1
 size = 8.0
@@ -207,7 +218,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 script = ExtResource("2_33ycm")
 
 [node name="2DCamera" type="Node3D" parent="CameraManager" unique_id=206258872 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0, 1, 37.821316, 0.464, 26.076994)
+transform = Transform3D(0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0, 1, 37.821312, 0.464, 26.076996)
 top_level = true
 script = ExtResource("2_3p4g5")
 priority = 1
@@ -216,10 +227,12 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_yfixo")
 camera_3d_resource = SubResource("Resource_rvxav")
 follow_offset = Vector3(0, 0, 9.025)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OutsideCamera" type="Node3D" parent="CameraManager" unique_id=1047536917 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.90630734, 0.42261806, 0, -0.42261806, 0.90630734, 37.821316, 10.891618, 27.423302)
+transform = Transform3D(1, 0, 0, 0, 0.90630734, 0.42261806, 0, -0.42261806, 0.90630734, 37.821312, 10.891618, 27.423304)
 top_level = true
 script = ExtResource("2_3p4g5")
 follow_mode = 5
@@ -227,6 +240,8 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_yfixo")
 camera_3d_resource = SubResource("Resource_exqi3")
 follow_offset = Vector3(0, 10.005, 10.465)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="InsideCamera" type="Node3D" parent="CameraManager" unique_id=1765328130]
@@ -239,7 +254,7 @@ follow_viewport_enabled = true
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1040176680]
 modulate = Color(1, 1, 1, 0)
-material = SubResource("ShaderMaterial_k3sha")
+material = SubResource("ShaderMaterial_svrt2")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
